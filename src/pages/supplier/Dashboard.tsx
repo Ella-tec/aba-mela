@@ -58,7 +58,7 @@ export function SupplierDashboard() {
                   <div className="text-xs text-gray-500">{o.customer} · {o.id}</div>
                 </div>
                 <div className="text-end">
-                  <div className="text-sm font-semibold">ETB {o.total.toLocaleString()}</div>
+                  <div className="text-sm font-semibold">${o.total.toLocaleString()}</div>
                   <div className="text-xs text-gray-500 capitalize">{o.status}</div>
                 </div>
               </div>
