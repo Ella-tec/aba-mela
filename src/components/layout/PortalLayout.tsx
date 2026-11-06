@@ -1,4 +1,5 @@
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-dom';
+import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
 import {
@@ -61,6 +62,11 @@ const professionalNav: NavItem[] = [
 
 export function PortalLayout({ type }: { type: PortalType }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const expectedRole = type === 'customer' ? 'Customer' : 'Professional';
+  if (!auth) return <Navigate to='/login' replace />;
+  if (auth.role !== expectedRole && auth.role !== 'Admin') return <Navigate to={auth.role === 'Organization' ? '/organization' : auth.role === 'Professional' ? '/professional' : '/customer'} replace />;
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -116,13 +122,9 @@ export function PortalLayout({ type }: { type: PortalType }) {
               <Settings className="w-5 h-5" />
               {t('common.settings')}
             </Link>
-            <Link
-              to="/"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
-            >
-              <LogOut className="w-5 h-5" />
-              {t('common.logout')}
-            </Link>
+            <button type="button" onClick={() => { logout(); navigate('/login', { replace: true }); }} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
+              <LogOut className="w-5 h-5" />{t('common.logout')}
+            </button>
           </div>
         </div>
       </aside>
