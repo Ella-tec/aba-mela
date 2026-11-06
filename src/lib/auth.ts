@@ -1,0 +1,61 @@
+const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
+export interface AuthResponse {
+  token: string;
+  userId: string;
+  email: string;
+  fullName: string;
+  role: 'Customer' | 'Professional' | 'Organization' | 'Admin';
+  preferredLanguage: string;
+}
+
+async function request<T>(path: string, body: unknown): Promise<T> {
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}/api/${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new Error(`Cannot reach the Aba Mela API at ${API_BASE}. Start the backend and check VITE_API_URL.`);
+  }
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    throw new Error(payload?.message || `Request failed (${response.status}).`);
+  }
+  return payload as T;
+}
+
+export async function login(email: string, password: string) {
+  const result = await request<AuthResponse>('auth/login', { email, password });
+  localStorage.setItem('aba-mela-auth', JSON.stringify(result));
+  return result;
+}
+
+export async function register(input: {
+  email: string;
+  password: string;
+  fullName: string;
+  role: 'Customer' | 'Professional' | 'Organization';
+  phone?: string;
+}) {
+  const result = await request<AuthResponse>('auth/register', input);
+  localStorage.setItem('aba-mela-auth', JSON.stringify(result));
+  return result;
+}
+
+export function getAuth(): AuthResponse | null {
+  try {
+    const raw = localStorage.getItem('aba-mela-auth');
+    return raw ? (JSON.parse(raw) as AuthResponse) : null;
+  } catch {
+    localStorage.removeItem('aba-mela-auth');
+    return null;
+  }
+}
+
+export function logout() {
+  localStorage.removeItem('aba-mela-auth');
+}

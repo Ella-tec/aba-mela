@@ -32,11 +32,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("Default")
-        ?? "Host=localhost;Database=aba_mela;Username=postgres;Password=postgres"));
+var connectionString = builder.Configuration.GetConnectionString("Default");
+if (string.IsNullOrWhiteSpace(connectionString))
+    throw new InvalidOperationException("ConnectionStrings:Default must be configured with an environment variable or secret.");
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionString));
 
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "AbaMela_Dev_Secret_Key_Change_In_Production_32chars!";
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
+    throw new InvalidOperationException("Jwt:Key must be configured as a secret with at least 32 UTF-8 bytes.");
+
+var issuer = builder.Configuration["Jwt:Issuer"] ?? "AbaMela";
+var audience = builder.Configuration["Jwt:Audience"] ?? "AbaMela";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>
     {
@@ -46,17 +52,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "AbaMela",
-            ValidAudience = builder.Configuration["Jwt:Audience"] ?? "AbaMela",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ClockSkew = TimeSpan.FromMinutes(1)
         };
     });
 
 builder.Services.AddAuthorization();
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+    ?? (builder.Environment.IsDevelopment()
+        ? ["http://localhost:5173", "http://localhost:3000"]
+        : []);
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
-    p.WithOrigins("http://localhost:5173", "http://localhost:3000")
-     .AllowAnyHeader()
-     .AllowAnyMethod()));
+{
+    if (allowedOrigins.Length > 0) p.WithOrigins(allowedOrigins);
+    p.AllowAnyHeader().AllowAnyMethod();
+}));
 
 var app = builder.Build();
 
@@ -66,10 +78,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/health", () => Results.Ok(new { status = "ok", service = "Aba Mela API" }));
-
 app.Run();
