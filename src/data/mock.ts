@@ -34,7 +34,7 @@ export interface Job {
   scheduledAt: string;
   price: number;
   isHot?: boolean;
-  distanceKm?: number;
+  distanceMiles?: number;
 }
 
 export interface Review {
@@ -138,7 +138,7 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T15:00:00',
     price: 165,
     isHot: true,
-    distanceKm: 2.4,
+    distanceMiles: 2.4,
   },
   {
     id: 'JB-2002',
@@ -150,7 +150,7 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T16:30:00',
     price: 225,
     isHot: true,
-    distanceKm: 5.1,
+    distanceMiles: 5.1,
   },
   {
     id: 'JB-2003',
@@ -161,7 +161,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Lee’s Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
     price: 125,
-    distanceKm: 3.8,
+    distanceMiles: 3.8,
   },
   {
     id: 'JB-2004',
@@ -172,7 +172,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Overland Park, KS',
     scheduledAt: '2026-11-02T11:00:00',
     price: 395,
-    distanceKm: 1.2,
+    distanceMiles: 1.2,
   },
 ];
 
@@ -411,7 +411,7 @@ export interface MapTechnician {
   lat: number;
   lng: number;
   rating: number;
-  distanceKm?: number;
+  distanceMiles?: number;
 }
 
 export interface MapJob {
@@ -428,12 +428,12 @@ export interface MapJob {
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
 export const MOCK_TECHNICIANS: MapTechnician[] = [
-  { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceKm: 1.2 },
-  { id: 'T2', name: 'Demo Pro Two', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceKm: 2.5 },
-  { id: 'T3', name: 'Demo Pro Three', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceKm: 3.1 },
-  { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceKm: 4.0 },
-  { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceKm: 2.8 },
-  { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceKm: 5.5 },
+  { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceMiles: 1.2 },
+  { id: 'T2', name: 'Demo Pro Two', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceMiles: 2.5 },
+  { id: 'T3', name: 'Demo Pro Three', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceMiles: 3.1 },
+  { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceMiles: 4.0 },
+  { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceMiles: 2.8 },
+  { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceMiles: 5.5 },
 ];
 
 export const MOCK_MAP_JOBS: MapJob[] = [
