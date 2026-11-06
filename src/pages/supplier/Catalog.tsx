@@ -64,7 +64,7 @@ export function SupplierCatalog() {
             </div>
             <div className="mt-3 flex items-end justify-between">
               <div>
-                <div className="text-lg font-bold text-gray-900">ETB {p.price.toLocaleString()}</div>
+                <div className="text-lg font-bold text-gray-900">${p.price.toLocaleString()}</div>
                 <div className="text-xs text-gray-500">per {p.unit}</div>
               </div>
               <div className="text-sm text-gray-600">Stock: {p.stock}</div>
