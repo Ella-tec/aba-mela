@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect } from 'react';
 import type { MapTechnician, MapJob, TechStatus } from '@/data/mock';
 import { KANSAS_CITY_CENTER } from '@/data/mock';
+import { MELA_MARKET } from '@/data/market';
 
 const statusColors: Record<TechStatus, string> = {
   available: '#22c55e',
@@ -73,6 +74,17 @@ export function LiveMap({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <FitBounds techs={technicians} jobs={jobs} />
+          {MELA_MARKET.serviceAreas.map((area) => (
+            <CircleMarker key={`${area.city}-${area.state}`} center={[area.lat, area.lng]} radius={7}
+              pathOptions={{ color: '#173b35', fillColor: '#f4c66a', fillOpacity: 0.9, weight: 2 }}>
+              <Popup>
+                <div className="text-sm">
+                  <div className="font-semibold">{area.city}, {area.state}</div>
+                  <div className="text-gray-600">Planned market area · coverage not yet enabled</div>
+                </div>
+              </Popup>
+            </CircleMarker>
+          ))}
 
           {technicians.map((t) => (
             <Marker key={t.id} position={[t.lat, t.lng]} icon={createTechIcon(t.status)}>
