@@ -1,102 +1,93 @@
 # Mela — Kansas City Home Services & Property Platform
 
-Mela is a multi-portal marketplace concept for homeowners, property managers, service professionals, construction organizations, and suppliers across the Kansas City metropolitan area in **Missouri and Kansas**. Kansas City, Missouri is the primary market.
+Mela is a multi-portal marketplace concept for homeowners, property managers, service professionals, construction organizations, and suppliers across the Kansas City metropolitan area in Missouri and Kansas.
 
-> **Pilot status:** This repository contains demo workflows and sample data. Sample names, providers, jobs, ratings, properties, and prices are illustrative only. They are not real listings, verified contractors, live availability, or market quotes. Service-area cities are proposed coverage configuration and must be enabled only after operational verification.
+> **Demo status:** This repository contains demo workflows and sample data. Sample names, providers, jobs, ratings, properties, and prices are illustrative only. They are not real listings, verified contractors, live availability, or market quotes. Do not use this demo setup for production.
 
-## Kansas City market
+## Open and run in VS Code (recommended)
 
-The initial product is designed for the two-state metro, with service-area configuration for Kansas City, MO; North Kansas City, MO; Independence, MO; Lee's Summit, MO; Liberty, MO; Overland Park, KS; Olathe, KS; and Shawnee, KS. This list is a product-planning starting point, not a claim that Mela currently serves these communities.
+The easiest setup uses **Docker Desktop**. It runs the React frontend, ASP.NET Core API, and PostgreSQL database together. You do **not** need to install .NET 8 on Windows when using this option.
 
-- Default map center: Kansas City, Missouri (39.0997, -94.5786)
-- Local time: America/Chicago
-- Currency: USD ($)
-- Address format: US street address, city, state, ZIP code
-- Phone format: United States (+1)
-- Map tiles: OpenStreetMap
-- Default language: English; existing i18n architecture and RTL support remain available.
+### 1. Install prerequisites
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Git for Windows](https://git-scm.com/download/win)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) — start it and wait until Docker is running.
 
-## Product areas
+### 2. Download the project
+Choose **Code → Download ZIP** on GitHub and extract it, or run:
 
-- Customer: discover services, request bookings, track work, manage home records and payments.
-- Professional: job discovery, dispatch/map views, earnings, availability and verification.
-- Organization: construction projects, workforce, foreman and timesheets.
-- Supplier: materials catalog, orders and equipment rentals.
-- Admin: operational controls and reporting (implementation in progress).
+```powershell
+git clone https://github.com/Ella-tec/aba-mela.git
+cd aba-mela
+code .
+```
 
-Typical service categories include plumbing, HVAC, electrical, roofing, remodeling, painting, landscaping, cleaning, handyman work, and general contracting. Actual availability and licensing/insurance status must be independently verified.
+If `code` is not recognized, open VS Code → **File → Open Folder** and select the extracted `aba-mela` folder.
 
-## Technology
+### 3. Start the complete application
+In VS Code choose **Terminal → New Terminal** and run:
 
-- Frontend: React 19, TypeScript, Vite 7, Tailwind CSS 4, React Router, i18next
-- Backend: ASP.NET Core 8 Web API, Entity Framework Core, PostgreSQL, JWT, BCrypt
-- Maps: Leaflet / OpenStreetMap
+```powershell
+docker compose up --build
+```
 
-## Run the frontend
+Then open:
+- Frontend: http://localhost:5173
+- API health: http://localhost:5000/health
+- API Swagger: http://localhost:5000/swagger
 
-Requirements: Node.js 20.19+ or 22.12+.
+Stop with Ctrl+C, then run `docker compose down`. The database remains in a Docker volume. To permanently delete the local database and demo data, run `docker compose down -v`.
 
-```bash
+### VS Code task shortcuts
+Use **Terminal → Run Task**:
+- **Mela: Start all services (Docker)**
+- **Mela: Stop all services**
+- **Mela: Stop services and remove local database** (deletes demo data)
+
+## Run only the frontend without Docker
+Requirements: Node.js 22 recommended, or Node.js 20.19+.
+
+```powershell
 npm install
-cp .env.example .env
+Copy-Item .env.example .env
 npm run dev
 ```
 
-Open http://localhost:5173. Set `VITE_API_URL` in `.env` if the API is not at http://localhost:5000.
+Open http://localhost:5173. This starts only the frontend; API and PostgreSQL must also be running for registration, login and API-backed workflows.
 
-## Run the API
+Build the frontend with `npm run build`; preview with `npm run preview`.
 
-Requirements: .NET 8 SDK and PostgreSQL. Configure secrets before starting; never commit credentials or signing keys.
-
-PowerShell example:
+## Run the API directly on Windows (optional)
+Requirements: .NET 8 SDK and PostgreSQL. Docker is easier if .NET 8 is not installed.
 
 ```powershell
-$env:ConnectionStrings__Default="Host=localhost;Database=mela;Username=postgres;Password=YOUR_LOCAL_PASSWORD"
+$env:ConnectionStrings__Default="Host=localhost;Port=5432;Database=mela;Username=mela;Password=YOUR_LOCAL_PASSWORD"
 $env:Jwt__Key="REPLACE_WITH_A_RANDOM_SECRET_AT_LEAST_32_BYTES_LONG"
 $env:Jwt__Issuer="Mela"
 $env:Jwt__Audience="Mela"
 $env:Jwt__ExpiresMinutes="60"
 $env:Cors__AllowedOrigins__0="http://localhost:5173"
-cd backend/AbaMela.Api
-dotnet restore
-dotnet run
+dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localhost:5000
 ```
 
-The API fails fast when the database connection or a sufficiently long JWT signing key is missing. Set production CORS origins to the exact deployed frontend origin(s). Swagger is enabled only in Development. Health endpoint: `/health`.
+## Technology
+- Frontend: React 19, TypeScript, Vite 7, Tailwind CSS 4, React Router, i18next
+- Backend: ASP.NET Core 8 Web API, Entity Framework Core, PostgreSQL, JWT, BCrypt
+- Maps: Leaflet / OpenStreetMap
 
-## Authentication and security
+## Demo limitations and public-launch checklist
+- Sample records are illustrative, not verified providers, live job listings, real prices or guaranteed availability.
+- Payment screens are placeholders. No live payment processing is enabled; do not enter real payment-card details.
+- Local Docker database password and JWT key are development-only. Never deploy them or commit real secrets.
+- Production requires database migrations, managed secrets, secure token/session handling, email verification, password reset, rate limiting, monitoring, backups and security review.
+- Kansas and Missouri licensing, permits, insurance, tax, consumer-protection and privacy requirements vary by jurisdiction and trade. Verify providers and obtain qualified professional review before a public pilot.
+- A visible screen does not prove a workflow is connected to persistent data. Complete end-to-end testing before launch.
 
-- Public registration is limited to Customer, Professional, and Organization; admin accounts cannot self-register.
-- Passwords must be at least 12 characters and are hashed with BCrypt.
-- Portal layouts require a session and enforce the portal role in the UI; API authorization remains the security boundary.
-- Production should use a secure HttpOnly, Secure, SameSite cookie-based session, email verification, password reset, rate limiting, account lockout, audit logging and monitoring.
+## Troubleshooting
+**Docker command not found:** Install and start Docker Desktop, then reopen the VS Code terminal.
 
-## Portals
+**Port 5173, 5000 or 5432 is busy:** Stop the other service using that port, or change the host-side port mapping in `docker-compose.yml`.
 
-| Portal | Route |
-|---|---|
-| Public site | `/` |
-| Sign in / Register | `/login` · `/register` |
-| Customer | `/customer` |
-| Professional | `/professional` |
-| Organization / Construction | `/organization` |
-| Suppliers | `/suppliers` |
+**Frontend cannot reach the API:** Check `docker compose ps`, then open http://localhost:5000/health.
 
-## Kansas and Missouri operating considerations
-
-Contractor licensing, trade-specific permits, insurance requirements, sales/use tax, consumer protection and data/privacy obligations can differ by state, city and type of work. Mela must not claim a provider is licensed or insured without current evidence and jurisdiction-specific verification. Obtain professional legal/accounting review before public launch.
-
-Do not store payment-card data. Payment methods shown in demo screens are placeholders; no live payment processing is implied. Integrate a payment provider only with verified server-side webhooks and tested payment/refund flows.
-
-## Before a public Kansas City pilot
-
-1. Confirm the initial service-area cities and ZIP codes, then enable them through configuration.
-2. Replace sample data with real providers only after consent, identity, license/insurance and service-area checks.
-3. Add database migrations and integration tests for booking, project, supplier, authorization and ownership flows.
-4. Complete payment-provider, notification, messaging, file-upload and support integrations.
-5. Run frontend lint/build and backend restore/build/test against a staging database.
-6. Review Kansas/Missouri legal, tax, insurance and consumer-protection requirements with qualified professionals.
-
-## Project status
-
-The repository includes working UI routes, sample/demo data and an ASP.NET API foundation. A visible screen is not proof that its workflow is connected to persistent data. Several booking, dispatch, supplier, payment and notification workflows still require end-to-end implementation and verification.
+**Reset local demo data:** Run `docker compose down -v`, then `docker compose up --build`. This permanently deletes local database records.
