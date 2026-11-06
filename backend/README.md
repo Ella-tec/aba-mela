@@ -7,7 +7,7 @@
 ## Setup
 
 ```bash
-cd backend/Mela.Api
+cd backend/AbaMela.Api
 dotnet restore
 # update appsettings.json connection string
 dotnet ef migrations add Initial --if you have EF tools
