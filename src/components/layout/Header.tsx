@@ -13,9 +13,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-lg">
-              A
-            </div>
+            <div className="w-9 h-9 rounded-xl bg-[#173b35] flex items-center justify-center text-[#f4c66a] font-extrabold text-xl shadow-sm">M</div>
             <span className="font-bold text-xl text-gray-900">{t('common.appName')}</span>
           </Link>
 
