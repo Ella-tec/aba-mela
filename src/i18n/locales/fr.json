@@ -1,0 +1,92 @@
+{
+  "common": {
+    "appName": "Aba Mela",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "continue": "Continuer",
+    "back": "Retour",
+    "search": "Rechercher",
+    "language": "Langue",
+    "logout": "Déconnexion",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "notifications": "Notifications",
+    "messages": "Messages",
+    "dashboard": "Tableau de bord",
+    "home": "Accueil",
+    "support": "Support"
+  },
+  "nav": {
+    "services": "Services",
+    "findProfessionals": "Trouver des professionnels",
+    "bookings": "Réservations",
+    "hotJobs": "Emplois urgents",
+    "liveMap": "Carte en direct",
+    "construction": "Construction",
+    "analytics": "Analytique",
+    "suppliers": "Fournisseurs",
+    "admin": "Administration"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "Créer un compte",
+    "email": "Adresse e-mail",
+    "phone": "Numéro de téléphone",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "hasAccount": "Vous avez déjà un compte ?",
+    "selectAccountType": "Sélectionnez le type de compte",
+    "customer": "Client",
+    "professional": "Professionnel / Technicien",
+    "organization": "Organisation / Entreprise",
+    "verifyEmail": "Vérifiez votre e-mail",
+    "verifyPhone": "Vérifiez votre téléphone",
+    "twoFactor": "Authentification à deux facteurs",
+    "resetPassword": "Réinitialiser le mot de passe"
+  },
+  "home": {
+    "heroTitle": "Trouvez des professionnels de confiance pour votre maison et vos besoins de construction",
+    "heroSubtitle": "Réservez des plombiers, électriciens, agents de nettoyage et équipes de construction en Éthiopie",
+    "searchPlaceholder": "De quel service avez-vous besoin ?",
+    "ctaBook": "Réserver un service",
+    "ctaJoin": "Rejoindre en tant que professionnel",
+    "popularServices": "Services populaires",
+    "howItWorks": "Comment ça marche",
+    "trustedBy": "Approuvé par des milliers de foyers et d'entreprises"
+  },
+  "customer": {
+    "dashboard": "Tableau de bord client",
+    "myBookings": "Mes réservations",
+    "createBooking": "Créer une réservation",
+    "findService": "Trouver un service",
+    "myProjects": "Mes projets",
+    "payments": "Paiements",
+    "reviews": "Avis"
+  },
+  "professional": {
+    "dashboard": "Tableau de bord technicien",
+    "availableJobs": "Emplois disponibles",
+    "hotJobs": "Emplois urgents",
+    "myJobs": "Mes emplois assignés",
+    "earnings": "Revenus",
+    "calendar": "Calendrier de disponibilité",
+    "verification": "Centre de vérification"
+  },
+  "organization": {
+    "dashboard": "Tableau de bord organisation",
+    "projects": "Projets",
+    "team": "Gestion d'équipe",
+    "workers": "Gestion des travailleurs",
+    "foreman": "Tableau de bord contremaître"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord admin",
+    "users": "Gestion des utilisateurs",
+    "verifications": "Gestion des vérifications",
+    "bookings": "Gestion des réservations",
+    "payments": "Gestion des paiements"
+  }
+}

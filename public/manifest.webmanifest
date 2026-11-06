@@ -1,0 +1,19 @@
+
+{
+  "name": "FinSphere AI",
+  "short_name": "FinSphere",
+  "description": "FinSphere AI Accounting and Financial Platform",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d2d5c",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
