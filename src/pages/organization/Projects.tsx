@@ -91,7 +91,7 @@ export function ProjectsPage() {
                     />
                   </div>
                   <div className="text-xs text-gray-500 mt-2">
-                    ETB {(p.spent / 1000).toFixed(0)}k / {(p.budget / 1000).toFixed(0)}k
+                    ${(p.spent / 1000).toFixed(0)}k / {(p.budget / 1000).toFixed(0)}k
                   </div>
                 </div>
               </div>
