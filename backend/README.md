@@ -1,4 +1,4 @@
-# Aba Mela API (ASP.NET Core 8)
+# Mela API (ASP.NET Core 8)
 
 ## Requirements
 - .NET 8 SDK
@@ -7,7 +7,7 @@
 ## Setup
 
 ```bash
-cd backend/AbaMela.Api
+cd backend/Mela.Api
 dotnet restore
 # update appsettings.json connection string
 dotnet ef migrations add Initial --if you have EF tools
