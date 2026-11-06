@@ -43,7 +43,7 @@ export function AnalyticsOverview() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: t('analytics.todayBookings'), value: k.todayBookings, icon: Calendar, color: 'text-blue-600' },
-          { label: t('analytics.todayRevenue'), value: `ETB ${(k.todayRevenue / 1000).toFixed(1)}k`, icon: DollarSign, color: 'text-green-600' },
+          { label: t('analytics.todayRevenue'), value: `$${(k.todayRevenue / 1000).toFixed(1)}k`, icon: DollarSign, color: 'text-green-600' },
           { label: t('analytics.activeTechnicians'), value: k.activeTechnicians, icon: Users, color: 'text-indigo-600' },
           { label: t('analytics.activeProjects'), value: k.activeProjects, icon: FolderKanban, color: 'text-orange-600' },
           { label: t('analytics.openTickets'), value: k.openTickets, icon: HeadphonesIcon, color: 'text-amber-600' },
@@ -79,7 +79,7 @@ export function AnalyticsOverview() {
         <div className="mt-3 flex justify-between text-xs text-gray-500">
           <span>Bookings</span>
           <span>
-            Revenue peak: ETB {Math.max(...BOOKING_TREND.map((d) => d.revenue)).toLocaleString()}
+            Revenue peak: ${Math.max(...BOOKING_TREND.map((d) => d.revenue)).toLocaleString()}
           </span>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function AnalyticsOverview() {
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-gray-700">{s.service}</span>
                   <span className="text-gray-500">
-                    {s.count} · ETB {(s.revenue / 1000).toFixed(0)}k
+                    {s.count} · ${(s.revenue / 1000).toFixed(0)}k
                   </span>
                 </div>
                 <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -161,7 +161,7 @@ export function AnalyticsOverview() {
                   <td className="px-5 py-3 font-medium text-gray-900">{tech.name}</td>
                   <td className="px-5 py-3 text-gray-600">{tech.jobs}</td>
                   <td className="px-5 py-3 text-gray-600">★ {tech.rating}</td>
-                  <td className="px-5 py-3 text-gray-600">ETB {tech.revenue.toLocaleString()}</td>
+                  <td className="px-5 py-3 text-gray-600">${tech.revenue.toLocaleString()}</td>
                   <td className="px-5 py-3 text-gray-600">{tech.acceptance}%</td>
                 </tr>
               ))}
@@ -181,7 +181,7 @@ export function AnalyticsOverview() {
               <div className="min-w-0 flex-1">
                 <div className="font-medium text-gray-900 truncate">{p.name}</div>
                 <div className="text-xs text-gray-500 mt-0.5">
-                  ETB {(p.spent / 1000).toFixed(0)}k / {(p.budget / 1000).toFixed(0)}k
+                  ${(p.spent / 1000).toFixed(0)}k / {(p.budget / 1000).toFixed(0)}k
                 </div>
               </div>
               <div className="flex items-center gap-3 shrink-0">
