@@ -158,7 +158,7 @@ export const MOCK_JOBS: Job[] = [
     serviceKey: 'cleaning',
     status: 'requested',
     customer: 'Marta A.',
-    address: 'Lee's Summit, MO',
+    address: 'Lee’s Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
     price: 125,
     distanceKm: 3.8,
@@ -537,9 +537,9 @@ export const MOCK_PROJECTS: Project[] = [
   },
   {
     id: 'PRJ-004',
-    name: 'Lee's Summit Warehouse Flooring',
+    name: 'Lee’s Summit Warehouse Flooring',
     client: 'Logistics Hub PLC',
-    location: 'Lee's Summit, MO',
+    location: 'Lee’s Summit, MO',
     status: 'completed',
     progress: 100,
     budget: 28000,
@@ -623,7 +623,7 @@ export const PROJECT_ANALYTICS = [
   { name: 'Brookside Apartment Renovation', progress: 62, budget: 85000, spent: 52000, status: 'onTrack' },
   { name: 'Overland Park Office Fit-out', progress: 35, budget: 120000, spent: 38000, status: 'onTrack' },
   { name: 'Crossroads Arts District Villa Extension', progress: 10, budget: 45000, spent: 2500, status: 'planning' },
-  { name: 'Lee's Summit Warehouse Flooring', progress: 100, budget: 28000, spent: 26500, status: 'completed' },
+  { name: 'Lee’s Summit Warehouse Flooring', progress: 100, budget: 28000, spent: 26500, status: 'completed' },
 ];
 
 export const SUPPORT_METRICS = {
@@ -697,7 +697,7 @@ export const MOCK_ORDERS: SupplierOrder[] = [
   { id: 'ORD-101', productName: 'Cement (50kg)', quantity: 40, total: 340, status: 'delivered', customer: 'Metro Property Group (demo)', createdAt: '2026-10-28', deliveryAddress: 'Brookside, Kansas City, MO' },
   { id: 'ORD-102', productName: 'Rebar 12mm', quantity: 15, total: 675, status: 'shipped', customer: 'Heartland Business Park (demo)', createdAt: '2026-11-01', deliveryAddress: 'Overland Park, KS' },
   { id: 'ORD-103', productName: 'Paint - Interior White 20L', quantity: 8, total: 520, status: 'confirmed', customer: 'Private Client', createdAt: '2026-11-02', deliveryAddress: 'Crossroads Arts District' },
-  { id: 'ORD-104', productName: 'Ceramic Tiles 60x60', quantity: 100, total: 675, status: 'pending', customer: 'Logistics Hub PLC', createdAt: '2026-11-02', deliveryAddress: 'Lee's Summit' },
+  { id: 'ORD-104', productName: 'Ceramic Tiles 60x60', quantity: 100, total: 675, status: 'pending', customer: 'Logistics Hub PLC', createdAt: '2026-11-02', deliveryAddress: 'Lee’s Summit' },
 ];
 
 export const MOCK_RENTALS: EquipmentRental[] = [
