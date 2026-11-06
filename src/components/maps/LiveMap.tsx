@@ -55,7 +55,7 @@ export function LiveMap({
   jobs = [],
   height = '400px',
   showLegend = true,
-  center = ADDIS_CENTER,
+  center = KANSAS_CITY_CENTER,
   zoom = 13,
 }: LiveMapProps) {
   return (
