@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect } from 'react';
 import type { MapTechnician, MapJob, TechStatus } from '@/data/mock';
-import { ADDIS_CENTER } from '@/data/mock';
+import { KANSAS_CITY_CENTER } from '@/data/mock';
 
 const statusColors: Record<TechStatus, string> = {
   available: '#22c55e',
