@@ -1,80 +1,93 @@
-# Aba Mela — Complete Platform
+# Aba Mela — Home Services & Construction Platform
 
-**Home services · Construction · Workforce · Suppliers · AI** for Ethiopia  
-Languages: English · Amharic · Arabic (RTL) · French
+A multi-portal marketplace for home services, construction teams, professionals, and suppliers in Ethiopia.
 
----
+## Technology
 
-## Quick start (Frontend)
+- Frontend: React 19, TypeScript, Vite 7, Tailwind CSS 4, React Router, i18next
+- Backend: ASP.NET Core 8 Web API, Entity Framework Core, PostgreSQL, JWT, BCrypt
+- Maps: Leaflet / OpenStreetMap
+
+## Run the frontend
+
+Requirements: Node.js 20.19+ or 22.12+.
 
 ```bash
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-Open http://localhost:5173
+Open http://localhost:5173. Set `VITE_API_URL` in `.env` if the API is not at http://localhost:5000.
 
-## Quick start (Backend API)
+## Run the API
 
-```bash
+Requirements: .NET 8 SDK and PostgreSQL.
+
+Configure secrets before starting the API. Do not commit credentials or signing keys.
+
+PowerShell example:
+
+```powershell
+$env:ConnectionStrings__Default="Host=localhost;Database=aba_mela;Username=postgres;Password=YOUR_LOCAL_PASSWORD"
+$env:Jwt__Key="REPLACE_WITH_A_RANDOM_SECRET_AT_LEAST_32_BYTES_LONG"
+$env:Jwt__Issuer="AbaMela"
+$env:Jwt__Audience="AbaMela"
+$env:Jwt__ExpiresMinutes="60"
+$env:Cors__AllowedOrigins__0="http://localhost:5173"
 cd backend/AbaMela.Api
-# Requires .NET 8 SDK + PostgreSQL
-# Edit appsettings.json connection string if needed
 dotnet restore
 dotnet run
 ```
 
-Swagger UI: http://localhost:5xxx/swagger  
-Health: `/health`
+The API fails fast when the database connection or a sufficiently long JWT signing key is missing. For deployment, set the same values in the hosting provider's secret/environment-variable settings and set CORS origins to the exact deployed frontend origin(s). Do not use wildcard origins with authenticated requests.
 
-Alternative: apply `backend/supabase/schema.sql` on a Supabase project.
+Swagger is enabled only in Development. Health endpoint: `/health`.
 
----
+## Authentication
 
-## What's included
+- Register through the UI as Customer, Professional, or Organization.
+- Admin accounts cannot be self-registered.
+- Passwords must be at least 12 characters and are hashed with BCrypt.
+- Successful sign-in stores a bearer token in browser local storage and routes the user to the portal matching the account role.
+- Portal layouts redirect unauthenticated users to sign-in and enforce the portal role in the UI. API authorization remains the security boundary.
 
-### Portals
-| Portal | Path |
-|--------|------|
+For production, prefer a secure HttpOnly, Secure, SameSite cookie-based session over browser local storage, add email verification and password reset, and add rate limiting / account lockout before public launch.
+
+## Portals
+
+| Portal | Route |
+|---|---|
 | Public site | `/` |
+| Sign in / Register | `/login` · `/register` |
 | Customer | `/customer` |
-| Professional / Technician | `/professional` |
+| Professional | `/professional` |
 | Organization / Construction | `/organization` |
 | Suppliers | `/suppliers` |
 
-### Phases 1–9
-1. Foundation — Design system, i18n, auth pages  
-2. Marketplace — Bookings, Hot Jobs, dashboards  
-3. Trust — Verification, Reviews, Support, Knowledge Base  
-4. Payments — Telebirr/Chapa UI, Quotes, Earnings & Payouts  
-5. Maps — Leaflet/OSM, Track technician, Dispatch  
-6. Construction — Projects, Foreman, Workforce, Timesheets  
-7. Analytics — KPIs, trends, tech & project performance  
-8. Suppliers & Property — Catalog, Orders, Rentals, Home Passport  
-9. AI — Floating assistant + Smart Matching  
+## API endpoints currently implemented
 
-### Backend
-- ASP.NET Core 8 Web API  
-- JWT auth, EF Core, PostgreSQL  
-- Controllers: Auth, Bookings, Services, Projects  
-- Supabase-compatible SQL schema  
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/services`
+- `GET /api/bookings`, `POST /api/bookings`, `GET /api/bookings/{id}`
+- `POST /api/bookings/{id}/accept`, `PATCH /api/bookings/{id}/status`
+- `GET /api/projects`, `GET /api/projects/{id}`, `POST /api/projects`
 
-### Notable routes
-- `/customer/smart-match` — AI matching  
-- `/customer/home-passport` — Properties  
-- `/customer/track` — Live tracking  
-- `/suppliers/catalog` · `/suppliers/orders` · `/suppliers/rentals`  
-- `/organization/analytics` · `/organization/projects` · `/organization/foreman`  
-- `/professional/dispatch` · `/professional/hot-jobs`  
+Booking and project APIs now apply server-side role and ownership checks. Project ownership currently maps an Organization account's user ID to `OrganizationId`; a future organization-membership model is needed for multiple staff accounts per organization.
 
-Floating **Aba Mela Assistant** appears on every page (bottom-right).
+## Current implementation notes
 
----
+The repository includes portal screens and sample/mock data. A screen being present does not mean its workflow is connected to persistent API data or a payment provider. Payment processing, live dispatch, messaging, supplier transactions, file uploads, notifications, and production-grade AI integrations require separate end-to-end implementation and testing.
 
-## Stack
-React 19 · TypeScript · Vite · Tailwind CSS v4 · React Router 7 · i18next · Leaflet  
-ASP.NET Core 8 · EF Core · Npgsql · JWT · Swagger · BCrypt  
+Before public deployment:
+1. Provision PostgreSQL and apply the database schema/migrations.
+2. Configure environment secrets and production CORS origins.
+3. Add database migrations, rate limiting, email verification, password reset, audit logging, and monitoring.
+4. Replace mock-data workflows with authenticated API calls.
+5. Run frontend lint/build and backend tests against a staging database.
+6. Conduct authorization, privacy, and payment-provider security reviews.
 
----
+## Languages
 
-Built as a scalable multi-portal platform for Ethiopia's home services and construction ecosystem.
+English, Amharic, Arabic (RTL), and French.
