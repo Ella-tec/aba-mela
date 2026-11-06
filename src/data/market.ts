@@ -1,4 +1,4 @@
-export const MELА_MARKET = {
+export const MELA_MARKET = {
   name: 'Kansas City Metro',
   primaryCity: 'Kansas City',
   primaryState: 'MO',
@@ -19,8 +19,8 @@ export const MELА_MARKET = {
 } as const;
 
 export const formatUsd = (amount: number) =>
-  new Intl.NumberFormat(MELА_MARKET.locale, {
+  new Intl.NumberFormat(MELA_MARKET.locale, {
     style: 'currency',
-    currency: MELА_MARKET.currency,
+    currency: MELA_MARKET.currency,
     maximumFractionDigits: 2,
   }).format(amount);
