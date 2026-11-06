@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Mela: Start all services (Docker)",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false }
+    },
+    {
+      "label": "Mela: Stop all services",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": []
+    },
+    {
+      "label": "Mela: Stop services and remove local database",
+      "type": "shell",
+      "command": "docker compose down -v",
+      "problemMatcher": []
+    },
+    {
+      "label": "Mela: Frontend only (local Node)",
+      "type": "shell",
+      "command": "npm run dev",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Mela: Frontend production build",
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": []
+    }
+  ]
+}
