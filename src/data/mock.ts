@@ -83,7 +83,8 @@ export const SERVICES = [
   { key: 'landscaping', icon: 'Trees' },
 ] as const;
 
-// All people, prices, reviews, properties and job records below are fictional demo content.\nexport const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
+// All people, prices, reviews, properties and job records below are fictional demo content.
+export const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
   {
     id: 'BK-1001',
     service: 'Plumbing',
