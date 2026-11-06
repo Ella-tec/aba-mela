@@ -16,7 +16,7 @@ const TIMELINE = [
 export function CustomerTrack() {
   const { t } = useTranslation();
 
-  // Active tracking: BK-1001 with tech T1 on the way
+  // Illustrative demo tracking: BK-1001 with sample provider T1
   const activeJob = MOCK_MAP_JOBS.find((j) => j.id === 'BK-1001');
   const tech = MOCK_TECHNICIANS.find((t) => t.id === 'T1');
   const nearby = MOCK_TECHNICIANS.filter((t) => t.status === 'available' || t.status === 'onTheWay');
@@ -107,7 +107,7 @@ export function CustomerTrack() {
             >
               <div>
                 <div className="font-medium text-gray-900">{t.name}</div>
-                <div className="text-sm text-gray-500">{t.service} · {t.distanceKm} km</div>
+                <div className="text-sm text-gray-500">{t.service} · {t.distanceMiles} mi</div>
               </div>
               <span
                 className={`text-xs font-medium px-2 py-0.5 rounded-full ${
