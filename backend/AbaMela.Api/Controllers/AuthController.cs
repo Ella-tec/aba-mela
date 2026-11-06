@@ -13,19 +13,32 @@ namespace AbaMela.Api.Controllers;
 [Route("api/[controller]")]
 public class AuthController(AppDbContext db, IConfiguration config) : ControllerBase
 {
+    private static readonly HashSet<string> PublicRoles = new(StringComparer.OrdinalIgnoreCase)
+        { "Customer", "Professional", "Organization" };
+
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponse>> Register(RegisterRequest req)
     {
-        if (await db.Users.AnyAsync(u => u.Email == req.Email))
+        var email = req.Email?.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(email) || email.Length > 254 ||
+            !System.Net.Mail.MailAddress.TryCreate(email, out _))
+            return BadRequest(new { message = "A valid email address is required." });
+        if (string.IsNullOrWhiteSpace(req.Password) || req.Password.Length < 12 || req.Password.Length > 200)
+            return BadRequest(new { message = "Password must be between 12 and 200 characters." });
+        if (string.IsNullOrWhiteSpace(req.FullName) || req.FullName.Trim().Length > 120)
+            return BadRequest(new { message = "Full name is required and must be 120 characters or fewer." });
+        if (!PublicRoles.Contains(req.Role ?? ""))
+            return BadRequest(new { message = "Select Customer, Professional, or Organization. Admin accounts cannot self-register." });
+        if (await db.Users.AnyAsync(u => u.Email == email))
             return Conflict(new { message = "Email already registered" });
 
         var user = new User
         {
-            Email = req.Email.Trim().ToLowerInvariant(),
-            Phone = req.Phone,
-            FullName = req.FullName,
-            Role = string.IsNullOrWhiteSpace(req.Role) ? "Customer" : req.Role,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password)
+            Email = email,
+            Phone = string.IsNullOrWhiteSpace(req.Phone) ? null : req.Phone.Trim(),
+            FullName = req.FullName.Trim(),
+            Role = PublicRoles.Single(r => r.Equals(req.Role, StringComparison.OrdinalIgnoreCase)),
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password, workFactor: 12)
         };
         db.Users.Add(user);
         await db.SaveChangesAsync();
@@ -35,18 +48,24 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
     [HttpPost("login")]
     public async Task<ActionResult<AuthResponse>> Login(LoginRequest req)
     {
-        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == req.Email.Trim().ToLowerInvariant());
+        var email = req.Email?.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(req.Password))
+            return BadRequest(new { message = "Email and password are required." });
+        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user is null || !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
-            return Unauthorized(new { message = "Invalid credentials" });
+            return Unauthorized(new { message = "Invalid email or password." });
         return Ok(ToAuth(user));
     }
 
     private AuthResponse ToAuth(User user)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            config["Jwt:Key"] ?? "AbaMela_Dev_Secret_Key_Change_In_Production_32chars!"));
+        var configuredKey = config["Jwt:Key"];
+        if (string.IsNullOrWhiteSpace(configuredKey) || Encoding.UTF8.GetByteCount(configuredKey) < 32)
+            throw new InvalidOperationException("Jwt:Key must be configured as a secret with at least 32 UTF-8 bytes.");
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuredKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.UtcNow.AddMinutes(int.Parse(config["Jwt:ExpiresMinutes"] ?? "10080"));
+        var expires = DateTime.UtcNow.AddMinutes(int.TryParse(config["Jwt:ExpiresMinutes"], out var minutes)
+            ? Math.Clamp(minutes, 5, 1440) : 60);
         var token = new JwtSecurityToken(
             issuer: config["Jwt:Issuer"] ?? "AbaMela",
             audience: config["Jwt:Audience"] ?? "AbaMela",
@@ -59,8 +78,7 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
             ],
             expires: expires,
             signingCredentials: creds);
-        return new AuthResponse(
-            new JwtSecurityTokenHandler().WriteToken(token),
+        return new AuthResponse(new JwtSecurityTokenHandler().WriteToken(token),
             user.Id, user.Email, user.FullName, user.Role, user.PreferredLanguage);
     }
 }
