@@ -57,7 +57,7 @@ export function LiveMap({
   height = '400px',
   showLegend = true,
   center = KANSAS_CITY_CENTER,
-  zoom = 13,
+  zoom = 10,
 }: LiveMapProps) {
   return (
     <div className="relative rounded-xl overflow-hidden border border-gray-200">
