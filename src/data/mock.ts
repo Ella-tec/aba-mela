@@ -138,7 +138,7 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T15:00:00',
     price: 165,
     isHot: true,
-    distanceMiles: 2.4,
+    distanceMiles: 1.5,
   },
   {
     id: 'JB-2002',
@@ -150,7 +150,7 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T16:30:00',
     price: 225,
     isHot: true,
-    distanceMiles: 5.1,
+    distanceMiles: 3.2,
   },
   {
     id: 'JB-2003',
@@ -161,7 +161,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Lee’s Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
     price: 125,
-    distanceMiles: 3.8,
+    distanceMiles: 2.4,
   },
   {
     id: 'JB-2004',
@@ -172,7 +172,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Overland Park, KS',
     scheduledAt: '2026-11-02T11:00:00',
     price: 395,
-    distanceMiles: 1.2,
+    distanceMiles: 0.7,
   },
 ];
 
@@ -428,12 +428,12 @@ export interface MapJob {
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
 export const MOCK_TECHNICIANS: MapTechnician[] = [
-  { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceMiles: 1.2 },
-  { id: 'T2', name: 'Demo Pro Two', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceMiles: 2.5 },
-  { id: 'T3', name: 'Demo Pro Three', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceMiles: 3.1 },
-  { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceMiles: 4.0 },
-  { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceMiles: 2.8 },
-  { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceMiles: 5.5 },
+  { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceMiles: 0.7 },
+  { id: 'T2', name: 'Demo Pro Two', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceMiles: 1.6 },
+  { id: 'T3', name: 'Demo Pro Three', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceMiles: 1.9 },
+  { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceMiles: 2.5 },
+  { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceMiles: 1.7 },
+  { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceMiles: 3.4 },
 ];
 
 export const MOCK_MAP_JOBS: MapJob[] = [
@@ -688,8 +688,8 @@ export const MOCK_PRODUCTS: Product[] = [
   { id: 'P3', name: 'Paint - Interior White 20L', category: 'Finishing', stock: 45, price: 65, unit: 'bucket', supplier: 'KC Paint & Supply (demo)' },
   { id: 'P4', name: 'Scaffolding Set', category: 'Equipment', stock: 12, price: 125, unit: 'set', supplier: 'SiteGear Rentals' },
   { id: 'P5', name: 'Concrete Mixer', category: 'Rental', stock: 6, price: 85, unit: 'day', supplier: 'SiteGear Rentals' },
-  { id: 'P6', name: 'Ceramic Tiles 60x60', category: 'Finishing', stock: 500, price: 4.5, unit: 'sqm', supplier: 'Tile World' },
-  { id: 'P7', name: 'PVC Pipe 1 inch', category: 'Materials', stock: 200, price: 2.5, unit: 'meter', supplier: 'PlumbMart' },
+  { id: 'P6', name: 'Ceramic Tiles 60x60', category: 'Finishing', stock: 500, price: 4.5, unit: 'sq ft', supplier: 'Tile World' },
+  { id: 'P7', name: 'PVC Pipe 1 inch', category: 'Materials', stock: 200, price: 2.5, unit: '10 ft length', supplier: 'PlumbMart' },
   { id: 'P8', name: 'Excavator Mini', category: 'Rental', stock: 2, price: 450, unit: 'day', supplier: 'Metro Equipment Rental (demo)' },
 ];
 
@@ -708,7 +708,7 @@ export const MOCK_RENTALS: EquipmentRental[] = [
 ];
 
 export const MOCK_PROPERTIES: Property[] = [
-  { id: 'HP-1', name: 'Brookside Apartment 4B', address: 'Brookside, Kansas City, MO', type: 'Apartment', size: '120 sqm', yearBuilt: 2018, servicesCount: 8, lastService: '2026-10-28', nextMaintenance: '2026-12-01' },
-  { id: 'HP-2', name: 'Overland Park Office Suite 302', address: 'Overland Park, KS', type: 'Office', size: '85 sqm', yearBuilt: 2020, servicesCount: 3, lastService: '2026-09-15', nextMaintenance: '2026-11-20' },
-  { id: 'HP-3', name: 'Family Home - Waldo', address: 'Waldo, Kansas City, MO', type: 'House', size: '200 sqm', yearBuilt: 2015, servicesCount: 12, lastService: '2026-10-05', nextMaintenance: '2026-11-15' },
+  { id: 'HP-1', name: 'Brookside Apartment 4B', address: 'Brookside, Kansas City, MO', type: 'Apartment', size: '1,300 sq ft', yearBuilt: 2018, servicesCount: 8, lastService: '2026-10-28', nextMaintenance: '2026-12-01' },
+  { id: 'HP-2', name: 'Overland Park Office Suite 302', address: 'Overland Park, KS', type: 'Office', size: '915 sq ft', yearBuilt: 2020, servicesCount: 3, lastService: '2026-09-15', nextMaintenance: '2026-11-20' },
+  { id: 'HP-3', name: 'Family Home - Waldo', address: 'Waldo, Kansas City, MO', type: 'House', size: '2,150 sq ft', yearBuilt: 2015, servicesCount: 12, lastService: '2026-10-05', nextMaintenance: '2026-11-15' },
 ];
