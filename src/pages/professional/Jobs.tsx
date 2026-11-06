@@ -39,14 +39,14 @@ export function ProfessionalJobs({ hotOnly = false }: { hotOnly?: boolean }) {
                 <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
                   <MapPin className="w-3.5 h-3.5" />
                   {j.address}
-                  {j.distanceKm != null && ` · ${j.distanceKm} km`}
+                  {j.distanceMiles != null && ` · ${j.distanceMiles} mi`}
                 </div>
                 <div className="text-xs text-gray-400 mt-1">
                   {new Date(j.scheduledAt).toLocaleString()} · {j.id}
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
-                <div className="text-lg font-bold text-gray-900">ETB {j.price.toLocaleString()}</div>
+                <div className="text-lg font-bold text-gray-900">${j.price.toLocaleString()}</div>
                 <div className="flex gap-2">
                   <button className="px-4 py-2 text-sm font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700">
                     {t('professional.accept')}
