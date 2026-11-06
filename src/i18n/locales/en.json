@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Aba Mela",
+    "appName": "Mela",
     "loading": "Loading...",
     "save": "Save",
     "cancel": "Cancel",
@@ -78,7 +78,7 @@
   },
   "home": {
     "heroTitle": "Find trusted professionals for your home and construction needs",
-    "heroSubtitle": "Book plumbers, electricians, cleaners, and construction teams across Ethiopia",
+    "heroSubtitle": "Book trusted local pros for homes and businesses across the Kansas City metro",
     "searchPlaceholder": "What service do you need?",
     "ctaBook": "Book a service",
     "ctaJoin": "Join as a professional",
@@ -217,8 +217,8 @@
     "payNow": "Pay Now",
     "requestRefund": "Request Refund",
     "method": "Payment Method",
-    "telebirr": "Telebirr",
-    "chapa": "Chapa",
+    "card": "Card (demo)",
+    "cash": "Cash (demo)",
     "bank": "Bank Transfer",
     "cash": "Cash",
     "status": {
