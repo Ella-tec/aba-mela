@@ -1,0 +1,56 @@
+name: mela
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mela-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mela
+      POSTGRES_USER: mela
+      POSTGRES_PASSWORD: mela_local_dev_only
+    ports:
+      - "5432:5432"
+    volumes:
+      - mela-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mela -d mela"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/AbaMela.Api/Dockerfile
+    container_name: mela-api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__Default: Host=db;Port=5432;Database=mela;Username=mela;Password=mela_local_dev_only
+      Jwt__Key: Mela_LOCAL_ONLY_CHANGE_THIS_DEVELOPMENT_KEY_2026
+      Jwt__Issuer: Mela
+      Jwt__Audience: Mela
+      Jwt__ExpiresMinutes: 60
+      Cors__AllowedOrigins__0: http://localhost:5173
+    ports:
+      - "5000:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mela-web
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:5000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+volumes:
+  mela-postgres:
