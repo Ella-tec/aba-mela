@@ -217,8 +217,8 @@
     "payNow": "Pay Now",
     "requestRefund": "Request Refund",
     "method": "Payment Method",
-    "card": "Card (demo)",
-    "cash": "Cash (demo)",
+    "telebirr": "Card (demo)",
+    "chapa": "Cash (demo)",
     "bank": "Bank Transfer",
     "cash": "Cash",
     "status": {
