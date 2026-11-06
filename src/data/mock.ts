@@ -561,23 +561,23 @@ export const MOCK_MILESTONES: Milestone[] = [
 ];
 
 export const MOCK_WORKERS: Worker[] = [
-  { id: 'W1', name: 'Kebede Alemu', role: 'Mason', phone: '+251911000001', status: 'active', projectId: 'PRJ-001', dailyRate: 450 },
-  { id: 'W2', name: 'Tigist Haile', role: 'Electrician', phone: '+251911000002', status: 'active', projectId: 'PRJ-001', dailyRate: 550 },
-  { id: 'W3', name: 'Solomon Desta', role: 'Plumber', phone: '+251911000003', status: 'active', projectId: 'PRJ-001', dailyRate: 500 },
-  { id: 'W4', name: 'Meron Tadesse', role: 'Painter', phone: '+251911000004', status: 'active', projectId: 'PRJ-002', dailyRate: 400 },
-  { id: 'W5', name: 'Abebe Girma', role: 'Laborer', phone: '+251911000005', status: 'active', projectId: 'PRJ-002', dailyRate: 300 },
-  { id: 'W6', name: 'Hanna Bekele', role: 'Site Supervisor', phone: '+251911000006', status: 'active', projectId: 'PRJ-002', dailyRate: 700 },
-  { id: 'W7', name: 'Yared Mekonnen', role: 'Carpenter', phone: '+251911000007', status: 'onLeave', projectId: 'PRJ-001', dailyRate: 480 },
-  { id: 'W8', name: 'Selamawit A.', role: 'Helper', phone: '+251911000008', status: 'inactive', dailyRate: 250 },
+  { id: 'W1', name: 'Demo Worker One', role: 'Mason', phone: '+1-555-0101', status: 'active', projectId: 'PRJ-001', dailyRate: 450 },
+  { id: 'W2', name: 'Demo Worker Two', role: 'Electrician', phone: '+1-555-0102', status: 'active', projectId: 'PRJ-001', dailyRate: 550 },
+  { id: 'W3', name: 'Demo Worker Three', role: 'Plumber', phone: '+1-555-0103', status: 'active', projectId: 'PRJ-001', dailyRate: 500 },
+  { id: 'W4', name: 'Demo Worker Four', role: 'Painter', phone: '+1-555-0104', status: 'active', projectId: 'PRJ-002', dailyRate: 400 },
+  { id: 'W5', name: 'Demo Worker Five', role: 'Laborer', phone: '+1-555-0105', status: 'active', projectId: 'PRJ-002', dailyRate: 300 },
+  { id: 'W6', name: 'Demo Worker Six', role: 'Site Supervisor', phone: '+1-555-0106', status: 'active', projectId: 'PRJ-002', dailyRate: 700 },
+  { id: 'W7', name: 'Demo Worker Seven', role: 'Carpenter', phone: '+1-555-0107', status: 'onLeave', projectId: 'PRJ-001', dailyRate: 480 },
+  { id: 'W8', name: 'Demo Worker Eight', role: 'Helper', phone: '+1-555-0108', status: 'inactive', dailyRate: 250 },
 ];
 
 export const MOCK_TIMESHEETS: TimesheetEntry[] = [
-  { id: 'TS-1', workerId: 'W1', workerName: 'Kebede Alemu', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 8, status: 'approved' },
-  { id: 'TS-2', workerId: 'W2', workerName: 'Tigist Haile', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 8, status: 'approved' },
-  { id: 'TS-3', workerId: 'W3', workerName: 'Solomon Desta', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 7.5, status: 'pending' },
-  { id: 'TS-4', workerId: 'W4', workerName: 'Meron Tadesse', projectId: 'PRJ-002', projectName: 'Overland Park Office Fit-out', date: '2026-11-01', hours: 8, status: 'pending' },
-  { id: 'TS-5', workerId: 'W5', workerName: 'Abebe Girma', projectId: 'PRJ-002', projectName: 'Overland Park Office Fit-out', date: '2026-11-01', hours: 8, status: 'approved' },
-  { id: 'TS-6', workerId: 'W1', workerName: 'Kebede Alemu', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-02', hours: 8, status: 'pending' },
+  { id: 'TS-1', workerId: 'W1', workerName: 'Demo Worker One', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 8, status: 'approved' },
+  { id: 'TS-2', workerId: 'W2', workerName: 'Demo Worker Two', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 8, status: 'approved' },
+  { id: 'TS-3', workerId: 'W3', workerName: 'Demo Worker Three', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-01', hours: 7.5, status: 'pending' },
+  { id: 'TS-4', workerId: 'W4', workerName: 'Demo Worker Four', projectId: 'PRJ-002', projectName: 'Overland Park Office Fit-out', date: '2026-11-01', hours: 8, status: 'pending' },
+  { id: 'TS-5', workerId: 'W5', workerName: 'Demo Worker Five', projectId: 'PRJ-002', projectName: 'Overland Park Office Fit-out', date: '2026-11-01', hours: 8, status: 'approved' },
+  { id: 'TS-6', workerId: 'W1', workerName: 'Demo Worker One', projectId: 'PRJ-001', projectName: 'Brookside Apartment Renovation', date: '2026-11-02', hours: 8, status: 'pending' },
 ];
 
 // ─── Analytics ───────────────────────────────────────────
