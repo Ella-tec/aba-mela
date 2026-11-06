@@ -23,28 +23,28 @@ export function ProfessionalEarnings() {
             <Wallet className="w-4 h-4" />
             {t('earnings.today')}
           </div>
-          <div className="text-2xl font-bold text-gray-900">ETB {s.today.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-gray-900">${s.today.toLocaleString()}</div>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
             <TrendingUp className="w-4 h-4" />
             {t('earnings.thisWeek')}
           </div>
-          <div className="text-2xl font-bold text-gray-900">ETB {s.thisWeek.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-gray-900">${s.thisWeek.toLocaleString()}</div>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
             <Banknote className="w-4 h-4" />
             {t('earnings.thisMonth')}
           </div>
-          <div className="text-2xl font-bold text-gray-900">ETB {s.thisMonth.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-gray-900">${s.thisMonth.toLocaleString()}</div>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
             <Clock className="w-4 h-4" />
             {t('earnings.available')}
           </div>
-          <div className="text-2xl font-bold text-primary-600">ETB {s.availableBalance.toLocaleString()}</div>
+          <div className="text-2xl font-bold text-primary-600">${s.availableBalance.toLocaleString()}</div>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export function ProfessionalEarnings() {
       <div className="bg-primary-50 border border-primary-200 rounded-xl p-4 flex items-center justify-between">
         <div>
           <div className="text-sm text-primary-700">{t('earnings.pendingPayout')}</div>
-          <div className="text-xl font-bold text-primary-900">ETB {s.pendingPayout.toLocaleString()}</div>
+          <div className="text-xl font-bold text-primary-900">${s.pendingPayout.toLocaleString()}</div>
         </div>
         <div className="text-sm text-primary-600">Usually paid within 2–3 business days</div>
       </div>
@@ -76,7 +76,7 @@ export function ProfessionalEarnings() {
                   </div>
                 </div>
                 <div className="text-end">
-                  <div className="font-semibold text-gray-900">ETB {po.amount.toLocaleString()}</div>
+                  <div className="font-semibold text-gray-900">${po.amount.toLocaleString()}</div>
                   <div className="mt-1">
                     <PayoutStatusBadge status={po.status} />
                   </div>
