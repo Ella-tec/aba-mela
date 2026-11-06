@@ -32,7 +32,7 @@ export function SupplierRentals() {
               <div className="text-xs text-gray-400 mt-0.5">{r.startDate} → {r.endDate} · {r.id}</div>
             </div>
             <div className="text-end">
-              <div className="font-bold text-gray-900">ETB {r.dailyRate.toLocaleString()}/day</div>
+              <div className="font-bold text-gray-900">${r.dailyRate.toLocaleString()}/day</div>
               {r.status === 'overdue' && (
                 <button className="mt-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-600 text-white">
                   Mark returned
