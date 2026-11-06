@@ -83,16 +83,16 @@ export const SERVICES = [
   { key: 'landscaping', icon: 'Trees' },
 ] as const;
 
-export const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
+// All people, prices, reviews, properties and job records below are fictional demo content.\nexport const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
   {
     id: 'BK-1001',
     service: 'Plumbing',
     serviceKey: 'plumbing',
     status: 'onTheWay',
-    professional: 'Abebe Kebede',
+    professional: 'Demo Pro One',
     address: 'Brookside, Kansas City, MO',
     scheduledAt: '2026-11-02T14:30:00',
-    price: 850,
+    price: 145,
     notes: 'Kitchen sink leak',
   },
   {
@@ -100,10 +100,10 @@ export const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
     service: 'Electrical',
     serviceKey: 'electrical',
     status: 'completed',
-    professional: 'Sara Haile',
+    professional: 'Demo Pro Two',
     address: 'Crossroads Arts District, Kansas City, MO',
     scheduledAt: '2026-10-28T10:00:00',
-    price: 1200,
+    price: 185,
   },
   {
     id: 'BK-1003',
@@ -119,10 +119,10 @@ export const MOCK_CUSTOMER_BOOKINGS: Booking[] = [
     service: 'Painting',
     serviceKey: 'painting',
     status: 'quoted',
-    professional: 'Yonas Tadesse',
+    professional: 'Demo Pro Three',
     address: 'Waldo, Kansas City, MO',
     scheduledAt: '2026-11-08T08:00:00',
-    price: 4500,
+    price: 8.50,
   },
 ];
 
@@ -135,7 +135,7 @@ export const MOCK_JOBS: Job[] = [
     customer: 'Hanna M.',
     address: 'Brookside, Kansas City, MO',
     scheduledAt: '2026-11-02T15:00:00',
-    price: 900,
+    price: 165,
     isHot: true,
     distanceKm: 2.4,
   },
@@ -147,7 +147,7 @@ export const MOCK_JOBS: Job[] = [
     customer: 'Daniel G.',
     address: 'Crossroads Arts District, Kansas City, MO',
     scheduledAt: '2026-11-02T16:30:00',
-    price: 1500,
+    price: 225,
     isHot: true,
     distanceKm: 5.1,
   },
@@ -159,7 +159,7 @@ export const MOCK_JOBS: Job[] = [
     customer: 'Marta A.',
     address: 'Lee's Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
-    price: 700,
+    price: 125,
     distanceKm: 3.8,
   },
   {
@@ -170,7 +170,7 @@ export const MOCK_JOBS: Job[] = [
     customer: 'Office Park Ltd',
     address: 'Overland Park, KS',
     scheduledAt: '2026-11-02T11:00:00',
-    price: 2200,
+    price: 395,
     distanceKm: 1.2,
   },
 ];
@@ -180,7 +180,7 @@ export const MOCK_REVIEWS: Review[] = [
     id: 'RV-01',
     bookingId: 'BK-1002',
     service: 'Electrical',
-    professional: 'Sara Haile',
+    professional: 'Demo Pro Two',
     rating: 5,
     comment: 'Excellent work, fixed the issue quickly and cleaned up after.',
     createdAt: '2026-10-28T18:00:00',
@@ -190,7 +190,7 @@ export const MOCK_REVIEWS: Review[] = [
     id: 'RV-02',
     bookingId: 'BK-0990',
     service: 'Plumbing',
-    professional: 'Abebe Kebede',
+    professional: 'Demo Pro One',
     rating: 4,
     comment: 'Good service, arrived on time.',
     createdAt: '2026-10-20T12:00:00',
@@ -308,7 +308,7 @@ export const MOCK_QUOTES: Quote[] = [
   {
     id: 'QT-301',
     bookingId: 'BK-1004',
-    professional: 'Yonas Tadesse',
+    professional: 'Demo Pro Three',
     amount: 4500,
     notes: 'Includes materials and 2 days labor',
     validUntil: '2026-11-10T23:59:00',
@@ -317,7 +317,7 @@ export const MOCK_QUOTES: Quote[] = [
   {
     id: 'QT-302',
     bookingId: 'BK-1004',
-    professional: 'Mulugeta Assefa',
+    professional: 'Demo Pro Six',
     amount: 4200,
     notes: 'Labor only, customer supplies paint',
     validUntil: '2026-11-09T23:59:00',
@@ -326,8 +326,8 @@ export const MOCK_QUOTES: Quote[] = [
   {
     id: 'QT-303',
     bookingId: 'BK-1001',
-    professional: 'Abebe Kebede',
-    amount: 850,
+    professional: 'Demo Pro One',
+    amount: 185,
     status: 'accepted',
     validUntil: '2026-11-03T23:59:00',
   },
@@ -338,7 +338,7 @@ export const MOCK_PAYMENTS: Payment[] = [
     id: 'PAY-401',
     bookingId: 'BK-1002',
     service: 'Electrical',
-    amount: 1200,
+    amount: 185,
     status: 'paid',
     method: 'Card (demo)',
     createdAt: '2026-10-28T11:00:00',
@@ -348,7 +348,7 @@ export const MOCK_PAYMENTS: Payment[] = [
     id: 'PAY-402',
     bookingId: 'BK-1001',
     service: 'Plumbing',
-    amount: 850,
+    amount: 185,
     status: 'pending',
     createdAt: '2026-11-02T14:00:00',
   },
@@ -356,7 +356,7 @@ export const MOCK_PAYMENTS: Payment[] = [
     id: 'PAY-403',
     bookingId: 'BK-0980',
     service: 'Cleaning',
-    amount: 600,
+    amount: 120,
     status: 'refunded',
     method: 'Card (demo)',
     createdAt: '2026-10-15T09:00:00',
@@ -367,7 +367,7 @@ export const MOCK_PAYMENTS: Payment[] = [
 export const MOCK_PAYOUTS: Payout[] = [
   {
     id: 'PO-501',
-    amount: 8500,
+    amount: 1850,
     status: 'paid',
     method: 'Card (demo)',
     period: 'Oct 2026 (Week 4)',
@@ -376,7 +376,7 @@ export const MOCK_PAYOUTS: Payout[] = [
   },
   {
     id: 'PO-502',
-    amount: 6200,
+    amount: 1450,
     status: 'processing',
     method: 'Bank Transfer',
     period: 'Nov 2026 (Week 1)',
@@ -384,7 +384,7 @@ export const MOCK_PAYOUTS: Payout[] = [
   },
   {
     id: 'PO-503',
-    amount: 3100,
+    amount: 750,
     status: 'pending',
     method: 'Card (demo)',
     period: 'Nov 2026 (Week 1)',
@@ -393,11 +393,11 @@ export const MOCK_PAYOUTS: Payout[] = [
 ];
 
 export const MOCK_EARNINGS_SUMMARY = {
-  today: 2200,
-  thisWeek: 8500,
-  thisMonth: 28400,
-  pendingPayout: 9300,
-  availableBalance: 3100,
+  today: 520,
+  thisWeek: 1850,
+  thisMonth: 7200,
+  pendingPayout: 1900,
+  availableBalance: 750,
 };
 
 export type TechStatus = 'available' | 'busy' | 'onTheWay' | 'working' | 'offline';
@@ -427,12 +427,12 @@ export interface MapJob {
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
 export const MOCK_TECHNICIANS: MapTechnician[] = [
-  { id: 'T1', name: 'Abebe Kebede', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceKm: 1.2 },
-  { id: 'T2', name: 'Sara Haile', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceKm: 2.5 },
-  { id: 'T3', name: 'Yonas Tadesse', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceKm: 3.1 },
-  { id: 'T4', name: 'Hanna Molla', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceKm: 4.0 },
-  { id: 'T5', name: 'Daniel Girma', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceKm: 2.8 },
-  { id: 'T6', name: 'Mulugeta Assefa', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceKm: 5.5 },
+  { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceKm: 1.2 },
+  { id: 'T2', name: 'Demo Pro Two', service: 'Electrical', status: 'available', lat: 39.0911, lng: -94.4155, rating: 4.9, distanceKm: 2.5 },
+  { id: 'T3', name: 'Demo Pro Three', service: 'Painting', status: 'working', lat: 38.9822, lng: -94.6708, rating: 4.6, distanceKm: 3.1 },
+  { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceKm: 4.0 },
+  { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceKm: 2.8 },
+  { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceKm: 5.5 },
 ];
 
 export const MOCK_MAP_JOBS: MapJob[] = [
@@ -500,8 +500,8 @@ export const MOCK_PROJECTS: Project[] = [
     location: 'Brookside, Kansas City, MO',
     status: 'active',
     progress: 62,
-    budget: 850000,
-    spent: 520000,
+    budget: 85000,
+    spent: 52000,
     startDate: '2026-09-01',
     endDate: '2026-12-15',
     foreman: 'Tesfaye Bekele',
@@ -514,8 +514,8 @@ export const MOCK_PROJECTS: Project[] = [
     location: 'Overland Park, KS',
     status: 'active',
     progress: 35,
-    budget: 1200000,
-    spent: 380000,
+    budget: 120000,
+    spent: 38000,
     startDate: '2026-10-01',
     endDate: '2027-01-30',
     foreman: 'Aster Lemma',
@@ -528,8 +528,8 @@ export const MOCK_PROJECTS: Project[] = [
     location: 'Crossroads Arts District, Kansas City, MO',
     status: 'planning',
     progress: 10,
-    budget: 450000,
-    spent: 25000,
+    budget: 45000,
+    spent: 2500,
     startDate: '2026-11-15',
     endDate: '2027-03-01',
     workers: 0,
@@ -541,8 +541,8 @@ export const MOCK_PROJECTS: Project[] = [
     location: 'Lee's Summit, MO',
     status: 'completed',
     progress: 100,
-    budget: 280000,
-    spent: 265000,
+    budget: 28000,
+    spent: 26500,
     startDate: '2026-07-01',
     endDate: '2026-09-20',
     foreman: 'Tesfaye Bekele',
@@ -592,37 +592,37 @@ export const ANALYTICS_KPIS = {
 };
 
 export const BOOKING_TREND = [
-  { date: 'Oct 27', bookings: 18, revenue: 32000 },
-  { date: 'Oct 28', bookings: 22, revenue: 41000 },
-  { date: 'Oct 29', bookings: 15, revenue: 28000 },
-  { date: 'Oct 30', bookings: 28, revenue: 52000 },
-  { date: 'Oct 31', bookings: 31, revenue: 58000 },
-  { date: 'Nov 1', bookings: 26, revenue: 47000 },
-  { date: 'Nov 2', bookings: 24, revenue: 48500 },
+  { date: 'Oct 27', bookings: 18, revenue: 3200 },
+  { date: 'Oct 28', bookings: 22, revenue: 4100 },
+  { date: 'Oct 29', bookings: 15, revenue: 2800 },
+  { date: 'Oct 30', bookings: 28, revenue: 5200 },
+  { date: 'Oct 31', bookings: 31, revenue: 5800 },
+  { date: 'Nov 1', bookings: 26, revenue: 4700 },
+  { date: 'Nov 2', bookings: 24, revenue: 4850 },
 ];
 
 export const SERVICE_BREAKDOWN = [
-  { service: 'Plumbing', count: 42, revenue: 38500 },
-  { service: 'Electrical', count: 35, revenue: 42000 },
-  { service: 'Cleaning', count: 28, revenue: 16800 },
-  { service: 'Painting', count: 15, revenue: 67500 },
-  { service: 'HVAC', count: 12, revenue: 28800 },
-  { service: 'Other', count: 18, revenue: 22000 },
+  { service: 'Plumbing', count: 42, revenue: 3850 },
+  { service: 'Electrical', count: 35, revenue: 4200 },
+  { service: 'Cleaning', count: 28, revenue: 1680 },
+  { service: 'Painting', count: 15, revenue: 6750 },
+  { service: 'HVAC', count: 12, revenue: 2880 },
+  { service: 'Other', count: 18, revenue: 2200 },
 ];
 
 export const TECH_PERFORMANCE = [
-  { name: 'Sara Haile', jobs: 47, rating: 4.9, revenue: 52000, acceptance: 94 },
-  { name: 'Abebe Kebede', jobs: 41, rating: 4.8, revenue: 38500, acceptance: 88 },
-  { name: 'Yonas Tadesse', jobs: 28, rating: 4.6, revenue: 62000, acceptance: 82 },
-  { name: 'Hanna Molla', jobs: 35, rating: 4.7, revenue: 21000, acceptance: 91 },
-  { name: 'Daniel Girma', jobs: 22, rating: 4.5, revenue: 31400, acceptance: 79 },
+  { name: 'Demo Pro Two', jobs: 47, rating: 4.9, revenue: 5200, acceptance: 94 },
+  { name: 'Demo Pro One', jobs: 41, rating: 4.8, revenue: 3850, acceptance: 88 },
+  { name: 'Demo Pro Three', jobs: 28, rating: 4.6, revenue: 6200, acceptance: 82 },
+  { name: 'Demo Pro Four', jobs: 35, rating: 4.7, revenue: 2100, acceptance: 91 },
+  { name: 'Demo Pro Five', jobs: 22, rating: 4.5, revenue: 3140, acceptance: 79 },
 ];
 
 export const PROJECT_ANALYTICS = [
-  { name: 'Brookside Apartment Renovation', progress: 62, budget: 850000, spent: 520000, status: 'onTrack' },
-  { name: 'Overland Park Office Fit-out', progress: 35, budget: 1200000, spent: 380000, status: 'onTrack' },
-  { name: 'Crossroads Arts District Villa Extension', progress: 10, budget: 450000, spent: 25000, status: 'planning' },
-  { name: 'Lee's Summit Warehouse Flooring', progress: 100, budget: 280000, spent: 265000, status: 'completed' },
+  { name: 'Brookside Apartment Renovation', progress: 62, budget: 85000, spent: 52000, status: 'onTrack' },
+  { name: 'Overland Park Office Fit-out', progress: 35, budget: 120000, spent: 38000, status: 'onTrack' },
+  { name: 'Crossroads Arts District Villa Extension', progress: 10, budget: 45000, spent: 2500, status: 'planning' },
+  { name: 'Lee's Summit Warehouse Flooring', progress: 100, budget: 28000, spent: 26500, status: 'completed' },
 ];
 
 export const SUPPORT_METRICS = {
@@ -682,28 +682,28 @@ export interface Property {
 }
 
 export const MOCK_PRODUCTS: Product[] = [
-  { id: 'P1', name: 'Cement (50kg)', category: 'Materials', stock: 240, price: 650, unit: 'bag', supplier: 'Metro Building Supply (demo)' },
-  { id: 'P2', name: 'Rebar 12mm', category: 'Materials', stock: 80, price: 1200, unit: 'bundle', supplier: 'Metro Building Supply (demo)' },
-  { id: 'P3', name: 'Paint - Interior White 20L', category: 'Finishing', stock: 45, price: 2800, unit: 'bucket', supplier: 'KC Paint & Supply (demo)' },
-  { id: 'P4', name: 'Scaffolding Set', category: 'Equipment', stock: 12, price: 15000, unit: 'set', supplier: 'SiteGear Rentals' },
-  { id: 'P5', name: 'Concrete Mixer', category: 'Rental', stock: 6, price: 2500, unit: 'day', supplier: 'SiteGear Rentals' },
-  { id: 'P6', name: 'Ceramic Tiles 60x60', category: 'Finishing', stock: 500, price: 180, unit: 'sqm', supplier: 'Tile World' },
-  { id: 'P7', name: 'PVC Pipe 1 inch', category: 'Materials', stock: 200, price: 95, unit: 'meter', supplier: 'PlumbMart' },
-  { id: 'P8', name: 'Excavator Mini', category: 'Rental', stock: 2, price: 8500, unit: 'day', supplier: 'Metro Equipment Rental (demo)' },
+  { id: 'P1', name: 'Cement (50kg)', category: 'Materials', stock: 240, price: 8.50, unit: 'bag', supplier: 'Metro Building Supply (demo)' },
+  { id: 'P2', name: 'Rebar 12mm', category: 'Materials', stock: 80, price: 185, unit: 'bundle', supplier: 'Metro Building Supply (demo)' },
+  { id: 'P3', name: 'Paint - Interior White 20L', category: 'Finishing', stock: 45, price: 65, unit: 'bucket', supplier: 'KC Paint & Supply (demo)' },
+  { id: 'P4', name: 'Scaffolding Set', category: 'Equipment', stock: 12, price: 125, unit: 'set', supplier: 'SiteGear Rentals' },
+  { id: 'P5', name: 'Concrete Mixer', category: 'Rental', stock: 6, price: 85, unit: 'day', supplier: 'SiteGear Rentals' },
+  { id: 'P6', name: 'Ceramic Tiles 60x60', category: 'Finishing', stock: 500, price: 4.5, unit: 'sqm', supplier: 'Tile World' },
+  { id: 'P7', name: 'PVC Pipe 1 inch', category: 'Materials', stock: 200, price: 2.5, unit: 'meter', supplier: 'PlumbMart' },
+  { id: 'P8', name: 'Excavator Mini', category: 'Rental', stock: 2, price: 450, unit: 'day', supplier: 'Metro Equipment Rental (demo)' },
 ];
 
 export const MOCK_ORDERS: SupplierOrder[] = [
-  { id: 'ORD-101', productName: 'Cement (50kg)', quantity: 40, total: 26000, status: 'delivered', customer: 'Metro Property Group (demo)', createdAt: '2026-10-28', deliveryAddress: 'Brookside, Kansas City, MO' },
-  { id: 'ORD-102', productName: 'Rebar 12mm', quantity: 15, total: 18000, status: 'shipped', customer: 'Heartland Business Park (demo)', createdAt: '2026-11-01', deliveryAddress: 'Overland Park, KS' },
-  { id: 'ORD-103', productName: 'Paint - Interior White 20L', quantity: 8, total: 22400, status: 'confirmed', customer: 'Private Client', createdAt: '2026-11-02', deliveryAddress: 'Crossroads Arts District' },
-  { id: 'ORD-104', productName: 'Ceramic Tiles 60x60', quantity: 100, total: 18000, status: 'pending', customer: 'Logistics Hub PLC', createdAt: '2026-11-02', deliveryAddress: 'Lee's Summit' },
+  { id: 'ORD-101', productName: 'Cement (50kg)', quantity: 40, total: 340, status: 'delivered', customer: 'Metro Property Group (demo)', createdAt: '2026-10-28', deliveryAddress: 'Brookside, Kansas City, MO' },
+  { id: 'ORD-102', productName: 'Rebar 12mm', quantity: 15, total: 675, status: 'shipped', customer: 'Heartland Business Park (demo)', createdAt: '2026-11-01', deliveryAddress: 'Overland Park, KS' },
+  { id: 'ORD-103', productName: 'Paint - Interior White 20L', quantity: 8, total: 520, status: 'confirmed', customer: 'Private Client', createdAt: '2026-11-02', deliveryAddress: 'Crossroads Arts District' },
+  { id: 'ORD-104', productName: 'Ceramic Tiles 60x60', quantity: 100, total: 675, status: 'pending', customer: 'Logistics Hub PLC', createdAt: '2026-11-02', deliveryAddress: 'Lee's Summit' },
 ];
 
 export const MOCK_RENTALS: EquipmentRental[] = [
-  { id: 'RN-01', equipment: 'Concrete Mixer', customer: 'Tesfaye Bekele', project: 'Brookside Apartment Renovation', startDate: '2026-11-01', endDate: '2026-11-08', dailyRate: 2500, status: 'active' },
-  { id: 'RN-02', equipment: 'Scaffolding Set', customer: 'Aster Lemma', project: 'Overland Park Office Fit-out', startDate: '2026-10-20', endDate: '2026-11-15', dailyRate: 1500, status: 'active' },
-  { id: 'RN-03', equipment: 'Excavator Mini', customer: 'Site Crew A', project: 'Crossroads Arts District Villa Extension', startDate: '2026-10-10', endDate: '2026-10-25', dailyRate: 8500, status: 'returned' },
-  { id: 'RN-04', equipment: 'Concrete Mixer', customer: 'Mulugeta Assefa', startDate: '2026-10-01', endDate: '2026-10-05', dailyRate: 2500, status: 'overdue' },
+  { id: 'RN-01', equipment: 'Concrete Mixer', customer: 'Tesfaye Bekele', project: 'Brookside Apartment Renovation', startDate: '2026-11-01', endDate: '2026-11-08', dailyRate: 85, status: 'active' },
+  { id: 'RN-02', equipment: 'Scaffolding Set', customer: 'Aster Lemma', project: 'Overland Park Office Fit-out', startDate: '2026-10-20', endDate: '2026-11-15', dailyRate: 125, status: 'active' },
+  { id: 'RN-03', equipment: 'Excavator Mini', customer: 'Site Crew A', project: 'Crossroads Arts District Villa Extension', startDate: '2026-10-10', endDate: '2026-10-25', dailyRate: 450, status: 'returned' },
+  { id: 'RN-04', equipment: 'Concrete Mixer', customer: 'Demo Pro Six', startDate: '2026-10-01', endDate: '2026-10-05', dailyRate: 85, status: 'overdue' },
 ];
 
 export const MOCK_PROPERTIES: Property[] = [
