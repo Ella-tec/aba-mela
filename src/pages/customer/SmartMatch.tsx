@@ -9,7 +9,7 @@ const SERVICES = ['Plumbing', 'Electrical', 'Cleaning', 'Painting', 'HVAC'];
 export function SmartMatch() {
   const { t } = useTranslation();
   const [service, setService] = useState('Plumbing');
-  const [area, setArea] = useState('Bole');
+  const [area, setArea] = useState('Kansas City, MO');
   const [matched, setMatched] = useState(false);
 
   const results = matched
@@ -62,7 +62,7 @@ export function SmartMatch() {
               setMatched(false);
             }}
             className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            placeholder="e.g. Bole, CMC, Piassa"
+            placeholder="e.g. Brookside, Overland Park, Lee’s Summit"
           />
         </div>
         <button
@@ -77,7 +77,7 @@ export function SmartMatch() {
       {matched && (
         <div className="space-y-3">
           <h3 className="font-semibold text-gray-900">
-            Top matches for {service} near {area}
+            Demo matches for {service} near {area}
           </h3>
           {results.map((tech, i) => (
             <div
@@ -104,7 +104,7 @@ export function SmartMatch() {
                     </span>
                     <span className="flex items-center gap-0.5">
                       <MapPin className="w-3.5 h-3.5" />
-                      {tech.distanceKm} km
+                      {tech.distanceMiles} mi
                     </span>
                     <span className="capitalize">{tech.status}</span>
                   </div>

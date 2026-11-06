@@ -1,6 +1,30 @@
-# Aba Mela — Home Services & Construction Platform
+# Mela — Kansas City Home Services & Property Platform
 
-A multi-portal marketplace for home services, construction teams, professionals, and suppliers in Ethiopia.
+Mela is a multi-portal marketplace concept for homeowners, property managers, service professionals, construction organizations, and suppliers across the Kansas City metropolitan area in **Missouri and Kansas**. Kansas City, Missouri is the primary market.
+
+> **Pilot status:** This repository contains demo workflows and sample data. Sample names, providers, jobs, ratings, properties, and prices are illustrative only. They are not real listings, verified contractors, live availability, or market quotes. Service-area cities are proposed coverage configuration and must be enabled only after operational verification.
+
+## Kansas City market
+
+The initial product is designed for the two-state metro, with service-area configuration for Kansas City, MO; North Kansas City, MO; Independence, MO; Lee's Summit, MO; Liberty, MO; Overland Park, KS; Olathe, KS; and Shawnee, KS. This list is a product-planning starting point, not a claim that Mela currently serves these communities.
+
+- Default map center: Kansas City, Missouri (39.0997, -94.5786)
+- Local time: America/Chicago
+- Currency: USD ($)
+- Address format: US street address, city, state, ZIP code
+- Phone format: United States (+1)
+- Map tiles: OpenStreetMap
+- Default language: English; existing i18n architecture and RTL support remain available.
+
+## Product areas
+
+- Customer: discover services, request bookings, track work, manage home records and payments.
+- Professional: job discovery, dispatch/map views, earnings, availability and verification.
+- Organization: construction projects, workforce, foreman and timesheets.
+- Supplier: materials catalog, orders and equipment rentals.
+- Admin: operational controls and reporting (implementation in progress).
+
+Typical service categories include plumbing, HVAC, electrical, roofing, remodeling, painting, landscaping, cleaning, handyman work, and general contracting. Actual availability and licensing/insurance status must be independently verified.
 
 ## Technology
 
@@ -22,17 +46,15 @@ Open http://localhost:5173. Set `VITE_API_URL` in `.env` if the API is not at ht
 
 ## Run the API
 
-Requirements: .NET 8 SDK and PostgreSQL.
-
-Configure secrets before starting the API. Do not commit credentials or signing keys.
+Requirements: .NET 8 SDK and PostgreSQL. Configure secrets before starting; never commit credentials or signing keys.
 
 PowerShell example:
 
 ```powershell
-$env:ConnectionStrings__Default="Host=localhost;Database=aba_mela;Username=postgres;Password=YOUR_LOCAL_PASSWORD"
+$env:ConnectionStrings__Default="Host=localhost;Database=mela;Username=postgres;Password=YOUR_LOCAL_PASSWORD"
 $env:Jwt__Key="REPLACE_WITH_A_RANDOM_SECRET_AT_LEAST_32_BYTES_LONG"
-$env:Jwt__Issuer="AbaMela"
-$env:Jwt__Audience="AbaMela"
+$env:Jwt__Issuer="Mela"
+$env:Jwt__Audience="Mela"
 $env:Jwt__ExpiresMinutes="60"
 $env:Cors__AllowedOrigins__0="http://localhost:5173"
 cd backend/AbaMela.Api
@@ -40,19 +62,14 @@ dotnet restore
 dotnet run
 ```
 
-The API fails fast when the database connection or a sufficiently long JWT signing key is missing. For deployment, set the same values in the hosting provider's secret/environment-variable settings and set CORS origins to the exact deployed frontend origin(s). Do not use wildcard origins with authenticated requests.
+The API fails fast when the database connection or a sufficiently long JWT signing key is missing. Set production CORS origins to the exact deployed frontend origin(s). Swagger is enabled only in Development. Health endpoint: `/health`.
 
-Swagger is enabled only in Development. Health endpoint: `/health`.
+## Authentication and security
 
-## Authentication
-
-- Register through the UI as Customer, Professional, or Organization.
-- Admin accounts cannot be self-registered.
+- Public registration is limited to Customer, Professional, and Organization; admin accounts cannot self-register.
 - Passwords must be at least 12 characters and are hashed with BCrypt.
-- Successful sign-in stores a bearer token in browser local storage and routes the user to the portal matching the account role.
-- Portal layouts redirect unauthenticated users to sign-in and enforce the portal role in the UI. API authorization remains the security boundary.
-
-For production, prefer a secure HttpOnly, Secure, SameSite cookie-based session over browser local storage, add email verification and password reset, and add rate limiting / account lockout before public launch.
+- Portal layouts require a session and enforce the portal role in the UI; API authorization remains the security boundary.
+- Production should use a secure HttpOnly, Secure, SameSite cookie-based session, email verification, password reset, rate limiting, account lockout, audit logging and monitoring.
 
 ## Portals
 
@@ -65,29 +82,21 @@ For production, prefer a secure HttpOnly, Secure, SameSite cookie-based session 
 | Organization / Construction | `/organization` |
 | Suppliers | `/suppliers` |
 
-## API endpoints currently implemented
+## Kansas and Missouri operating considerations
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/services`
-- `GET /api/bookings`, `POST /api/bookings`, `GET /api/bookings/{id}`
-- `POST /api/bookings/{id}/accept`, `PATCH /api/bookings/{id}/status`
-- `GET /api/projects`, `GET /api/projects/{id}`, `POST /api/projects`
+Contractor licensing, trade-specific permits, insurance requirements, sales/use tax, consumer protection and data/privacy obligations can differ by state, city and type of work. Mela must not claim a provider is licensed or insured without current evidence and jurisdiction-specific verification. Obtain professional legal/accounting review before public launch.
 
-Booking and project APIs now apply server-side role and ownership checks. Project ownership currently maps an Organization account's user ID to `OrganizationId`; a future organization-membership model is needed for multiple staff accounts per organization.
+Do not store payment-card data. Payment methods shown in demo screens are placeholders; no live payment processing is implied. Integrate a payment provider only with verified server-side webhooks and tested payment/refund flows.
 
-## Current implementation notes
+## Before a public Kansas City pilot
 
-The repository includes portal screens and sample/mock data. A screen being present does not mean its workflow is connected to persistent API data or a payment provider. Payment processing, live dispatch, messaging, supplier transactions, file uploads, notifications, and production-grade AI integrations require separate end-to-end implementation and testing.
+1. Confirm the initial service-area cities and ZIP codes, then enable them through configuration.
+2. Replace sample data with real providers only after consent, identity, license/insurance and service-area checks.
+3. Add database migrations and integration tests for booking, project, supplier, authorization and ownership flows.
+4. Complete payment-provider, notification, messaging, file-upload and support integrations.
+5. Run frontend lint/build and backend restore/build/test against a staging database.
+6. Review Kansas/Missouri legal, tax, insurance and consumer-protection requirements with qualified professionals.
 
-Before public deployment:
-1. Provision PostgreSQL and apply the database schema/migrations.
-2. Configure environment secrets and production CORS origins.
-3. Add database migrations, rate limiting, email verification, password reset, audit logging, and monitoring.
-4. Replace mock-data workflows with authenticated API calls.
-5. Run frontend lint/build and backend tests against a staging database.
-6. Conduct authorization, privacy, and payment-provider security reviews.
+## Project status
 
-## Languages
-
-English, Amharic, Arabic (RTL), and French.
+The repository includes working UI routes, sample/demo data and an ASP.NET API foundation. A visible screen is not proof that its workflow is connected to persistent data. Several booking, dispatch, supplier, payment and notification workflows still require end-to-end implementation and verification.

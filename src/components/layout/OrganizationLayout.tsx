@@ -50,7 +50,7 @@ export function OrganizationLayout() {
             </div>
             <div>
               <div className="font-bold text-lg leading-tight">{t('common.appName')}</div>
-              <div className="text-[10px] text-gray-500 uppercase tracking-wide">Construction</div>
+              <div className="text-[10px] text-gray-500 uppercase tracking-wide">Mela Projects</div>
             </div>
           </div>
 

@@ -5,20 +5,20 @@ import { cn } from '@/lib/utils';
 type Msg = { role: 'user' | 'assistant'; text: string };
 
 const SUGGESTIONS = [
-  'Find me a plumber near Bole',
+  'Find me a plumber in Kansas City',
   'How do I book a service?',
   'Show hot jobs',
-  'ቧንቧ ባለሙያ ፈልግ',
+  'Find a plumber in Kansas City',
 ];
 
 const REPLIES: Record<string, string> = {
   default:
-    "I'm the Aba Mela assistant. I can help you find services, match professionals, explain bookings, or answer in English, Amharic, Arabic, or French.",
+    "I'm the Mela assistant. I can help you find services, match professionals, explain bookings, or answer in English, Amharic, Arabic, or French.",
   plumber:
-    'I found 3 plumbers available near Bole:\n• Abebe Kebede ★4.8 — 1.2 km\n• Solomon Desta ★4.6 — 2.1 km\n• Site Plumbing Co. ★4.5 — 3.0 km\n\nWould you like to book one?',
+    'I found 3 plumbers shown in demo data near Kansas City:\n• Demo Provider One ★4.8 — 1.2 km\n• Demo Provider Two ★4.6 — 2.1 km\n• Demo Plumbing Co. ★4.5 — 3.0 km\n\nWould you like to book one?',
   book:
     'To book: go to Create Booking, choose a service, pick date/time and address, then submit. Professionals will send quotes you can compare.',
-  hot: 'There are 2 Hot Jobs right now: Plumbing in Bole Medhanialem (P1) and Electrical in Piassa (P1). Open Hot Jobs in the Professional portal to accept.',
+  hot: 'Demo mode shows 2 example hot jobs: Plumbing in Brookside Medhanialem (P1) and Electrical in Crossroads Arts District (P1). Open Hot Jobs in the Professional portal to accept.',
 };
 
 function replyFor(input: string): string {
@@ -33,7 +33,7 @@ export function AbaAssistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [msgs, setMsgs] = useState<Msg[]>([
-    { role: 'assistant', text: 'Hello! I\'m Aba Mela AI. Ask me to find a service, match a professional, or help with your booking.' },
+    { role: 'assistant', text: 'Hello! I\'m Mela AI. Ask me to find a service, match a professional, or help with your booking.' },
   ]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +55,7 @@ export function AbaAssistant() {
           'fixed bottom-5 end-5 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all',
           open ? 'bg-gray-800 text-white' : 'bg-primary-600 text-white hover:bg-primary-700'
         )}
-        aria-label="Aba Mela Assistant"
+        aria-label="Mela Assistant"
       >
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
@@ -65,8 +65,8 @@ export function AbaAssistant() {
           <div className="px-4 py-3 bg-primary-600 text-white flex items-center gap-2">
             <Sparkles className="w-5 h-5" />
             <div>
-              <div className="font-semibold text-sm">Aba Mela Assistant</div>
-              <div className="text-xs text-primary-100">EN · አማ · عربي · FR</div>
+              <div className="font-semibold text-sm">Mela Assistant</div>
+              <div className="text-xs text-primary-100">Kansas City metro · MO + KS</div>
             </div>
           </div>
 

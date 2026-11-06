@@ -3,7 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect } from 'react';
 import type { MapTechnician, MapJob, TechStatus } from '@/data/mock';
-import { ADDIS_CENTER } from '@/data/mock';
+import { KANSAS_CITY_CENTER } from '@/data/mock';
+import { MELA_MARKET } from '@/data/market';
 
 const statusColors: Record<TechStatus, string> = {
   available: '#22c55e',
@@ -55,11 +56,12 @@ export function LiveMap({
   jobs = [],
   height = '400px',
   showLegend = true,
-  center = ADDIS_CENTER,
-  zoom = 13,
+  center = KANSAS_CITY_CENTER,
+  zoom = 10,
 }: LiveMapProps) {
   return (
     <div className="relative rounded-xl overflow-hidden border border-gray-200">
+      <div className="absolute top-3 end-3 z-[1000] rounded-lg bg-white/95 px-3 py-2 text-xs font-medium text-gray-600 shadow-sm border border-gray-200">Illustrative demo map · Not live provider locations</div>
       <div style={{ height }}>
         <MapContainer
           center={[center.lat, center.lng]}
@@ -72,6 +74,17 @@ export function LiveMap({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <FitBounds techs={technicians} jobs={jobs} />
+          {MELA_MARKET.serviceAreas.map((area) => (
+            <CircleMarker key={`${area.city}-${area.state}`} center={[area.lat, area.lng]} radius={7}
+              pathOptions={{ color: '#173b35', fillColor: '#f4c66a', fillOpacity: 0.9, weight: 2 }}>
+              <Popup>
+                <div className="text-sm">
+                  <div className="font-semibold">{area.city}, {area.state}</div>
+                  <div className="text-gray-600">Planned market area · coverage not yet enabled</div>
+                </div>
+              </Popup>
+            </CircleMarker>
+          ))}
 
           {technicians.map((t) => (
             <Marker key={t.id} position={[t.lat, t.lng]} icon={createTechIcon(t.status)}>

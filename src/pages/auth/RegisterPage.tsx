@@ -55,7 +55,7 @@ export function RegisterPage() {
         <div className="w-full max-w-lg">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl">A</div>
+              <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl"><img src="/favicon.svg" alt="" className="w-full h-full rounded-lg" /></div>
               <span className="font-bold text-2xl">{t('common.appName')}</span>
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">{t('auth.register')}</h1>
@@ -82,7 +82,7 @@ export function RegisterPage() {
               <div><label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.email')}</label>
                 <input id="email" type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
               <div><label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.phone')}</label>
-                <input id="phone" type="tel" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+251..." className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
+                <input id="phone" type="tel" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+1 (555) 555-0123" className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
               <div><label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.password')} (12+ characters)</label>
                 <input id="password" type="password" required minLength={12} autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
               <div><label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.confirmPassword')}</label>

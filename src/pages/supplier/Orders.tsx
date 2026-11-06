@@ -40,7 +40,7 @@ export function SupplierOrders() {
                     <div className="text-xs text-gray-400">{o.deliveryAddress}</div>
                   </td>
                   <td className="px-5 py-3 text-gray-600">{o.quantity}</td>
-                  <td className="px-5 py-3 font-medium text-gray-900">ETB {o.total.toLocaleString()}</td>
+                  <td className="px-5 py-3 font-medium text-gray-900">${o.total.toLocaleString()}</td>
                   <td className="px-5 py-3">
                     <span className={cn('text-xs font-medium px-2 py-0.5 rounded-full capitalize', styles[o.status])}>
                       {o.status}

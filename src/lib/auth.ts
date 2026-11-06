@@ -30,7 +30,7 @@ async function request<T>(path: string, body: unknown): Promise<T> {
 
 export async function login(email: string, password: string) {
   const result = await request<AuthResponse>('auth/login', { email, password });
-  localStorage.setItem('aba-mela-auth', JSON.stringify(result));
+  localStorage.setItem('mela-auth', JSON.stringify(result));
   return result;
 }
 
@@ -42,20 +42,20 @@ export async function register(input: {
   phone?: string;
 }) {
   const result = await request<AuthResponse>('auth/register', input);
-  localStorage.setItem('aba-mela-auth', JSON.stringify(result));
+  localStorage.setItem('mela-auth', JSON.stringify(result));
   return result;
 }
 
 export function getAuth(): AuthResponse | null {
   try {
-    const raw = localStorage.getItem('aba-mela-auth');
+    const raw = localStorage.getItem('mela-auth');
     return raw ? (JSON.parse(raw) as AuthResponse) : null;
   } catch {
-    localStorage.removeItem('aba-mela-auth');
+    localStorage.removeItem('mela-auth');
     return null;
   }
 }
 
 export function logout() {
-  localStorage.removeItem('aba-mela-auth');
+  localStorage.removeItem('mela-auth');
 }

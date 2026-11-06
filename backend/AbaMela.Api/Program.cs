@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aba Mela API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mela API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -41,8 +41,8 @@ var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
     throw new InvalidOperationException("Jwt:Key must be configured as a secret with at least 32 UTF-8 bytes.");
 
-var issuer = builder.Configuration["Jwt:Issuer"] ?? "AbaMela";
-var audience = builder.Configuration["Jwt:Audience"] ?? "AbaMela";
+var issuer = builder.Configuration["Jwt:Issuer"] ?? "Mela";
+var audience = builder.Configuration["Jwt:Audience"] ?? "Mela";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>
     {
@@ -83,5 +83,5 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapGet("/health", () => Results.Ok(new { status = "ok", service = "Aba Mela API" }));
+app.MapGet("/health", () => Results.Ok(new { status = "ok", service = "Mela API" }));
 app.Run();

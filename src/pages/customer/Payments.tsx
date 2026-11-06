@@ -33,7 +33,7 @@ export function CustomerPayments() {
                     <div className="text-sm text-gray-500">{p.bookingId} · {p.id}</div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="text-lg font-bold text-gray-900">ETB {p.amount.toLocaleString()}</div>
+                    <div className="text-lg font-bold text-gray-900">${p.amount.toLocaleString()}</div>
                     <button
                       onClick={() => setPayingId(payingId === p.id ? null : p.id)}
                       className="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700"
@@ -69,7 +69,7 @@ export function CustomerPayments() {
                     </div>
                     <button className="w-full py-2.5 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 flex items-center justify-center gap-2">
                       <Check className="w-4 h-4" />
-                      {t('payments.confirmPayment')} — ETB {p.amount.toLocaleString()}
+                      {t('payments.confirmPayment')} — ${p.amount.toLocaleString()}
                     </button>
                   </div>
                 )}
@@ -96,7 +96,7 @@ export function CustomerPayments() {
                   {q.notes && <div className="text-sm text-gray-400 mt-1">{q.notes}</div>}
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="text-lg font-bold text-gray-900">ETB {q.amount.toLocaleString()}</div>
+                  <div className="text-lg font-bold text-gray-900">${q.amount.toLocaleString()}</div>
                   <button className="px-3 py-1.5 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
                     {t('quotes.accept')}
                   </button>
@@ -128,7 +128,7 @@ export function CustomerPayments() {
                   </div>
                 </div>
                 <div className="text-end">
-                  <div className="font-semibold text-gray-900">ETB {p.amount.toLocaleString()}</div>
+                  <div className="font-semibold text-gray-900">${p.amount.toLocaleString()}</div>
                   <div className="mt-1">
                     <PaymentStatusBadge status={p.status} />
                   </div>

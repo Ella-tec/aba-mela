@@ -16,7 +16,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('aba-mela-lang') || 'en',
+    lng: localStorage.getItem('mela-lang') || 'en',
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
@@ -28,7 +28,7 @@ i18n.on('languageChanged', (lng) => {
   const dir = lng === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.dir = dir;
   document.documentElement.lang = lng;
-  localStorage.setItem('aba-mela-lang', lng);
+  localStorage.setItem('mela-lang', lng);
 });
 
 // Set initial direction

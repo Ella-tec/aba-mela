@@ -1,18 +1,17 @@
-
 {
-  "name": "FinSphere AI",
-  "short_name": "FinSphere",
-  "description": "FinSphere AI Accounting and Financial Platform",
+  "name": "Mela — Kansas City Home Services",
+  "short_name": "Mela",
+  "description": "Home services, property care, construction and local professionals across the Kansas City metro.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1d2d5c",
+  "background_color": "#f7f8f6",
+  "theme_color": "#173b35",
   "icons": [
     {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ]

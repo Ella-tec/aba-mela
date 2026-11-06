@@ -58,11 +58,11 @@ export function ProjectDetail() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-5 border-t border-gray-100">
           <div>
             <div className="text-xs text-gray-500">{t('construction.budget')}</div>
-            <div className="font-semibold text-gray-900">ETB {project.budget.toLocaleString()}</div>
+            <div className="font-semibold text-gray-900">${project.budget.toLocaleString()}</div>
           </div>
           <div>
             <div className="text-xs text-gray-500">{t('construction.spent')}</div>
-            <div className="font-semibold text-gray-900">ETB {project.spent.toLocaleString()}</div>
+            <div className="font-semibold text-gray-900">${project.spent.toLocaleString()}</div>
           </div>
           <div>
             <div className="text-xs text-gray-500">{t('construction.workforce')}</div>
@@ -71,7 +71,7 @@ export function ProjectDetail() {
           <div>
             <div className="text-xs text-gray-500">Remaining</div>
             <div className="font-semibold text-gray-900">
-              ETB {(project.budget - project.spent).toLocaleString()}
+              ${(project.budget - project.spent).toLocaleString()}
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ export function ProjectDetail() {
                 <div className="font-medium text-gray-900">{w.name}</div>
                 <div className="text-sm text-gray-500">{w.role}</div>
               </div>
-              <div className="text-sm text-gray-600">ETB {w.dailyRate}/day</div>
+              <div className="text-sm text-gray-600">${w.dailyRate}/day</div>
             </div>
           ))}
         </div>
