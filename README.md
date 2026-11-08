@@ -4,6 +4,19 @@ Mela is a multi-portal marketplace concept for homeowners, property managers, se
 
 > **Demo status:** This repository contains demo workflows and sample data. Sample names, providers, jobs, ratings, properties, and prices are illustrative only. They are not real listings, verified contractors, live availability, or market quotes. Do not use this demo setup for production.
 
+## Dedicated local development ports
+
+Mela uses its own ports so it can run beside your other applications without taking their ports:
+
+| Service | Local address |
+|---|---|
+| Frontend | http://localhost:5178 |
+| API health | http://localhost:5018/health |
+| API Swagger | http://localhost:5018/swagger |
+| PostgreSQL | localhost:5448 |
+
+The ports inside Docker containers remain the standard service ports. Only the host-side ports are unique to Mela.
+
 ## Open and run in VS Code (recommended)
 
 The easiest setup uses **Docker Desktop**. It runs the React frontend, ASP.NET Core API, and PostgreSQL database together. You do **not** need to install .NET 8 on Windows when using this option.
@@ -32,9 +45,9 @@ docker compose up --build
 ```
 
 Then open:
-- Frontend: http://localhost:5173
-- API health: http://localhost:5000/health
-- API Swagger: http://localhost:5000/swagger
+- Frontend: http://localhost:5178
+- API health: http://localhost:5018/health
+- API Swagger: http://localhost:5018/swagger
 
 Stop with Ctrl+C, then run `docker compose down`. The database remains in a Docker volume. To permanently delete the local database and demo data, run `docker compose down -v`.
 
@@ -53,7 +66,7 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-Open http://localhost:5173. This starts only the frontend; API and PostgreSQL must also be running for registration, login and API-backed workflows.
+Open http://localhost:5178. This starts only the frontend; the API and PostgreSQL must also be running for registration, login and API-backed workflows. If you run PostgreSQL locally, configure the API connection string to use port 5448 only when PostgreSQL is published by the Mela Docker Compose stack.
 
 Build the frontend with `npm run build`; preview with `npm run preview`.
 
@@ -61,13 +74,13 @@ Build the frontend with `npm run build`; preview with `npm run preview`.
 Requirements: .NET 8 SDK and PostgreSQL. Docker is easier if .NET 8 is not installed.
 
 ```powershell
-$env:ConnectionStrings__Default="Host=localhost;Port=5432;Database=mela;Username=mela;Password=YOUR_LOCAL_PASSWORD"
+$env:ConnectionStrings__Default="Host=localhost;Port=5448;Database=mela;Username=mela;Password=mela_local_dev_only"
 $env:Jwt__Key="REPLACE_WITH_A_RANDOM_SECRET_AT_LEAST_32_BYTES_LONG"
 $env:Jwt__Issuer="Mela"
 $env:Jwt__Audience="Mela"
 $env:Jwt__ExpiresMinutes="60"
-$env:Cors__AllowedOrigins__0="http://localhost:5173"
-dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localhost:5000
+$env:Cors__AllowedOrigins__0="http://localhost:5178"
+dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localhost:5018
 ```
 
 ## Technology
@@ -86,8 +99,8 @@ dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localh
 ## Troubleshooting
 **Docker command not found:** Install and start Docker Desktop, then reopen the VS Code terminal.
 
-**Port 5173, 5000 or 5432 is busy:** Stop the other service using that port, or change the host-side port mapping in `docker-compose.yml`.
+**A Mela port is busy:** Stop the service using that port, or change the host-side mapping in `docker-compose.yml` and keep the Vite port, API CORS origin, and `VITE_API_URL` in sync.
 
-**Frontend cannot reach the API:** Check `docker compose ps`, then open http://localhost:5000/health.
+**Frontend cannot reach the API:** Check `docker compose ps`, then open http://localhost:5018/health.
 
 **Reset local demo data:** Run `docker compose down -v`, then `docker compose up --build`. This permanently deletes local database records.

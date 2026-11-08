@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 export function TimesheetsPage() {
   const { t } = useTranslation();
   const pending = MOCK_TIMESHEETS.filter((ts) => ts.status === 'pending');
-  const approved = MOCK_TIMESHEETS.filter((ts) => ts.status === 'approved');
 
   return (
     <div className="space-y-6">

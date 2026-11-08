@@ -66,7 +66,7 @@ export function ProfessionalDashboard() {
                 <div>
                   <div className="font-medium text-gray-900">{j.service}</div>
                   <div className="text-sm text-gray-500 mt-0.5">
-                    {j.address} · {j.distanceKm} km
+                    {j.address} · {j.distanceMiles ?? '—'} mi
                   </div>
                 </div>
                 <div className="text-end">
