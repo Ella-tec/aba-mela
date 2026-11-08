@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { MOCK_TECHNICIANS } from '@/data/mock';
 import { Sparkles, MapPin, Star, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -7,15 +6,13 @@ import { cn } from '@/lib/utils';
 const SERVICES = ['Plumbing', 'Electrical', 'Cleaning', 'Painting', 'HVAC'];
 
 export function SmartMatch() {
-  const { t } = useTranslation();
   const [service, setService] = useState('Plumbing');
   const [area, setArea] = useState('Kansas City, MO');
   const [matched, setMatched] = useState(false);
 
   const results = matched
     ? MOCK_TECHNICIANS.filter(
-        (tech) =>
-          tech.status === 'available' || tech.status === 'onTheWay'
+        (tech) => tech.status === 'available' || tech.status === 'onTheWay'
       ).slice(0, 3)
     : [];
 
