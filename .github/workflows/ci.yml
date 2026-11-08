@@ -1,0 +1,36 @@
+name: Mela CI
+
+on:
+  push:
+    branches: [main, fix/mela-dedicated-local-ports]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend type-check and production build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build frontend
+        run: npm run build
+
+  backend:
+    name: ASP.NET Core API build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore and build API
+        run: dotnet build backend/AbaMela.Api/AbaMela.Api.csproj --configuration Release
