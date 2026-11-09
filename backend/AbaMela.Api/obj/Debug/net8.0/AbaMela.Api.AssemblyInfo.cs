@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AbaMela.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6274fcb916a836f9d9e120e9a30a4c6acb4523a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2b189d77401d3d78fba688061b999e5f596732c")]
 [assembly: System.Reflection.AssemblyProductAttribute("AbaMela.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AbaMela.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
