@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from '@/components/layout/Header';
 import { PortalLayout } from '@/components/layout/PortalLayout';
 import { OrganizationLayout } from '@/components/layout/OrganizationLayout';
@@ -112,6 +112,9 @@ export default function App() {
         <Route path="/suppliers/rentals" element={<SupplierLayout><SupplierRentals /></SupplierLayout>} />
 
         <Route path="/admin/*" element={<PublicLayout><div className="max-w-7xl mx-auto px-4 py-12"><h1 className="text-2xl font-bold">Admin Platform</h1></div></PublicLayout>} />
+
+        {/* Keep unknown/deep links from rendering an empty page. */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <AbaAssistant />
     </BrowserRouter>
