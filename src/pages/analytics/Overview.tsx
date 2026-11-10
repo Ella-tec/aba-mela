@@ -1,205 +1,37 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-  ANALYTICS_KPIS,
-  BOOKING_TREND,
-  SERVICE_BREAKDOWN,
-  TECH_PERFORMANCE,
-  PROJECT_ANALYTICS,
-  SUPPORT_METRICS,
-} from '@/data/mock';
-import {
-  Calendar,
-  DollarSign,
-  Users,
-  FolderKanban,
-  HeadphonesIcon,
-  ShieldCheck,
-  Flame,
-  Star,
-  Download,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ANALYTICS_KPIS, BOOKING_TREND, SERVICE_BREAKDOWN, TECH_PERFORMANCE, PROJECT_ANALYTICS, SUPPORT_METRICS } from '@/data/mock';
+import { Calendar, DollarSign, Users, FolderKanban, HeadphonesIcon, ShieldCheck, Flame, Star, Download } from 'lucide-react';
+import { MetricCard } from '@/components/ui/MetricCard';
 
 export function AnalyticsOverview() {
-  const { t } = useTranslation();
-  const k = ANALYTICS_KPIS;
-  const maxBookings = Math.max(...BOOKING_TREND.map((d) => d.bookings));
-  const maxService = Math.max(...SERVICE_BREAKDOWN.map((s) => s.count));
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900">{t('analytics.title')}</h2>
-          <p className="text-sm text-gray-500">{t('analytics.last7Days')}</p>
-        </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium hover:bg-gray-50">
-          <Download className="w-4 h-4" />
-          {t('analytics.export')}
-        </button>
-      </div>
-
-      {/* KPI cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {[
-          { label: t('analytics.todayBookings'), value: k.todayBookings, icon: Calendar, color: 'text-blue-600' },
-          { label: t('analytics.todayRevenue'), value: `$${(k.todayRevenue / 1000).toFixed(1)}k`, icon: DollarSign, color: 'text-green-600' },
-          { label: t('analytics.activeTechnicians'), value: k.activeTechnicians, icon: Users, color: 'text-indigo-600' },
-          { label: t('analytics.activeProjects'), value: k.activeProjects, icon: FolderKanban, color: 'text-orange-600' },
-          { label: t('analytics.openTickets'), value: k.openTickets, icon: HeadphonesIcon, color: 'text-amber-600' },
-          { label: t('analytics.pendingVerifications'), value: k.pendingVerifications, icon: ShieldCheck, color: 'text-purple-600' },
-          { label: t('analytics.hotJobs'), value: k.hotJobs, icon: Flame, color: 'text-red-600' },
-          { label: t('analytics.avgRating'), value: k.avgRating, icon: Star, color: 'text-yellow-600' },
-        ].map((item) => (
-          <div key={item.label} className="bg-white rounded-xl border border-gray-200 p-4">
-            <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
-              <item.icon className={cn('w-4 h-4', item.color)} />
-              {item.label}
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{item.value}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Booking trend - simple bar chart */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <h3 className="font-semibold text-gray-900 mb-4">{t('analytics.bookingTrend')}</h3>
-        <div className="flex items-end gap-2 h-40">
-          {BOOKING_TREND.map((d) => (
-            <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
-              <div className="text-xs font-medium text-gray-700">{d.bookings}</div>
-              <div
-                className="w-full bg-primary-500 rounded-t-md min-h-[4px] transition-all"
-                style={{ height: `${(d.bookings / maxBookings) * 100}%` }}
-              />
-              <div className="text-[10px] text-gray-400 mt-1">{d.date.replace('2026-', '').slice(0, 6)}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 flex justify-between text-xs text-gray-500">
-          <span>Bookings</span>
-          <span>
-            Revenue peak: ${Math.max(...BOOKING_TREND.map((d) => d.revenue)).toLocaleString()}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-4">
-        {/* Service breakdown */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">{t('analytics.serviceBreakdown')}</h3>
-          <div className="space-y-3">
-            {SERVICE_BREAKDOWN.map((s) => (
-              <div key={s.service}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-700">{s.service}</span>
-                  <span className="text-gray-500">
-                    {s.count} · ${(s.revenue / 1000).toFixed(0)}k
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary-500 rounded-full"
-                    style={{ width: `${(s.count / maxService) * 100}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Support metrics */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">{t('analytics.supportMetrics')}</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-sm text-gray-500">Open</div>
-              <div className="text-2xl font-bold text-gray-900">{SUPPORT_METRICS.open}</div>
-            </div>
-            <div>
-              <div className="text-sm text-gray-500">Escalated</div>
-              <div className="text-2xl font-bold text-amber-600">{SUPPORT_METRICS.escalated}</div>
-            </div>
-            <div>
-              <div className="text-sm text-gray-500">Avg first response</div>
-              <div className="text-xl font-bold text-gray-900">{SUPPORT_METRICS.avgFirstResponseHrs}h</div>
-            </div>
-            <div>
-              <div className="text-sm text-gray-500">Avg resolution</div>
-              <div className="text-xl font-bold text-gray-900">{SUPPORT_METRICS.avgResolutionHrs}h</div>
-            </div>
-            <div className="col-span-2">
-              <div className="text-sm text-gray-500">{t('analytics.csat')}</div>
-              <div className="text-2xl font-bold text-gray-900 flex items-center gap-1">
-                <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-                {SUPPORT_METRICS.csat}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Top technicians */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 font-semibold text-gray-900">
-          {t('analytics.topTechnicians')}
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-500 text-left">
-              <tr>
-                <th className="px-5 py-2.5 font-medium">Name</th>
-                <th className="px-5 py-2.5 font-medium">{t('analytics.jobs')}</th>
-                <th className="px-5 py-2.5 font-medium">Rating</th>
-                <th className="px-5 py-2.5 font-medium">Revenue</th>
-                <th className="px-5 py-2.5 font-medium">{t('analytics.acceptance')}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {TECH_PERFORMANCE.map((tech) => (
-                <tr key={tech.name} className="hover:bg-gray-50">
-                  <td className="px-5 py-3 font-medium text-gray-900">{tech.name}</td>
-                  <td className="px-5 py-3 text-gray-600">{tech.jobs}</td>
-                  <td className="px-5 py-3 text-gray-600">★ {tech.rating}</td>
-                  <td className="px-5 py-3 text-gray-600">${tech.revenue.toLocaleString()}</td>
-                  <td className="px-5 py-3 text-gray-600">{tech.acceptance}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Project performance */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 font-semibold text-gray-900">
-          {t('analytics.projectPerformance')}
-        </div>
-        <div className="divide-y divide-gray-100">
-          {PROJECT_ANALYTICS.map((p) => (
-            <div key={p.name} className="px-5 py-3 flex items-center justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="font-medium text-gray-900 truncate">{p.name}</div>
-                <div className="text-xs text-gray-500 mt-0.5">
-                  ${(p.spent / 1000).toFixed(0)}k / {(p.budget / 1000).toFixed(0)}k
-                </div>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    className={cn(
-                      'h-full rounded-full',
-                      p.status === 'completed' ? 'bg-green-500' : 'bg-orange-500'
-                    )}
-                    style={{ width: `${p.progress}%` }}
-                  />
-                </div>
-                <span className="text-sm font-medium text-gray-700 w-10 text-end">{p.progress}%</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+ const { t }=useTranslation(); const k=ANALYTICS_KPIS;
+ const maxBookings=Math.max(1,...BOOKING_TREND.map(d=>d.bookings));
+ const maxService=Math.max(1,...SERVICE_BREAKDOWN.map(s=>s.count));
+ function exportReport() {
+  const rows=[['Metric','Value'],['Today bookings',String(k.todayBookings)],['Today revenue',String(k.todayRevenue)],['Active technicians',String(k.activeTechnicians)],['Active projects',String(k.activeProjects)],['Open tickets',String(k.openTickets)],['Pending verifications',String(k.pendingVerifications)],['Hot jobs',String(k.hotJobs)],['Average rating',String(k.avgRating)]];
+  const csv=rows.map(row=>row.map(cell=>'"'+cell.replace(/"/g,'""')+'"').join(',')).join('\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); const a=document.createElement('a'); a.href=url; a.download='mela-analytics.csv'; a.click(); URL.revokeObjectURL(url);
+ }
+ const cards=[
+  {label:t('analytics.todayBookings'),value:k.todayBookings,icon:Calendar,to:'/organization/projects'},
+  {label:t('analytics.todayRevenue'),value:'$'+(k.todayRevenue/1000).toFixed(1)+'k',icon:DollarSign,to:'/professional/earnings'},
+  {label:t('analytics.activeTechnicians'),value:k.activeTechnicians,icon:Users,to:'/organization/workforce'},
+  {label:t('analytics.activeProjects'),value:k.activeProjects,icon:FolderKanban,to:'/organization/projects'},
+  {label:t('analytics.openTickets'),value:k.openTickets,icon:HeadphonesIcon,to:'/customer/support'},
+  {label:t('analytics.pendingVerifications'),value:k.pendingVerifications,icon:ShieldCheck,to:'/professional/verification'},
+  {label:t('analytics.hotJobs'),value:k.hotJobs,icon:Flame,to:'/professional/hot-jobs'},
+  {label:t('analytics.avgRating'),value:k.avgRating,icon:Star,to:'/professional/reviews'}
+ ];
+ return <div className="space-y-6">
+  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><h2 className="text-xl font-bold text-gray-900">{t('analytics.title')}</h2><p className="text-sm text-gray-500">{t('analytics.last7Days')}</p></div><button type="button" onClick={exportReport} className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"><Download className="h-4 w-4"/>{t('analytics.export')}</button></div>
+  <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{cards.map(item=><MetricCard key={item.label} to={item.to} label={item.label} value={item.value} icon={item.icon} detail="Open related records"/>)}</div>
+  <section className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="mb-4 font-semibold text-gray-900">{t('analytics.bookingTrend')}</h3><div className="flex h-40 items-end gap-2">{BOOKING_TREND.map(d=><div key={d.date} className="flex h-full flex-1 flex-col items-center justify-end gap-1"><span className="text-xs font-medium text-gray-700">{d.bookings}</span><div className="min-h-1 w-full rounded-t-md bg-primary-500" style={{height:(d.bookings/maxBookings*75)+'%'}}/><span className="mt-1 text-[10px] text-gray-400">{d.date.replace('2026-','').slice(0,6)}</span></div>)}</div></section>
+  <div className="grid gap-4 lg:grid-cols-2">
+   <section className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="mb-4 font-semibold text-gray-900">{t('analytics.serviceBreakdown')}</h3><div className="space-y-3">{SERVICE_BREAKDOWN.map(s=><div key={s.service}><div className="mb-1 flex justify-between text-sm"><span>{s.service}</span><span className="text-gray-500">{s.count} · {'$'+Math.round(s.revenue/1000)+'k'}</span></div><div className="h-2 overflow-hidden rounded-full bg-gray-100"><div className="h-full rounded-full bg-primary-500" style={{width:(s.count/maxService*100)+'%'}}/></div></div>)}</div></section>
+   <section className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="mb-4 font-semibold text-gray-900">{t('analytics.supportMetrics')}</h3><div className="grid grid-cols-2 gap-4">{[['Open',SUPPORT_METRICS.open],['Escalated',SUPPORT_METRICS.escalated],['Avg first response',SUPPORT_METRICS.avgFirstResponseHrs+'h'],['Avg resolution',SUPPORT_METRICS.avgResolutionHrs+'h'],[t('analytics.csat'),SUPPORT_METRICS.csat]].map(([label,value])=><div key={String(label)}><div className="text-sm text-gray-500">{label}</div><div className="text-xl font-bold text-gray-900">{value}</div></div>)}</div></section>
+  </div>
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4 font-semibold text-gray-900">{t('analytics.topTechnicians')}</div><div className="overflow-x-auto"><table className="w-full text-sm"><thead className="bg-gray-50 text-left text-gray-500"><tr>{['Name',t('analytics.jobs'),'Rating','Revenue',t('analytics.acceptance')].map(h=><th key={h} scope="col" className="px-5 py-2.5 font-medium">{h}</th>)}</tr></thead><tbody className="divide-y divide-gray-100">{TECH_PERFORMANCE.map(tech=><tr key={tech.name}><td className="px-5 py-3 font-medium text-gray-900">{tech.name}</td><td className="px-5 py-3">{tech.jobs}</td><td className="px-5 py-3">★ {tech.rating}</td><td className="px-5 py-3">{'$'+tech.revenue.toLocaleString()}</td><td className="px-5 py-3">{tech.acceptance}%</td></tr>)}</tbody></table></div></section>
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4 font-semibold text-gray-900">{t('analytics.projectPerformance')}</div><div className="divide-y divide-gray-100">{PROJECT_ANALYTICS.map(p=><div key={p.name} className="flex items-center justify-between gap-3 px-5 py-3"><div className="min-w-0 flex-1"><div className="truncate font-medium text-gray-900">{p.name}</div><div className="mt-0.5 text-xs text-gray-500">{'$'+Math.round(p.spent/1000)+'k / $'+Math.round(p.budget/1000)+'k'}</div></div><div className="flex shrink-0 items-center gap-3"><div className="h-1.5 w-24 overflow-hidden rounded-full bg-gray-100"><div className={'h-full rounded-full '+(p.status==='completed'?'bg-green-500':'bg-orange-500')} style={{width:p.progress+'%'}}/></div><span className="w-10 text-end text-sm font-medium">{p.progress}%</span></div></div>)}</div></section>
+ </div>;
 }
