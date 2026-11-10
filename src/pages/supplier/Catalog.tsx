@@ -1,80 +1,19 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { MOCK_PRODUCTS } from '@/data/mock';
 import { cn } from '@/lib/utils';
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, CheckCircle2 } from 'lucide-react';
 
-const categories = ['All', 'Materials', 'Finishing', 'Equipment', 'Rental'];
-
-export function SupplierCatalog() {
-  const [cat, setCat] = useState('All');
-  const [q, setQ] = useState('');
-  const filtered = MOCK_PRODUCTS.filter((p) => {
-    if (cat !== 'All' && p.category !== cat) return false;
-    if (q && !p.name.toLowerCase().includes(q.toLowerCase())) return false;
-    return true;
-  });
-
-  return (
-    <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-gray-900">Product Catalog</h2>
-        <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700">
-          <Plus className="w-4 h-4" />
-          Add product
-        </button>
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search products..."
-            className="w-full ps-10 pe-4 py-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-        </div>
-        <div className="flex gap-1.5 overflow-x-auto">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCat(c)}
-              className={cn(
-                'px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap',
-                cat === c ? 'bg-emerald-600 text-white' : 'bg-white border border-gray-200 text-gray-600'
-              )}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {filtered.map((p) => (
-          <div key={p.id} className="bg-white rounded-xl border border-gray-200 p-4 hover:border-emerald-300 transition-colors">
-            <div className="flex justify-between items-start gap-2">
-              <div>
-                <div className="font-semibold text-gray-900">{p.name}</div>
-                <div className="text-xs text-gray-500 mt-0.5">{p.category} · {p.supplier}</div>
-              </div>
-              {p.stock < 20 && (
-                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">Low</span>
-              )}
-            </div>
-            <div className="mt-3 flex items-end justify-between">
-              <div>
-                <div className="text-lg font-bold text-gray-900">${p.price.toLocaleString()}</div>
-                <div className="text-xs text-gray-500">per {p.unit}</div>
-              </div>
-              <div className="text-sm text-gray-600">Stock: {p.stock}</div>
-            </div>
-            <button className="mt-3 w-full py-2 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50">
-              Order / Request
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+const categories=['All','Materials','Finishing','Equipment','Rental'];
+type Product=typeof MOCK_PRODUCTS[number];
+export function SupplierCatalog(){
+ const[params]=useSearchParams();const[cat,setCat]=useState('All');const[q,setQ]=useState('');const[products,setProducts]=useState<Product[]>(MOCK_PRODUCTS);const[showForm,setShowForm]=useState(false);const[requested,setRequested]=useState<string[]>([]);const[name,setName]=useState('');const[category,setCategory]=useState('Materials');const[price,setPrice]=useState('');const[stock,setStock]=useState('');const[notice,setNotice]=useState('');
+ const filtered=products.filter(p=>(cat==='All'||p.category===cat)&&p.name.toLowerCase().includes(q.toLowerCase())&&(!params.has('stock')||params.get('stock')!=='low'||p.stock<20));
+ function add(event:FormEvent<HTMLFormElement>){event.preventDefault();const cost=Number(price);const quantity=Number(stock);if(!name.trim()||cost<=0||quantity<0)return;const product={id:'LOCAL-'+(products.length+1),name:name.trim(),category,supplier:'Your demo catalog',price:cost,unit:'unit',stock:quantity};setProducts(current=>[product,...current]);setName('');setPrice('');setStock('');setShowForm(false);setNotice('Product added to the local demo catalog.')}
+ return <div className="space-y-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h2 className="text-xl font-bold text-gray-900">Product Catalog</h2><button type="button" aria-expanded={showForm} onClick={()=>setShowForm(v=>!v)} className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"><Plus className="h-4 w-4"/>{showForm?'Close':'Add product'}</button></div><p className="text-xs text-amber-700">Product and order actions are local demo interactions; no supplier inventory or order API is connected.</p>{notice&&<p role="status" aria-live="polite" className="rounded-lg bg-green-50 p-3 text-sm text-green-800">{notice}</p>}
+  {showForm&&<form onSubmit={add} className="grid gap-3 rounded-xl border border-gray-200 bg-white p-5 sm:grid-cols-2"><div><label htmlFor="product-name" className="mb-1 block text-sm font-medium">Product name</label><input id="product-name" required value={name} onChange={e=>setName(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2"/></div><div><label htmlFor="product-category" className="mb-1 block text-sm font-medium">Category</label><select id="product-category" value={category} onChange={e=>setCategory(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2">{categories.filter(c=>c!=='All').map(c=><option key={c}>{c}</option>)}</select></div><div><label htmlFor="product-price" className="mb-1 block text-sm font-medium">Price ($)</label><input id="product-price" type="number" min="0.01" step="0.01" required value={price} onChange={e=>setPrice(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2"/></div><div><label htmlFor="product-stock" className="mb-1 block text-sm font-medium">Stock quantity</label><input id="product-stock" type="number" min="0" step="1" required value={stock} onChange={e=>setStock(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2"/></div><button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 sm:col-span-2">Save demo product</button></form>}
+  <div className="flex flex-col gap-3 sm:flex-row"><div className="relative flex-1"><Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"/><label htmlFor="catalog-search" className="sr-only">Search products</label><input id="catalog-search" value={q} onChange={e=>setQ(e.target.value)} placeholder="Search products..." className="w-full rounded-lg border border-gray-300 py-2.5 pe-4 ps-10 text-sm"/></div><div className="flex gap-1.5 overflow-x-auto">{categories.map(c=><button key={c} type="button" aria-pressed={cat===c} onClick={()=>setCat(c)} className={cn('whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium',cat===c?'bg-emerald-600 text-white':'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50')}>{c}</button>)}</div></div>
+  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{filtered.map(p=><article key={p.id} className="rounded-xl border border-gray-200 bg-white p-4 transition-colors hover:border-emerald-300"><div className="flex items-start justify-between gap-2"><div><h3 className="font-semibold text-gray-900">{p.name}</h3><div className="mt-0.5 text-xs text-gray-500">{p.category} · {p.supplier}</div></div>{p.stock<20&&<span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">Low</span>}</div><div className="mt-3 flex items-end justify-between"><div><div className="text-lg font-bold text-gray-900">{'$'+p.price.toLocaleString()}</div><div className="text-xs text-gray-500">per {p.unit}</div></div><div className="text-sm text-gray-600">Stock: {p.stock}</div></div><button type="button" disabled={requested.includes(p.id)} onClick={()=>{setRequested(current=>[...current,p.id]);setNotice('Order request for '+p.name+' saved locally. It was not sent to a supplier.')}} className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 py-2 text-sm font-medium hover:bg-gray-50 disabled:cursor-default disabled:bg-green-50 disabled:text-green-700">{requested.includes(p.id)?<><CheckCircle2 className="h-4 w-4"/>Request saved (demo)</>:'Order / Request'}</button></article>)}</div>{filtered.length===0&&<div className="rounded-xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">No products match the selected filters.</div>}
+ </div>;
 }
