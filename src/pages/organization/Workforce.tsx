@@ -32,7 +32,32 @@ export function WorkforcePage() {
                     </td>
                     <td className="px-5 py-3 text-gray-600">{w.role}</td>
                     <td className="px-5 py-3 text-gray-600">{project?.name || '—'}</td>
-                    <td className="px-5 py-3 text-gray-600">ETB {w.dailyRate}</td>
+                    <td className="px-5 py-3 text-gray-600">{'</td>
+                    <td className="px-5 py-3">
+                      <span
+                        className={cn(
+                          'text-xs font-medium px-2 py-0.5 rounded-full',
+                          w.status === 'active'
+                            ? 'bg-green-100 text-green-700'
+                            : w.status === 'onLeave'
+                              ? 'bg-amber-100 text-amber-700'
+                              : 'bg-gray-100 text-gray-600'
+                        )}
+                      >
+                        {t(`construction.status.${w.status}`)}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+ + w.dailyRate.toLocaleString()}</td>
                     <td className="px-5 py-3">
                       <span
                         className={cn(
