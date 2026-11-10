@@ -1,165 +1,49 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { SERVICES } from '@/data/mock';
+import { listServices, createBooking } from '@/lib/auth';
+import type { ServiceCategory } from '@/lib/auth';
 import { cn } from '@/lib/utils';
-import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees } from 'lucide-react';
+import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, CheckCircle2 } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  plumbing: Wrench,
-  electrical: Zap,
-  painting: Paintbrush,
-  cleaning: Sparkles,
-  carpentry: Hammer,
-  hvac: Wind,
-  masonry: Home,
-  roofing: Home,
-  tiling: Home,
-  appliance: Home,
-  pest: Bug,
-  landscaping: Trees,
+ plumbing:Wrench,electrical:Zap,painting:Paintbrush,cleaning:Sparkles,carpentry:Hammer,hvac:Wind,masonry:Home,roofing:Home,tiling:Home,appliance:Home,pest:Bug,landscaping:Trees
 };
 
 export function CreateBooking() {
-  const { t } = useTranslation();
-  const [selected, setSelected] = useState<string | null>(null);
-  const [step, setStep] = useState(1);
-
-  return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-xl font-bold text-gray-900">{t('booking.createTitle')}</h2>
-
-      {/* Steps */}
-      <div className="flex items-center gap-2 text-sm">
-        <span className={cn('font-medium', step >= 1 ? 'text-primary-600' : 'text-gray-400')}>
-          1. {t('booking.selectService')}
-        </span>
-        <span className="text-gray-300">→</span>
-        <span className={cn('font-medium', step >= 2 ? 'text-primary-600' : 'text-gray-400')}>
-          2. {t('booking.selectDate')}
-        </span>
-        <span className="text-gray-300">→</span>
-        <span className={cn('font-medium', step >= 3 ? 'text-primary-600' : 'text-gray-400')}>
-          3. {t('booking.describeIssue')}
-        </span>
-      </div>
-
-      {step === 1 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {SERVICES.map((s) => {
-            const Icon = iconMap[s.key] || Wrench;
-            return (
-              <button
-                key={s.key}
-                onClick={() => setSelected(s.key)}
-                className={cn(
-                  'flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all',
-                  selected === s.key
-                    ? 'border-primary-500 bg-primary-50'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
-                )}
-              >
-                <Icon className="w-6 h-6 text-primary-600" />
-                <span className="text-sm font-medium text-gray-800">
-                  {t(`services.${s.key}`)}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {step === 2 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Preferred date
-            </label>
-            <input
-              type="date"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Preferred time
-            </label>
-            <select className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
-              <option>Morning (8:00 – 12:00)</option>
-              <option>Afternoon (12:00 – 17:00)</option>
-              <option>Evening (17:00 – 20:00)</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              {t('booking.address')}
-            </label>
-            <input
-              type="text"
-              placeholder="Street address, city, state"
-              autoComplete="street-address"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">ZIP code</label>
-            <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]{5}"
-              maxLength={5}
-              placeholder="64108"
-              autoComplete="postal-code"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              {t('booking.describeIssue')}
-            </label>
-            <textarea
-              rows={4}
-              placeholder="Describe the problem or work needed..."
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Photos (optional)
-            </label>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center text-sm text-gray-500">
-              Click or drag photos here
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-between">
-        <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={step === 1}
-          className="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium disabled:opacity-40"
-        >
-          {t('common.back')}
-        </button>
-        {step < 3 ? (
-          <button
-            onClick={() => setStep((s) => s + 1)}
-            disabled={step === 1 && !selected}
-            className="px-5 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700 disabled:opacity-40"
-          >
-            {t('common.continue')}
-          </button>
-        ) : (
-          <button className="px-5 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
-            {t('booking.submit')}
-          </button>
-        )}
-      </div>
-    </div>
-  );
+ const {t}=useTranslation(); const navigate=useNavigate();
+ const [services,setServices]=useState<ServiceCategory[]>([]); const [selected,setSelected]=useState('');
+ const [step,setStep]=useState(1); const [date,setDate]=useState(''); const [time,setTime]=useState('09:00');
+ const [address,setAddress]=useState(''); const [zip,setZip]=useState(''); const [notes,setNotes]=useState('');
+ const [loadingServices,setLoadingServices]=useState(true); const [busy,setBusy]=useState(false);
+ const [error,setError]=useState(''); const [successId,setSuccessId]=useState('');
+ const loadServices=useCallback(async()=>{setLoadingServices(true);setError('');try{setServices(await listServices())}catch(e){setError(e instanceof Error?e.message:'Unable to load services.')}finally{setLoadingServices(false)}},[]);
+ useEffect(()=>{void loadServices()},[loadServices]);
+ async function submit(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();setError('');
+  if(!selected){setError('Choose a service before submitting.');setStep(1);return}
+  if(!address.trim()){setError('Enter the service address.');setStep(2);return}
+  const scheduledAt=date?new Date(date+'T'+time).toISOString():null;
+  if(scheduledAt&&new Date(scheduledAt).getTime()<=Date.now()){setError('Choose a future date and time.');setStep(2);return}
+  setBusy(true);
+  try{const result=await createBooking({serviceCategoryId:selected,address:address.trim()+(zip?', '+zip:''),scheduledAt,notes:notes.trim()||undefined});setSuccessId(result.id)}
+  catch(e){setError(e instanceof Error?e.message:'Your booking could not be submitted.')}
+  finally{setBusy(false)}
+ }
+ if(successId)return <div className="mx-auto max-w-xl rounded-2xl border border-green-200 bg-white p-8 text-center shadow-sm"><CheckCircle2 className="mx-auto h-12 w-12 text-green-600"/><h2 className="mt-3 text-xl font-bold text-gray-900">Booking request submitted</h2><p className="mt-2 text-sm text-gray-600">Your request was saved by the Mela API. Reference: <span className="font-mono">{successId}</span></p><div className="mt-5 flex flex-wrap justify-center gap-3"><Link to="/customer/bookings" className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white">View my bookings</Link><button type="button" onClick={()=>navigate('/customer')} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium">Back to dashboard</button></div></div>;
+ return <form onSubmit={submit} className="mx-auto max-w-2xl space-y-6">
+  <div><h2 className="text-xl font-bold text-gray-900">{t('booking.createTitle')}</h2><p className="mt-1 text-sm text-gray-500">Submit a service request to the Mela API.</p></div>
+  <ol aria-label="Booking steps" className="flex flex-wrap items-center gap-2 text-sm">{['Select service','Schedule & address','Describe the work'].map((label,index)=><li key={label} aria-current={step===index+1?'step':undefined} className={cn('rounded-full px-3 py-1.5',step===index+1?'bg-primary-100 font-semibold text-primary-800':'bg-gray-100 text-gray-500')}>{index+1}. {label}</li>)}</ol>
+  {error&&<div role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</div>}
+  {step===1&&<section className="space-y-3"><h3 className="font-semibold text-gray-900">Choose a service</h3>{loadingServices?<p role="status" className="text-sm text-gray-500">Loading services…</p>:services.length===0?<div className="rounded-xl border border-gray-200 bg-white p-5"><p className="text-sm text-gray-600">No service categories are available.</p><button type="button" onClick={()=>void loadServices()} className="mt-3 rounded-lg border border-gray-300 px-3 py-2 text-sm">Retry</button></div>:<div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{services.map(service=>{const Icon=iconMap[service.key]||Wrench;return <button key={service.id} type="button" aria-pressed={selected===service.id} onClick={()=>setSelected(service.id)} className={cn('flex flex-col items-center gap-2 rounded-xl border-2 bg-white p-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600',selected===service.id?'border-primary-500 bg-primary-50':'border-gray-200 hover:border-gray-300')}><Icon className="h-6 w-6 text-primary-600"/><span className="text-sm font-medium capitalize text-gray-800">{t('services.'+service.key,{defaultValue:service.key})}</span></button>})}</div>}</section>}
+  {step===2&&<section className="space-y-4 rounded-xl border border-gray-200 bg-white p-5">
+   <div><label htmlFor="booking-date" className="mb-1.5 block text-sm font-medium text-gray-700">Preferred date</label><input id="booking-date" type="date" min={new Date().toISOString().slice(0,10)} value={date} onChange={e=>setDate(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"/></div>
+   <div><label htmlFor="booking-time" className="mb-1.5 block text-sm font-medium text-gray-700">Preferred time</label><select id="booking-time" value={time} onChange={e=>setTime(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"><option value="08:00">Morning (8:00 AM)</option><option value="09:00">Morning (9:00 AM)</option><option value="12:00">Afternoon (12:00 PM)</option><option value="14:00">Afternoon (2:00 PM)</option><option value="17:00">Evening (5:00 PM)</option></select></div>
+   <div><label htmlFor="booking-address" className="mb-1.5 block text-sm font-medium text-gray-700">Service address</label><input id="booking-address" required maxLength={500} autoComplete="street-address" value={address} onChange={e=>setAddress(e.target.value)} placeholder="Street address, city, state" className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"/></div>
+   <div><label htmlFor="booking-zip" className="mb-1.5 block text-sm font-medium text-gray-700">ZIP code</label><input id="booking-zip" inputMode="numeric" pattern="[0-9]{5}" maxLength={5} autoComplete="postal-code" value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder="64108" className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"/></div>
+  </section>}
+  {step===3&&<section className="space-y-3 rounded-xl border border-gray-200 bg-white p-5"><label htmlFor="booking-notes" className="block text-sm font-medium text-gray-700">Describe the work needed (optional)</label><textarea id="booking-notes" rows={5} maxLength={2000} value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Describe the issue, preferred access instructions, or other details…" className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"/><p className="text-right text-xs text-gray-400">{notes.length}/2000</p><p className="text-xs text-gray-500">Photos and online payment are not connected to this booking API yet.</p></section>}
+  <div className="flex justify-between"><button type="button" onClick={()=>setStep(s=>Math.max(1,s-1))} disabled={step===1||busy} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium disabled:opacity-40">{t('common.back')}</button>{step<3?<button type="button" onClick={()=>{setError('');setStep(s=>s+1)}} disabled={loadingServices||(step===1&&!selected)||(step===2&&!address.trim())} className="rounded-lg bg-primary-600 px-5 py-2 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-40">{t('common.continue')}</button>:<button type="submit" disabled={busy} className="rounded-lg bg-primary-600 px-5 py-2 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-50">{busy?'Submitting…':t('booking.submit')}</button>}</div>
+ </form>;
 }

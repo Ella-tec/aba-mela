@@ -1,104 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MOCK_CUSTOMER_BOOKINGS } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { CalendarPlus, Search, Wallet, ClipboardList } from 'lucide-react';
+import { MetricCard } from '@/components/ui/MetricCard';
+import { listBookings, listServices } from '@/lib/auth';
+import type { BookingRecord, ServiceCategory } from '@/lib/auth';
+import { useCallback, useEffect, useState } from 'react';
 
-export function CustomerDashboard() {
-  const { t } = useTranslation();
-  const active = MOCK_CUSTOMER_BOOKINGS.filter((b) =>
-    ['requested', 'quoted', 'accepted', 'assigned', 'onTheWay', 'arrived', 'working'].includes(b.status)
-  );
-  const recent = MOCK_CUSTOMER_BOOKINGS.slice(0, 3);
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">{t('customer.welcome')}</h2>
-        <p className="text-gray-500 mt-1">Here's what's happening with your services</p>
-      </div>
-
-      {/* Quick actions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Link
-          to="/customer/create-booking"
-          className="flex flex-col items-center gap-2 p-4 rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-colors"
-        >
-          <CalendarPlus className="w-6 h-6" />
-          <span className="text-sm font-medium">{t('customer.createBooking')}</span>
-        </Link>
-        <Link
-          to="/customer/find-service"
-          className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-200 hover:border-primary-300 transition-colors"
-        >
-          <Search className="w-6 h-6 text-primary-600" />
-          <span className="text-sm font-medium text-gray-800">{t('customer.findService')}</span>
-        </Link>
-        <Link
-          to="/customer/bookings"
-          className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-200 hover:border-primary-300 transition-colors"
-        >
-          <ClipboardList className="w-6 h-6 text-primary-600" />
-          <span className="text-sm font-medium text-gray-800">{t('customer.myBookings')}</span>
-        </Link>
-        <Link
-          to="/customer/payments"
-          className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-200 hover:border-primary-300 transition-colors"
-        >
-          <Wallet className="w-6 h-6 text-primary-600" />
-          <span className="text-sm font-medium text-gray-800">{t('customer.payments')}</span>
-        </Link>
-      </div>
-
-      {/* Active bookings */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">{t('customer.active')}</h3>
-          <Link to="/customer/bookings" className="text-sm text-primary-600 hover:underline">
-            {t('common.viewAll')}
-          </Link>
-        </div>
-        {active.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">{t('customer.noBookings')}</div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {active.map((b) => (
-              <Link
-                key={b.id}
-                to={`/customer/bookings/${b.id}`}
-                className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
-              >
-                <div>
-                  <div className="font-medium text-gray-900">{b.service}</div>
-                  <div className="text-sm text-gray-500 mt-0.5">
-                    {b.professional || 'Awaiting professional'} · {b.address}
-                  </div>
-                </div>
-                <StatusBadge status={b.status} />
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Recent */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Recent activity</h3>
-        </div>
-        <div className="divide-y divide-gray-100">
-          {recent.map((b) => (
-            <div key={b.id} className="flex items-center justify-between px-5 py-3">
-              <div className="text-sm">
-                <span className="font-medium text-gray-900">{b.service}</span>
-                <span className="text-gray-400 mx-2">·</span>
-                <span className="text-gray-500">{b.id}</span>
-              </div>
-              <StatusBadge status={b.status} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+export function CustomerDashboard(){
+ const {t}=useTranslation();const[bookings,setBookings]=useState<BookingRecord[]>([]);const[services,setServices]=useState<ServiceCategory[]>([]);const[error,setError]=useState('');const[loading,setLoading]=useState(true);
+ const load=useCallback(async()=>{setLoading(true);setError('');try{const[records,categories]=await Promise.all([listBookings(),listServices()]);setBookings(records);setServices(categories)}catch(e){setError(e instanceof Error?e.message:'Unable to load your dashboard.')}finally{setLoading(false)}},[]);
+ useEffect(()=>{void load()},[load]);
+ const active=bookings.filter(b=>!['completed','cancelled'].includes(b.status));const completed=bookings.filter(b=>b.status==='completed').length;
+ const serviceName=(id:string)=>services.find(s=>s.id===id)?.key.replace(/\b\w/g,c=>c.toUpperCase())||'Service request';
+ return <div className="space-y-6"><div><h2 className="text-2xl font-bold text-gray-900">{t('customer.welcome')}</h2><p className="mt-1 text-gray-500">Here’s what’s happening with your services.</p></div>
+  <div className="grid grid-cols-2 gap-3 lg:grid-cols-4"><MetricCard to="/customer/bookings" label="Active bookings" value={active.length} icon={ClipboardList} detail="View your requests"/><MetricCard to="/customer/bookings?filter=completed" label="Completed bookings" value={completed} icon={CalendarPlus} detail="Review completed work"/><MetricCard to="/customer/payments" label={t('customer.payments')} value="View" icon={Wallet} detail="Open payment history"/><MetricCard to="/customer/smart-match" label="Find a professional" value="Match" icon={Search} detail="Compare demo matches"/></div>
+  <div className="grid grid-cols-2 gap-3 md:grid-cols-4"><Link to="/customer/create-booking" className="flex flex-col items-center gap-2 rounded-xl bg-primary-600 p-4 text-white transition-colors hover:bg-primary-700"><CalendarPlus className="h-6 w-6"/><span className="text-sm font-medium">{t('customer.createBooking')}</span></Link><Link to="/customer/find-service" className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-white p-4 hover:border-primary-300"><Search className="h-6 w-6 text-primary-600"/><span className="text-sm font-medium text-gray-800">{t('customer.findService')}</span></Link><Link to="/customer/bookings" className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-white p-4 hover:border-primary-300"><ClipboardList className="h-6 w-6 text-primary-600"/><span className="text-sm font-medium text-gray-800">{t('customer.myBookings')}</span></Link><Link to="/customer/payments" className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-white p-4 hover:border-primary-300"><Wallet className="h-6 w-6 text-primary-600"/><span className="text-sm font-medium text-gray-800">{t('customer.payments')}</span></Link></div>
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="flex items-center justify-between border-b border-gray-100 px-5 py-4"><h3 className="font-semibold text-gray-900">{t('customer.active')}</h3><Link to="/customer/bookings" className="text-sm text-primary-600 hover:underline">{t('common.viewAll')}</Link></div>{loading?<p role="status" className="p-8 text-center text-sm text-gray-500">Loading bookings…</p>:error?<div role="alert" className="p-6 text-sm text-red-700">{error}<button type="button" onClick={()=>void load()} className="ms-3 underline">Retry</button></div>:active.length===0?<div className="p-8 text-center text-gray-500">{t('customer.noBookings')}</div>:<div className="divide-y divide-gray-100">{active.slice(0,5).map(b=><Link key={b.id} to={'/customer/bookings/'+b.id} className="flex items-center justify-between gap-3 px-5 py-4 hover:bg-gray-50"><div><div className="font-medium text-gray-900">{serviceName(b.serviceCategoryId)}</div><div className="mt-0.5 text-sm text-gray-500">{b.address}</div></div><StatusBadge status={b.status}/></Link>)}</div>}</section>
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="flex items-center justify-between border-b border-gray-100 px-5 py-4"><h3 className="font-semibold text-gray-900">Recent activity</h3><Link to="/customer/bookings" className="text-sm text-primary-600 hover:underline">View history</Link></div>{bookings.length===0?<p className="p-6 text-sm text-gray-500">Your booking activity will appear here.</p>:<div className="divide-y divide-gray-100">{bookings.slice(0,3).map(b=><Link key={b.id} to={'/customer/bookings/'+b.id} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-gray-50"><div className="text-sm"><span className="font-medium text-gray-900">{serviceName(b.serviceCategoryId)}</span><span className="mx-2 text-gray-400">·</span><span className="text-gray-500">{b.id}</span></div><StatusBadge status={b.status}/></Link>)}</div>}</section>
+ </div>;
 }

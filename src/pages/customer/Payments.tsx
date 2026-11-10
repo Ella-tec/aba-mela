@@ -2,142 +2,20 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MOCK_PAYMENTS, MOCK_QUOTES } from '@/data/mock';
 import { PaymentStatusBadge } from '@/components/ui/PaymentStatusBadge';
-import { CreditCard, Smartphone, Building2, Check } from 'lucide-react';
+import { CreditCard, Building2, Banknote, Check, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export function CustomerPayments() {
-  const { t } = useTranslation();
-  const [payingId, setPayingId] = useState<string | null>(null);
-  const [method, setMethod] = useState<'telebirr' | 'chapa' | 'bank'>('telebirr');
-
-  const pending = MOCK_PAYMENTS.filter((p) => p.status === 'pending');
-  const history = MOCK_PAYMENTS.filter((p) => p.status !== 'pending');
-  const openQuotes = MOCK_QUOTES.filter((q) => q.status === 'pending');
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-bold text-gray-900">{t('payments.title')}</h2>
-
-      {/* Pending payments */}
-      {pending.length > 0 && (
-        <div className="bg-white rounded-xl border border-amber-200 overflow-hidden">
-          <div className="px-5 py-3 bg-amber-50 border-b border-amber-100 font-semibold text-amber-800">
-            Awaiting Payment
-          </div>
-          <div className="divide-y divide-gray-100">
-            {pending.map((p) => (
-              <div key={p.id} className="px-5 py-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
-                    <div className="font-medium text-gray-900">{p.service}</div>
-                    <div className="text-sm text-gray-500">{p.bookingId} · {p.id}</div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="text-lg font-bold text-gray-900">${p.amount.toLocaleString()}</div>
-                    <button
-                      onClick={() => setPayingId(payingId === p.id ? null : p.id)}
-                      className="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700"
-                    >
-                      {t('payments.payNow')}
-                    </button>
-                  </div>
-                </div>
-
-                {payingId === p.id && (
-                  <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-3">
-                    <div className="text-sm font-medium text-gray-700">{t('payments.selectMethod')}</div>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { id: 'telebirr' as const, label: t('payments.telebirr'), icon: Smartphone },
-                        { id: 'chapa' as const, label: t('payments.chapa'), icon: CreditCard },
-                        { id: 'bank' as const, label: t('payments.bank'), icon: Building2 },
-                      ].map((m) => (
-                        <button
-                          key={m.id}
-                          onClick={() => setMethod(m.id)}
-                          className={cn(
-                            'flex flex-col items-center gap-1.5 p-3 rounded-lg border-2 transition-all',
-                            method === m.id
-                              ? 'border-primary-500 bg-primary-50'
-                              : 'border-gray-200 bg-white hover:border-gray-300'
-                          )}
-                        >
-                          <m.icon className="w-5 h-5 text-primary-600" />
-                          <span className="text-xs font-medium">{m.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                    <button className="w-full py-2.5 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 flex items-center justify-center gap-2">
-                      <Check className="w-4 h-4" />
-                      {t('payments.confirmPayment')} — ${p.amount.toLocaleString()}
-                    </button>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Open Quotes */}
-      {openQuotes.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 font-semibold text-gray-900">
-            {t('quotes.compare')}
-          </div>
-          <div className="divide-y divide-gray-100">
-            {openQuotes.map((q) => (
-              <div key={q.id} className="px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <div className="font-medium text-gray-900">{q.professional}</div>
-                  <div className="text-sm text-gray-500 mt-0.5">
-                    {q.bookingId} · {t('quotes.validUntil')} {new Date(q.validUntil).toLocaleDateString()}
-                  </div>
-                  {q.notes && <div className="text-sm text-gray-400 mt-1">{q.notes}</div>}
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="text-lg font-bold text-gray-900">${q.amount.toLocaleString()}</div>
-                  <button className="px-3 py-1.5 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
-                    {t('quotes.accept')}
-                  </button>
-                  <button className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-600">
-                    {t('quotes.reject')}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* History */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 font-semibold text-gray-900">
-          {t('payments.history')}
-        </div>
-        {history.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">{t('payments.noPayments')}</div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {history.map((p) => (
-              <div key={p.id} className="px-5 py-4 flex items-center justify-between gap-3">
-                <div>
-                  <div className="font-medium text-gray-900">{p.service}</div>
-                  <div className="text-sm text-gray-500">
-                    {p.bookingId} · {p.method || '—'} · {new Date(p.createdAt).toLocaleDateString()}
-                  </div>
-                </div>
-                <div className="text-end">
-                  <div className="font-semibold text-gray-900">${p.amount.toLocaleString()}</div>
-                  <div className="mt-1">
-                    <PaymentStatusBadge status={p.status} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+type Method='card'|'bank'|'cash';
+export function CustomerPayments(){
+ const {t}=useTranslation();const[payingId,setPayingId]=useState<string|null>(null);const[method,setMethod]=useState<Method>('card');const[notice,setNotice]=useState('');const[quoteDecisions,setQuoteDecisions]=useState<Record<string,'accepted'|'declined'>>({});
+ const pending=MOCK_PAYMENTS.filter(p=>p.status==='pending');const history=MOCK_PAYMENTS.filter(p=>p.status!=='pending');const openQuotes=MOCK_QUOTES.filter(q=>q.status==='pending');
+ function paymentInfo(){setNotice('Online payment processing is not connected. No payment was taken. Contact support for payment assistance.')}
+ return <div className="space-y-6"><h2 className="text-xl font-bold text-gray-900">{t('payments.title')}</h2><p className="text-xs text-amber-700">Payment processor integration is not enabled. This page displays sample payment records only; never enter real card or bank details here.</p>
+  {notice&&<div role="status" aria-live="polite" className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900"><AlertCircle className="mt-0.5 h-4 w-4 shrink-0"/>{notice}</div>}
+  {pending.length>0&&<section className="overflow-hidden rounded-xl border border-amber-200 bg-white"><div className="border-b border-amber-100 bg-amber-50 px-5 py-3 font-semibold text-amber-800">Awaiting Payment</div><div className="divide-y divide-gray-100">{pending.map(p=><div key={p.id} className="px-5 py-4"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><div className="font-medium text-gray-900">{p.service}</div><div className="text-sm text-gray-500">{p.bookingId} · {p.id}</div></div><div className="flex items-center gap-3"><div className="text-lg font-bold text-gray-900">{'$'+p.amount.toLocaleString()}</div><button type="button" aria-expanded={payingId===p.id} onClick={()=>setPayingId(payingId===p.id?null:p.id)} className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">Review options</button></div></div>
+   {payingId===p.id&&<div className="mt-4 space-y-3 rounded-lg bg-gray-50 p-4"><p className="text-sm font-medium text-gray-700">Select a demo payment preference</p><div className="grid grid-cols-3 gap-2">{[{id:'card' as const,label:'Card (demo)',icon:CreditCard},{id:'bank' as const,label:'Bank (demo)',icon:Building2},{id:'cash' as const,label:'Cash (demo)',icon:Banknote}].map(m=><button key={m.id} type="button" aria-pressed={method===m.id} onClick={()=>setMethod(m.id)} className={cn('flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 transition-all',method===m.id?'border-primary-500 bg-primary-50':'border-gray-200 bg-white hover:border-gray-300')}><m.icon className="h-5 w-5 text-primary-600"/><span className="text-center text-xs font-medium">{m.label}</span></button>)}</div><button type="button" onClick={paymentInfo} className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-800 py-2.5 text-sm font-semibold text-white hover:bg-gray-900"><Check className="h-4 w-4"/>Check payment availability</button><p className="text-xs text-gray-500">Selected preference: {method}. This does not charge you or update payment status.</p></div>}
+  </div>)}</div></section>}
+  {openQuotes.length>0&&<section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4 font-semibold text-gray-900">{t('quotes.compare')}</div><div className="divide-y divide-gray-100">{openQuotes.map(q=><div key={q.id} className="flex flex-col justify-between gap-3 px-5 py-4 sm:flex-row sm:items-center"><div><div className="font-medium text-gray-900">{q.professional}</div><div className="mt-0.5 text-sm text-gray-500">{q.bookingId} · {t('quotes.validUntil')} {new Date(q.validUntil).toLocaleDateString()}</div>{q.notes&&<div className="mt-1 text-sm text-gray-400">{q.notes}</div>}</div><div className="flex items-center gap-3"><div className="text-lg font-bold text-gray-900">{'$'+q.amount.toLocaleString()}</div>{quoteDecisions[q.id]?<span className="text-sm font-medium text-primary-700">{quoteDecisions[q.id]==='accepted'?'Accepted in demo':'Declined in demo'}</span>:<><button type="button" onClick={()=>setQuoteDecisions(v=>({...v,[q.id]:'accepted'}))} className="rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-700">{t('quotes.accept')}</button><button type="button" onClick={()=>setQuoteDecisions(v=>({...v,[q.id]:'declined'}))} className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50">{t('quotes.reject')}</button></>}</div></div>)}</div><p className="border-t border-gray-100 px-5 py-3 text-xs text-gray-500">Quote decisions are local demo state and are not sent to the professional.</p></section>}
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4 font-semibold text-gray-900">{t('payments.history')}</div>{history.length===0?<div className="p-8 text-center text-gray-500">{t('payments.noPayments')}</div>:<div className="divide-y divide-gray-100">{history.map(p=><div key={p.id} className="flex items-center justify-between gap-3 px-5 py-4"><div><div className="font-medium text-gray-900">{p.service}</div><div className="text-sm text-gray-500">{p.bookingId} · {p.method||'—'} · {new Date(p.createdAt).toLocaleDateString()}</div></div><div className="text-end"><div className="font-semibold text-gray-900">{'$'+p.amount.toLocaleString()}</div><div className="mt-1"><PaymentStatusBadge status={p.status}/></div></div></div>)}</div>}</section>
+ </div>;
 }

@@ -3,121 +3,22 @@ import { MOCK_PROPERTIES } from '@/data/mock';
 import { Home, Wrench, Calendar, FileText, Plus, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const HISTORY: Record<string, { date: string; service: string; provider: string; amount: number }[]> = {
-  'HP-1': [
-    { date: '2026-10-28', service: 'Electrical', provider: 'Sara Haile', amount: 1200 },
-    { date: '2026-09-15', service: 'Plumbing', provider: 'Abebe Kebede', amount: 850 },
-    { date: '2026-08-02', service: 'Cleaning', provider: 'Hanna Molla', amount: 600 },
-  ],
-  'HP-2': [
-    { date: '2026-09-15', service: 'HVAC', provider: 'Daniel Girma', amount: 2200 },
-  ],
-  'HP-3': [
-    { date: '2026-10-05', service: 'Painting', provider: 'Yonas Tadesse', amount: 4500 },
-    { date: '2026-08-20', service: 'Plumbing', provider: 'Abebe Kebede', amount: 900 },
-  ],
+const HISTORY:Record<string,{date:string;service:string;provider:string;amount:number}[]>={
+ 'HP-1':[{date:'2026-10-28',service:'Electrical',provider:'Demo Provider One',amount:120},{date:'2026-09-15',service:'Plumbing',provider:'Demo Provider Two',amount:85},{date:'2026-08-02',service:'Cleaning',provider:'Demo Provider Three',amount:60}],
+ 'HP-2':[{date:'2026-09-15',service:'HVAC',provider:'Demo Provider Four',amount:220}],
+ 'HP-3':[{date:'2026-10-05',service:'Painting',provider:'Demo Provider Five',amount:450},{date:'2026-08-20',service:'Plumbing',provider:'Demo Provider Two',amount:90}]
 };
-
-export function HomePassport() {
-  const [selected, setSelected] = useState(MOCK_PROPERTIES[0]?.id);
-
-  const property = MOCK_PROPERTIES.find((p) => p.id === selected);
-  const history = selected ? HISTORY[selected] || [] : [];
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900">Home Passport</h2>
-          <p className="text-sm text-gray-500">Property records, maintenance & service history</p>
-        </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
-          <Plus className="w-4 h-4" />
-          Add property
-        </button>
-      </div>
-
-      {/* Property cards */}
-      <div className="grid sm:grid-cols-3 gap-3">
-        {MOCK_PROPERTIES.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => setSelected(p.id)}
-            className={cn(
-              'text-start bg-white rounded-xl border-2 p-4 transition-colors',
-              selected === p.id ? 'border-primary-500 bg-primary-50/50' : 'border-gray-200 hover:border-gray-300'
-            )}
-          >
-            <div className="flex items-center gap-2">
-              <Home className="w-5 h-5 text-primary-600" />
-              <span className="font-semibold text-gray-900 text-sm">{p.name}</span>
-            </div>
-            <div className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-              <MapPin className="w-3 h-3" />
-              {p.address}
-            </div>
-            <div className="text-xs text-gray-400 mt-1">{p.type} · {p.servicesCount} services</div>
-          </button>
-        ))}
-      </div>
-
-      {property && (
-        <>
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-3">{property.name}</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-              <div>
-                <div className="text-gray-500">Type</div>
-                <div className="font-medium">{property.type}</div>
-              </div>
-              <div>
-                <div className="text-gray-500">Size</div>
-                <div className="font-medium">{property.size || '—'}</div>
-              </div>
-              <div>
-                <div className="text-gray-500">Year built</div>
-                <div className="font-medium">{property.yearBuilt || '—'}</div>
-              </div>
-              <div>
-                <div className="text-gray-500">Address</div>
-                <div className="font-medium">{property.address}</div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-100">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Wrench className="w-4 h-4 text-gray-400" />
-                Last service: {property.lastService || '—'}
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Calendar className="w-4 h-4 text-gray-400" />
-                Next maintenance: {property.nextMaintenance || '—'}
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-3 border-b border-gray-100 font-semibold flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              Service history
-            </div>
-            {history.length === 0 ? (
-              <div className="p-8 text-center text-gray-500 text-sm">No services logged yet</div>
-            ) : (
-              <div className="divide-y divide-gray-100">
-                {history.map((h, i) => (
-                  <div key={i} className="px-5 py-3 flex items-center justify-between">
-                    <div>
-                      <div className="font-medium text-gray-900">{h.service}</div>
-                      <div className="text-sm text-gray-500">{h.provider} · {h.date}</div>
-                    </div>
-                    <div className="font-semibold text-gray-900">ETB {h.amount.toLocaleString()}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  );
+type Property=typeof MOCK_PROPERTIES[number];
+export function HomePassport(){
+ const[properties,setProperties]=useState<Property[]>(MOCK_PROPERTIES);const[selected,setSelected]=useState(MOCK_PROPERTIES[0]?.id);const[showForm,setShowForm]=useState(false);const[name,setName]=useState('');const[address,setAddress]=useState('');const[notice,setNotice]=useState('');
+ const property=properties.find(p=>p.id===selected);const history=selected?HISTORY[selected]||[]:[];
+ function addProperty(event:React.FormEvent<HTMLFormElement>){event.preventDefault();if(!name.trim()||!address.trim())return;const newProperty={id:'LOCAL-'+(properties.length+1),name:name.trim(),address:address.trim(),type:'Residential',size:'—',yearBuilt:0,servicesCount:0,lastService:'',nextMaintenance:'Not scheduled'};setProperties(current=>[newProperty,...current]);setSelected(newProperty.id);setName('');setAddress('');setShowForm(false);setNotice('Property added to this browser session only.')}
+ return <div className="space-y-6"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><h2 className="text-xl font-bold text-gray-900">Home Passport</h2><p className="text-sm text-gray-500">Property records, maintenance & service history</p></div><button type="button" aria-expanded={showForm} onClick={()=>setShowForm(v=>!v)} className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"><Plus className="h-4 w-4"/>{showForm?'Close':'Add property'}</button></div>
+  <p className="text-xs text-amber-700">Property updates are stored in this page session only. Property management is not connected to a server API.</p>{notice&&<p role="status" aria-live="polite" className="rounded-lg bg-green-50 p-3 text-sm text-green-800">{notice}</p>}
+  {showForm&&<form onSubmit={addProperty} className="grid gap-3 rounded-xl border border-gray-200 bg-white p-5 sm:grid-cols-2"><div><label htmlFor="property-name" className="mb-1 block text-sm font-medium text-gray-700">Property name</label><input id="property-name" required value={name} onChange={e=>setName(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2"/></div><div><label htmlFor="property-address" className="mb-1 block text-sm font-medium text-gray-700">Property address</label><input id="property-address" required value={address} onChange={e=>setAddress(e.target.value)} className="w-full rounded-lg border border-gray-300 px-3 py-2"/></div><button type="submit" className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 sm:col-span-2">Save demo property</button></form>}
+  <div className="grid gap-3 sm:grid-cols-3">{properties.map(p=><button key={p.id} type="button" aria-pressed={selected===p.id} onClick={()=>setSelected(p.id)} className={cn('rounded-xl border-2 bg-white p-4 text-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600',selected===p.id?'border-primary-500 bg-primary-50/50':'border-gray-200 hover:border-gray-300')}><div className="flex items-center gap-2"><Home className="h-5 w-5 text-primary-600"/><span className="text-sm font-semibold text-gray-900">{p.name}</span></div><div className="mt-1 flex items-center gap-1 text-xs text-gray-500"><MapPin className="h-3 w-3"/>{p.address}</div><div className="mt-1 text-xs text-gray-400">{p.type} · {p.servicesCount} services</div></button>)}</div>
+  {property&&<><section className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="mb-3 font-semibold text-gray-900">{property.name}</h3><div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4"><div><div className="text-gray-500">Type</div><div className="font-medium">{property.type}</div></div><div><div className="text-gray-500">Size</div><div className="font-medium">{property.size||'—'}</div></div><div><div className="text-gray-500">Year built</div><div className="font-medium">{property.yearBuilt||'—'}</div></div><div><div className="text-gray-500">Address</div><div className="font-medium">{property.address}</div></div></div><div className="mt-4 grid grid-cols-2 gap-3 border-t border-gray-100 pt-4"><div className="flex items-center gap-2 text-sm text-gray-600"><Wrench className="h-4 w-4 text-gray-400"/>Last service: {property.lastService||'—'}</div><div className="flex items-center gap-2 text-sm text-gray-600"><Calendar className="h-4 w-4 text-gray-400"/>Next maintenance: {property.nextMaintenance||'—'}</div></div></section>
+   <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="flex items-center gap-2 border-b border-gray-100 px-5 py-3 font-semibold"><FileText className="h-4 w-4"/>Service history</div>{history.length===0?<div className="p-8 text-center text-sm text-gray-500">No services logged for this property yet.</div>:<div className="divide-y divide-gray-100">{history.map((h,i)=><div key={i} className="flex items-center justify-between px-5 py-3"><div><div className="font-medium text-gray-900">{h.service}</div><div className="text-sm text-gray-500">{h.provider} · {h.date}</div></div><div className="font-semibold text-gray-900">{'$'+h.amount.toLocaleString()}</div></div>)}</div>}</section>
+  </>}
+ </div>;
 }

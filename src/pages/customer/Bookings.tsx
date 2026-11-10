@@ -1,90 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MOCK_CUSTOMER_BOOKINGS } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { listBookings, listServices } from '@/lib/auth';
+import type { BookingRecord, ServiceCategory } from '@/lib/auth';
+import { AlertCircle, RefreshCw } from 'lucide-react';
 
-const filters = ['all', 'active', 'completed', 'cancelled'] as const;
-
-export function CustomerBookings() {
-  const { t } = useTranslation();
-  const [filter, setFilter] = useState<(typeof filters)[number]>('all');
-
-  const filtered = MOCK_CUSTOMER_BOOKINGS.filter((b) => {
-    if (filter === 'all') return true;
-    if (filter === 'active')
-      return !['completed', 'cancelled'].includes(b.status);
-    if (filter === 'completed') return b.status === 'completed';
-    if (filter === 'cancelled') return b.status === 'cancelled';
-    return true;
-  });
-
-  return (
-    <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-gray-900">{t('customer.myBookings')}</h2>
-        <Link
-          to="/customer/create-booking"
-          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700"
-        >
-          {t('customer.createBooking')}
-        </Link>
-      </div>
-
-      <div className="flex gap-2 overflow-x-auto pb-1">
-        {filters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={cn(
-              'px-3.5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
-              filter === f
-                ? 'bg-primary-600 text-white'
-                : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-            )}
-          >
-            {f === 'all' ? 'All' : t(`customer.${f}`)}
-          </button>
-        ))}
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        {filtered.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">{t('customer.noBookings')}</div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {filtered.map((b) => (
-              <Link
-                key={b.id}
-                to={`/customer/bookings/${b.id}`}
-                className="block px-5 py-4 hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="font-medium text-gray-900">{b.service}</div>
-                    <div className="text-sm text-gray-500 mt-1">
-                      {b.address}
-                      {b.professional && ` · ${b.professional}`}
-                    </div>
-                    <div className="text-xs text-gray-400 mt-1">
-                      {new Date(b.scheduledAt).toLocaleString()} · {b.id}
-                    </div>
-                  </div>
-                  <div className="text-end shrink-0">
-                    <StatusBadge status={b.status} />
-                    {b.price != null && (
-                      <div className="text-sm font-medium text-gray-900 mt-2">
-                        ETB {b.price.toLocaleString()}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+const filters=['all','active','completed','cancelled'] as const;
+export function CustomerBookings(){
+ const {t}=useTranslation();const[searchParams]=useSearchParams();const initialFilter=filters.includes(searchParams.get('filter') as (typeof filters)[number])?searchParams.get('filter') as (typeof filters)[number]:'all';const[filter,setFilter]=useState<(typeof filters)[number]>(initialFilter);const[bookings,setBookings]=useState<BookingRecord[]>([]);const[services,setServices]=useState<ServiceCategory[]>([]);const[loading,setLoading]=useState(true);const[error,setError]=useState('');
+ const load=useCallback(async()=>{setLoading(true);setError('');try{const[records,categories]=await Promise.all([listBookings(),listServices()]);setBookings(records);setServices(categories)}catch(e){setError(e instanceof Error?e.message:'Unable to load bookings.')}finally{setLoading(false)}},[]);
+ useEffect(()=>{void load()},[load]);
+ const filtered=bookings.filter(b=>filter==='all'?true:filter==='active'?!['completed','cancelled'].includes(b.status):b.status===filter);
+ function serviceName(id:string){return services.find(s=>s.id===id)?.key.replace(/\b\w/g,c=>c.toUpperCase())||'Service request'}
+ return <div className="space-y-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h2 className="text-xl font-bold text-gray-900">{t('customer.myBookings')}</h2><Link to="/customer/create-booking" className="inline-flex items-center justify-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">{t('customer.createBooking')}</Link></div>
+  <div className="flex gap-2 overflow-x-auto pb-1">{filters.map(f=><button key={f} type="button" aria-pressed={filter===f} onClick={()=>setFilter(f)} className={cn('whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors',filter===f?'bg-primary-600 text-white':'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50')}>{f==='all'?'All':t('customer.'+f)}</button>)}</div>
+  {loading?<p role="status" className="rounded-xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">Loading your bookings…</p>:error?<div role="alert" className="rounded-xl border border-red-200 bg-white p-6"><div className="flex items-start gap-2 text-sm text-red-700"><AlertCircle className="h-4 w-4 shrink-0"/>{error}</div><button type="button" onClick={()=>void load()} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium"><RefreshCw className="h-4 w-4"/>Try again</button></div>:<section className="overflow-hidden rounded-xl border border-gray-200 bg-white">{filtered.length===0?<div className="p-12 text-center text-gray-500">{bookings.length===0?'You do not have any bookings yet. Create your first service request to get started.':'No bookings match this filter.'}</div>:<div className="divide-y divide-gray-100">{filtered.map(b=><Link key={b.id} to={'/customer/bookings/'+b.id} className="block px-5 py-4 transition-colors hover:bg-gray-50"><div className="flex items-start justify-between gap-3"><div><div className="font-medium text-gray-900">{serviceName(b.serviceCategoryId)}</div><div className="mt-1 text-sm text-gray-500">{b.address}</div><div className="mt-1 text-xs text-gray-400">{b.scheduledAt?new Date(b.scheduledAt).toLocaleString():'Schedule pending'} · {b.id}</div></div><div className="shrink-0 text-end"><StatusBadge status={b.status}/>{b.price!=null&&<div className="mt-2 text-sm font-medium text-gray-900">{'$'+Number(b.price).toLocaleString()}</div>}</div></div></Link>)}</div>}</section>}
+ </div>;
 }
