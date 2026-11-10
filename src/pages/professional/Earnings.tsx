@@ -1,91 +1,21 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MOCK_PAYOUTS, MOCK_EARNINGS_SUMMARY } from '@/data/mock';
 import { PayoutStatusBadge } from '@/components/ui/PaymentStatusBadge';
 import { Wallet, TrendingUp, Clock, Banknote } from 'lucide-react';
+import { MetricCard } from '@/components/ui/MetricCard';
 
-export function ProfessionalEarnings() {
-  const { t } = useTranslation();
-  const s = MOCK_EARNINGS_SUMMARY;
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-gray-900">{t('earnings.title')}</h2>
-        <button className="inline-flex items-center px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
-          {t('earnings.requestPayout')}
-        </button>
-      </div>
-
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
-            <Wallet className="w-4 h-4" />
-            {t('earnings.today')}
-          </div>
-          <div className="text-2xl font-bold text-gray-900">${s.today.toLocaleString()}</div>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
-            <TrendingUp className="w-4 h-4" />
-            {t('earnings.thisWeek')}
-          </div>
-          <div className="text-2xl font-bold text-gray-900">${s.thisWeek.toLocaleString()}</div>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
-            <Banknote className="w-4 h-4" />
-            {t('earnings.thisMonth')}
-          </div>
-          <div className="text-2xl font-bold text-gray-900">${s.thisMonth.toLocaleString()}</div>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
-            <Clock className="w-4 h-4" />
-            {t('earnings.available')}
-          </div>
-          <div className="text-2xl font-bold text-primary-600">${s.availableBalance.toLocaleString()}</div>
-        </div>
-      </div>
-
-      {/* Pending payout highlight */}
-      <div className="bg-primary-50 border border-primary-200 rounded-xl p-4 flex items-center justify-between">
-        <div>
-          <div className="text-sm text-primary-700">{t('earnings.pendingPayout')}</div>
-          <div className="text-xl font-bold text-primary-900">${s.pendingPayout.toLocaleString()}</div>
-        </div>
-        <div className="text-sm text-primary-600">Usually paid within 2–3 business days</div>
-      </div>
-
-      {/* Payout history */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 font-semibold text-gray-900">
-          {t('earnings.payoutHistory')}
-        </div>
-        {MOCK_PAYOUTS.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">{t('earnings.noPayouts')}</div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {MOCK_PAYOUTS.map((po) => (
-              <div key={po.id} className="px-5 py-4 flex items-center justify-between gap-3">
-                <div>
-                  <div className="font-medium text-gray-900">{po.period}</div>
-                  <div className="text-sm text-gray-500">
-                    {po.method} · {po.id}
-                    {po.paidAt && ` · Paid ${new Date(po.paidAt).toLocaleDateString()}`}
-                  </div>
-                </div>
-                <div className="text-end">
-                  <div className="font-semibold text-gray-900">${po.amount.toLocaleString()}</div>
-                  <div className="mt-1">
-                    <PayoutStatusBadge status={po.status} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+export function ProfessionalEarnings(){
+ const {t}=useTranslation();const s=MOCK_EARNINGS_SUMMARY;
+ return <div className="space-y-6">
+  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h2 className="text-xl font-bold text-gray-900">{t('earnings.title')}</h2><Link to="/professional/settings" className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">Manage payout preferences</Link></div>
+  <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+   <MetricCard to="/professional/earnings" label={t('earnings.today')} value={'$'+s.today.toLocaleString()} icon={Wallet} detail="Current period"/>
+   <MetricCard to="/professional/earnings" label={t('earnings.thisWeek')} value={'$'+s.thisWeek.toLocaleString()} icon={TrendingUp} detail="Current period"/>
+   <MetricCard to="/professional/earnings" label={t('earnings.thisMonth')} value={'$'+s.thisMonth.toLocaleString()} icon={Banknote} detail="Current period"/>
+   <MetricCard to="/professional/earnings" label={t('earnings.available')} value={'$'+s.availableBalance.toLocaleString()} icon={Clock} tone="text-primary-700" detail="Balance summary"/>
+  </div>
+  <section className="flex flex-col justify-between gap-2 rounded-xl border border-primary-200 bg-primary-50 p-4 sm:flex-row sm:items-center"><div><div className="text-sm text-primary-700">{t('earnings.pendingPayout')}</div><div className="text-xl font-bold text-primary-900">{'$'+s.pendingPayout.toLocaleString()}</div></div><p className="text-sm text-primary-700">Payout processing is not connected in this demo. No funds can be transferred from this screen.</p></section>
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4 font-semibold text-gray-900">{t('earnings.payoutHistory')}</div>{MOCK_PAYOUTS.length===0?<div className="p-8 text-center text-gray-500">{t('earnings.noPayouts')}</div>:<div className="divide-y divide-gray-100">{MOCK_PAYOUTS.map(po=><div key={po.id} className="flex items-center justify-between gap-3 px-5 py-4"><div><div className="font-medium text-gray-900">{po.period}</div><div className="text-sm text-gray-500">{po.method} · {po.id}{po.paidAt?' · Paid '+new Date(po.paidAt).toLocaleDateString():''}</div></div><div className="text-end"><div className="font-semibold text-gray-900">{'$'+po.amount.toLocaleString()}</div><div className="mt-1"><PayoutStatusBadge status={po.status}/></div></div></div>)}</div>}</section>
+ </div>;
 }
