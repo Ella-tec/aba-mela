@@ -1,65 +1,15 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MOCK_JOBS } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { Flame, MapPin } from 'lucide-react';
+import { Flame, MapPin, CheckCircle2, XCircle } from 'lucide-react';
 
-export function ProfessionalJobs({ hotOnly = false }: { hotOnly?: boolean }) {
-  const { t } = useTranslation();
-  const jobs = hotOnly ? MOCK_JOBS.filter((j) => j.isHot) : MOCK_JOBS.filter((j) => j.status === 'requested');
-
-  return (
-    <div className="space-y-5">
-      <h2 className="text-xl font-bold text-gray-900">
-        {hotOnly ? t('professional.hotJobs') : t('professional.availableJobs')}
-      </h2>
-
-      {jobs.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">
-          {t('professional.noJobs')}
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {jobs.map((j) => (
-            <div
-              key={j.id}
-              className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-            >
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-900">{j.service}</span>
-                  {j.isHot && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 text-xs font-medium">
-                      <Flame className="w-3 h-3" />
-                      Hot
-                    </span>
-                  )}
-                  <StatusBadge status={j.status} />
-                </div>
-                <div className="text-sm text-gray-500 mt-1">{j.customer}</div>
-                <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {j.address}
-                  {j.distanceMiles != null && ` · ${j.distanceMiles} mi`}
-                </div>
-                <div className="text-xs text-gray-400 mt-1">
-                  {new Date(j.scheduledAt).toLocaleString()} · {j.id}
-                </div>
-              </div>
-              <div className="flex flex-col items-end gap-2">
-                <div className="text-lg font-bold text-gray-900">${j.price.toLocaleString()}</div>
-                <div className="flex gap-2">
-                  <button className="px-4 py-2 text-sm font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700">
-                    {t('professional.accept')}
-                  </button>
-                  <button className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50">
-                    {t('professional.decline')}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+export function ProfessionalJobs({hotOnly=false}:{hotOnly?:boolean}){
+ const {t}=useTranslation();const[decisions,setDecisions]=useState<Record<string,'accepted'|'declined'>>({});
+ const jobs=(hotOnly?MOCK_JOBS.filter(j=>j.isHot):MOCK_JOBS.filter(j=>j.status==='requested')).filter(j=>!decisions[j.id]||decisions[j.id]==='accepted');
+ return <div className="space-y-5">
+  <div><h2 className="text-xl font-bold text-gray-900">{hotOnly?t('professional.hotJobs'):t('professional.availableJobs')}</h2><p className="mt-1 text-xs text-amber-700">Sample job actions are local demo interactions; they are not sent to a provider API.</p></div>
+  {jobs.length===0?<div className="rounded-xl border border-gray-200 bg-white p-12 text-center text-gray-500">{t('professional.noJobs')}</div>:<div className="space-y-3">{jobs.map(j=><article key={j.id} className="flex flex-col justify-between gap-4 rounded-xl border border-gray-200 bg-white p-5 sm:flex-row sm:items-center"><div className="flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-semibold text-gray-900">{j.service}</span>{j.isHot&&<span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-700"><Flame className="h-3 w-3"/>Hot</span>}<StatusBadge status={j.status}/></div><div className="mt-1 text-sm text-gray-500">{j.customer}</div><div className="mt-1 flex items-center gap-1 text-sm text-gray-500"><MapPin className="h-3.5 w-3.5"/>{j.address}{j.distanceMiles!=null?' · '+j.distanceMiles+' mi':''}</div><div className="mt-1 text-xs text-gray-400">{new Date(j.scheduledAt).toLocaleString()} · {j.id}</div></div><div className="flex flex-col items-end gap-2"><div className="text-lg font-bold text-gray-900">{'$'+j.price.toLocaleString()}</div>{decisions[j.id]==='accepted'?<span className="inline-flex items-center gap-1 text-sm font-medium text-green-700"><CheckCircle2 className="h-4 w-4"/>Accepted in demo</span>:<div className="flex gap-2"><button type="button" onClick={()=>setDecisions(v=>({...v,[j.id]:'accepted'}))} className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">{t('professional.accept')}</button><button type="button" onClick={()=>setDecisions(v=>({...v,[j.id]:'declined'}))} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">{t('professional.decline')}</button></div>}</div></article>)}</div>}
+  <p role="status" aria-live="polite" className="text-xs text-gray-500">{Object.keys(decisions).length?Object.keys(decisions).length+' demo decision(s) made in this session.':''}</p>
+ </div>;
 }
