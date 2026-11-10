@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ANALYTICS_KPIS, BOOKING_TREND, SERVICE_BREAKDOWN, TECH_PERFORMANCE, PROJECT_ANALYTICS, SUPPORT_METRICS } from '@/data/mock';
 import { Calendar, DollarSign, Users, FolderKanban, HeadphonesIcon, ShieldCheck, Flame, Star, Download } from 'lucide-react';
