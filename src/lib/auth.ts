@@ -1,3 +1,5 @@
+import type { BookingStatus } from '@/data/mock';
+
 const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5018').replace(/\/$/, '');
 
 export interface AuthResponse {
@@ -83,7 +85,7 @@ export async function createBooking(input: BookingInput) {
 
 export interface BookingRecord {
   id: string;
-  status: string;
+  status: BookingStatus;
   address: string;
   serviceCategoryId: string;
   scheduledAt?: string | null;
