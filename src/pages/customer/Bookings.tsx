@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { listBookings, listServices } from '@/lib/auth';
 import type { BookingRecord, ServiceCategory } from '@/lib/auth';
@@ -10,8 +10,8 @@ import { AlertCircle, RefreshCw } from 'lucide-react';
 const filters=['all','active','completed','cancelled'] as const;
 export function CustomerBookings(){
  const {t}=useTranslation();const[filter,setFilter]=useState<(typeof filters)[number]>('all');const[bookings,setBookings]=useState<BookingRecord[]>([]);const[services,setServices]=useState<ServiceCategory[]>([]);const[loading,setLoading]=useState(true);const[error,setError]=useState('');
- async function load(){setLoading(true);setError('');try{const[records,categories]=await Promise.all([listBookings(),listServices()]);setBookings(records);setServices(categories)}catch(e){setError(e instanceof Error?e.message:'Unable to load bookings.')}finally{setLoading(false)}}
- useEffect(()=>{void load()},[]);
+ const load=useCallback(async()=>{setLoading(true);setError('');try{const[records,categories]=await Promise.all([listBookings(),listServices()]);setBookings(records);setServices(categories)}catch(e){setError(e instanceof Error?e.message:'Unable to load bookings.')}finally{setLoading(false)}},[]);
+ useEffect(()=>{void load()},[load]);
  const filtered=bookings.filter(b=>filter==='all'?true:filter==='active'?!['completed','cancelled'].includes(b.status):b.status===filter);
  function serviceName(id:string){return services.find(s=>s.id===id)?.key.replace(/\b\w/g,c=>c.toUpperCase())||'Service request'}
  return <div className="space-y-5"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h2 className="text-xl font-bold text-gray-900">{t('customer.myBookings')}</h2><Link to="/customer/create-booking" className="inline-flex items-center justify-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">{t('customer.createBooking')}</Link></div>
