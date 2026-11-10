@@ -2,94 +2,16 @@ import { useTranslation } from 'react-i18next';
 import { MOCK_REVIEWS } from '@/data/mock';
 import { Star } from 'lucide-react';
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { cn } from '@/lib/utils';
 
-export function CustomerReviews() {
-  const { t } = useTranslation();
-  const [showForm, setShowForm] = useState(false);
-  const [rating, setRating] = useState(0);
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-gray-900">{t('reviews.title')}</h2>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="inline-flex items-center px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700"
-        >
-          {t('reviews.leaveReview')}
-        </button>
-      </div>
-
-      {showForm && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t('reviews.rating')}</label>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((n) => (
-                <button key={n} type="button" onClick={() => setRating(n)}>
-                  <Star
-                    className={cn(
-                      'w-8 h-8 transition-colors',
-                      n <= rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'
-                    )}
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">{t('reviews.comment')}</label>
-            <textarea
-              rows={3}
-              placeholder="Share your experience..."
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            />
-          </div>
-          <div className="flex gap-2">
-            <button className="px-5 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700">
-              {t('reviews.submit')}
-            </button>
-            <button onClick={() => setShowForm(false)} className="px-4 py-2 rounded-lg border border-gray-300 text-sm">
-              {t('common.cancel')}
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">{t('reviews.yourReviews')}</h3>
-        </div>
-        {MOCK_REVIEWS.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">{t('reviews.noReviews')}</div>
-        ) : (
-          <div className="divide-y divide-gray-100">
-            {MOCK_REVIEWS.map((r) => (
-              <div key={r.id} className="px-5 py-4">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="font-medium text-gray-900">{r.service} · {r.professional}</div>
-                  <div className="flex items-center gap-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={cn(
-                          'w-4 h-4',
-                          i < r.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-200'
-                        )}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mt-2">{r.comment}</p>
-                <div className="text-xs text-gray-400 mt-2">
-                  {new Date(r.createdAt).toLocaleDateString()} · {r.bookingId}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+export function CustomerReviews(){
+ const {t}=useTranslation();const[showForm,setShowForm]=useState(false);const[rating,setRating]=useState(0);const[comment,setComment]=useState('');const[reviews,setReviews]=useState(MOCK_REVIEWS);const[message,setMessage]=useState('');
+ function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();if(rating<1){setMessage('Choose a star rating before submitting.');return}if(!comment.trim()){setMessage('Write a short comment before submitting.');return}setReviews(current=>[{id:'LOCAL-'+(current.length+1),service:'Customer feedback',professional:'Mela demo',rating,comment:comment.trim(),createdAt:new Date().toISOString(),bookingId:'Local demo'},...current]);setComment('');setRating(0);setShowForm(false);setMessage('Review added in this browser session. It has not been sent to the server.')}
+ return <div className="space-y-6"><div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><h2 className="text-xl font-bold text-gray-900">{t('reviews.title')}</h2><button type="button" onClick={()=>setShowForm(v=>!v)} aria-expanded={showForm} className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">{showForm?'Close review form':t('reviews.leaveReview')}</button></div>
+  <p className="text-xs text-amber-700">Reviews entered here are saved only for this browser session. Server-side review submission is not connected yet.</p>
+  {message&&<p role="status" aria-live="polite" className="rounded-lg bg-green-50 p-3 text-sm text-green-800">{message}</p>}
+  {showForm&&<form onSubmit={submit} className="space-y-4 rounded-xl border border-gray-200 bg-white p-5"><fieldset><legend className="mb-2 text-sm font-medium text-gray-700">{t('reviews.rating')}</legend><div className="flex gap-1">{[1,2,3,4,5].map(n=><button key={n} type="button" aria-label={n+' star'+(n===1?'':'s')} aria-pressed={rating===n} onClick={()=>setRating(n)} className="rounded p-1 focus-visible:ring-2 focus-visible:ring-primary-600"><Star className={cn('h-8 w-8 transition-colors',n<=rating?'fill-amber-400 text-amber-400':'text-gray-300')}/></button>)}</div></fieldset><div><label htmlFor="review-comment" className="mb-1.5 block text-sm font-medium text-gray-700">{t('reviews.comment')}</label><textarea id="review-comment" rows={3} required maxLength={1000} value={comment} onChange={e=>setComment(e.target.value)} placeholder="Share your experience…" className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5"/></div><div className="flex gap-2"><button type="submit" className="rounded-lg bg-primary-600 px-5 py-2 text-sm font-medium text-white hover:bg-primary-700">{t('reviews.submit')}</button><button type="button" onClick={()=>{setShowForm(false);setMessage('')}} className="rounded-lg border border-gray-300 px-4 py-2 text-sm">{t('common.cancel')}</button></div></form>}
+  <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="border-b border-gray-100 px-5 py-4"><h3 className="font-semibold text-gray-900">{t('reviews.yourReviews')}</h3></div>{reviews.length===0?<div className="p-8 text-center text-gray-500">{t('reviews.noReviews')}</div>:<div className="divide-y divide-gray-100">{reviews.map(r=><article key={r.id} className="px-5 py-4"><div className="flex items-center justify-between gap-2"><div className="font-medium text-gray-900">{r.service} · {r.professional}</div><div aria-label={r.rating+' out of 5 stars'} className="flex items-center gap-0.5">{Array.from({length:5}).map((_,i)=><Star key={i} aria-hidden="true" className={cn('h-4 w-4',i<r.rating?'fill-amber-400 text-amber-400':'text-gray-200')}/>)}</div></div><p className="mt-2 text-sm text-gray-600">{r.comment}</p><div className="mt-2 text-xs text-gray-400">{new Date(r.createdAt).toLocaleDateString()} · {r.bookingId}</div></article>)}</div>}</section>
+ </div>;
 }
