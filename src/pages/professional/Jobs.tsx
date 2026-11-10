@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MOCK_JOBS } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { Flame, MapPin, CheckCircle2, XCircle } from 'lucide-react';
+import { Flame, MapPin, CheckCircle2 } from 'lucide-react';
 
 export function ProfessionalJobs({hotOnly=false}:{hotOnly?:boolean}){
  const {t}=useTranslation();const[decisions,setDecisions]=useState<Record<string,'accepted'|'declined'>>({});
