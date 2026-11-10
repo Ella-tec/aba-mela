@@ -14,7 +14,7 @@ export function ProfessionalDashboard() {
     <div><h2 className="text-2xl font-bold text-gray-900">{t('professional.welcome')}</h2><p className="mt-1 text-gray-500">Manage jobs and track your earnings</p></div>
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       <MetricCard to="/professional/earnings" label={t('professional.todayEarnings')} value="$2,200" icon={Wallet} detail="Open earnings" />
-      <MetricCard to="/professional/my-jobs" label={t('professional.completedJobs')} value={completed || 47} icon={Briefcase} detail="Review job history" />
+      <MetricCard to="/professional/my-jobs" label={t('professional.completedJobs')} value={completed} icon={Briefcase} detail="Review job history" />
       <MetricCard to="/professional/reviews" label={t('professional.rating')} value="4.8 ★" icon={Star} detail="Read customer reviews" />
       <MetricCard to="/professional/hot-jobs" label={t('professional.hotJobs')} value={hotJobs.length} icon={Flame} tone="text-orange-600" detail="Browse urgent jobs" />
     </div>
