@@ -65,8 +65,32 @@ export function PortalLayout({ type }: { type: PortalType }) {
   const navigate = useNavigate();
   const auth = getAuth();
   const expectedRole = type === 'customer' ? 'Customer' : 'Professional';
+
   if (!auth) return <Navigate to='/login' replace />;
-  if (auth.role !== expectedRole && auth.role !== 'Admin') return <Navigate to={auth.role === 'Organization' ? '/organization' : auth.role === 'Professional' ? '/professional' : '/customer'} replace />;
+
+  // Existing local developer accounts are not a separate customer type in
+  // the API yet. Give them the customer portal instead of redirecting
+  // /customer back to /customer indefinitely and rendering a blank screen.
+  const developerUsesCustomerPortal =
+    type === 'customer' && auth.role === 'Developer';
+
+  if (
+    auth.role !== expectedRole &&
+    auth.role !== 'Admin' &&
+    !developerUsesCustomerPortal
+  ) {
+    const destination =
+      auth.role === 'Organization' ? '/organization'
+        : auth.role === 'Professional' ? '/professional'
+        : '/customer';
+
+    if (destination === location.pathname) {
+      return <Navigate to='/login' replace />;
+    }
+
+    return <Navigate to={destination} replace />;
+  }
+
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
