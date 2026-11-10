@@ -1,11 +1,15 @@
 const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5018').replace(/\/$/, '');
 
+export type UserRole = 'Customer' | 'Professional' | 'Organization' | 'Admin' | 'Developer';
+
 export interface AuthResponse {
   token: string;
   userId: string;
   email: string;
   fullName: string;
-  role: 'Customer' | 'Professional' | 'Organization' | 'Admin';
+  // Developer is a legacy/local account role. It uses the customer portal
+  // unless a dedicated developer portal is added later.
+  role: UserRole;
   preferredLanguage: string;
 }
 
@@ -18,7 +22,7 @@ async function request<T>(path: string, body: unknown): Promise<T> {
       body: JSON.stringify(body),
     });
   } catch {
-    throw new Error(`Cannot reach the Aba Mela API at ${API_BASE}. Start the backend and check VITE_API_URL.`);
+    throw new Error(`Cannot reach the Mela API at ${API_BASE}. Start the backend and check VITE_API_URL.`);
   }
 
   const payload = await response.json().catch(() => null);
