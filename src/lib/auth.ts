@@ -80,3 +80,36 @@ export async function createBooking(input: BookingInput) {
   if (!response.ok) throw new Error(payload?.message || 'Booking failed (' + response.status + ').');
   return payload as { id: string; status: string; address: string; };
 }
+
+export interface BookingRecord {
+  id: string;
+  status: string;
+  address: string;
+  serviceCategoryId: string;
+  scheduledAt?: string | null;
+  createdAt: string;
+  notes?: string | null;
+  price?: number | null;
+}
+
+async function authenticatedGet<T>(path: string): Promise<T> {
+  const auth = getAuth();
+  if (!auth?.token) throw new Error('Please sign in again to view your bookings.');
+  let response: Response;
+  try {
+    response = await fetch(API_BASE + '/api/' + path, {
+      headers: { Accept: 'application/json', Authorization: 'Bearer ' + auth.token },
+    });
+  } catch { throw new Error('Cannot reach the Mela API. Check that the backend is running.'); }
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(payload?.message || 'Request failed (' + response.status + ').');
+  return payload as T;
+}
+
+export function listBookings(): Promise<BookingRecord[]> {
+  return authenticatedGet<BookingRecord[]>('bookings');
+}
+
+export function getBooking(id: string): Promise<BookingRecord> {
+  return authenticatedGet<BookingRecord>('bookings/' + encodeURIComponent(id));
+}
