@@ -81,7 +81,7 @@ export default function App() {
    <Route index element={<ProfessionalDashboard/>}/>
    <Route path="jobs" element={<ProfessionalJobs/>}/>
    <Route path="hot-jobs" element={<ProfessionalJobs hotOnly/>}/>
-   <Route path="my-jobs" element={<ProfessionalJobs/>}/>
+   <Route path="my-jobs" element={<ProfessionalJobs myJobs/>}/>
    <Route path="map" element={<ProfessionalMapView/>}/>
    <Route path="dispatch" element={<DispatchCenter/>}/>
    <Route path="earnings" element={<ProfessionalEarnings/>}/>
