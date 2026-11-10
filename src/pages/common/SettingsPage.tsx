@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bell, Globe, Monitor, ShieldCheck } from 'lucide-react';
 
 export function SettingsPage() {
@@ -6,6 +6,7 @@ export function SettingsPage() {
  const [serviceAlerts,setServiceAlerts]=useState(()=>localStorage.getItem('mela-pref-alerts')!=='false');
  const [reducedMotion,setReducedMotion]=useState(()=>localStorage.getItem('mela-pref-motion')==='true');
  const [saved,setSaved]=useState(false);
+ useEffect(()=>{document.documentElement.dataset.reduceMotion=reducedMotion?'true':'false'},[reducedMotion]);
  function save(key:string,value:boolean,setter:(value:boolean)=>void){setter(value);localStorage.setItem(key,String(value));setSaved(true)}
  return <div className="mx-auto max-w-3xl space-y-6"><div><h2 className="text-xl font-bold text-gray-900">Settings & preferences</h2><p className="mt-1 text-sm text-gray-500">Manage how Mela behaves on this device.</p></div>
   <section className="overflow-hidden rounded-xl border border-gray-200 bg-white"><div className="flex items-center gap-3 border-b border-gray-100 px-5 py-4"><Bell className="h-5 w-5 text-primary-700"/><div><h3 className="font-semibold text-gray-900">Notifications</h3><p className="text-xs text-gray-500">Local demo preferences only</p></div></div>
