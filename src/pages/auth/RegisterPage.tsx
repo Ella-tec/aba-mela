@@ -49,7 +49,7 @@ export function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="auth-screen min-h-screen flex flex-col">
       <div className="flex justify-end p-4"><LanguageSwitcher /></div>
       <div className="flex-1 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-lg">
@@ -65,14 +65,14 @@ export function RegisterPage() {
               <p className="text-center text-gray-600 mb-4">{t('auth.selectAccountType')}</p>
               {types.map(type => (
                 <button key={type.id} type="button" onClick={() => setAccountType(type.id)}
-                  className="w-full flex items-start gap-4 p-4 rounded-xl border-2 border-gray-200 bg-white hover:border-primary-400 hover:bg-primary-50/50 transition-all text-start">
+                  className="w-full flex items-start gap-4 p-4 rounded-xl border-2 border-gray-200 bg-white/95 backdrop-blur hover:border-primary-400 hover:bg-primary-50/50 transition-all text-start">
                   <div className="w-11 h-11 rounded-lg bg-primary-100 text-primary-700 flex items-center justify-center shrink-0"><type.icon className="w-5 h-5" /></div>
                   <div><div className="font-semibold text-gray-900">{type.title}</div><div className="text-sm text-gray-500 mt-0.5">{type.desc}</div></div>
                 </button>
               ))}
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/70 p-6 space-y-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-primary-700 bg-primary-50 px-3 py-1 rounded-full">{types.find(type => type.id === accountType)?.title}</span>
                 <button type="button" onClick={() => setAccountType(null)} className="text-sm text-gray-500 hover:text-gray-700">{t('common.back')}</button>
