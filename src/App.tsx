@@ -44,7 +44,7 @@ import { SafetyCenter } from '@/pages/common/SafetyCenter';
 import { getAuth } from '@/lib/auth';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
- return <div className="flex min-h-screen flex-col"><a href="#main-content" className="sr-only z-50 rounded bg-white p-3 text-primary-800 focus:not-sr-only focus:absolute focus:start-4 focus:top-4">Skip to main content</a><Header/><main id="main-content" className="flex-1 mela-page-backdrop">{children}</main></div>;
+ return <div className="mela-public-layout flex min-h-screen w-full min-w-0 flex-col"><a href="#main-content" className="sr-only z-50 rounded bg-white p-3 text-primary-800 focus:not-sr-only focus:absolute focus:start-4 focus:top-4">Skip to main content</a><Header/><main id="main-content" className="flex-1 mela-page-backdrop">{children}</main></div>;
 }
 function SupplierLayout({children}:{children:React.ReactNode}) {
  return <PublicLayout><div className="mx-auto max-w-6xl px-4 py-8">{children}</div></PublicLayout>;
