@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { MOCK_VERIFICATION } from '@/data/mock';
 import { VerificationBadge } from '@/components/ui/VerificationBadge';
-import { Upload, ShieldCheck, FileCheck2, Camera, Eye, RefreshCw, ClipboardCheck, CheckCircle2, LockKeyhole, Info, FileText, X } from 'lucide-react';
+import { Upload, ShieldCheck, FileCheck2, Camera, Eye, ClipboardCheck, CheckCircle2, LockKeyhole, Info, FileText, X } from 'lucide-react';
 
 type LocalUpload={name:string;url:string;size:number;type:string};
 const accepted='.pdf,.png,.jpg,.jpeg,.docx';
@@ -11,7 +10,6 @@ const allowed=['application/pdf','image/png','image/jpeg','application/vnd.openx
 const benefits=['Unlock more jobs','Build customer trust','Get faster approvals','Improve profile ranking','Qualify for premium jobs','Increase booking opportunities'];
 
 export function ProfessionalVerification(){
- const {t}=useTranslation();
  const approved=MOCK_VERIFICATION.filter(v=>v.status==='approved').length;
  const total=MOCK_VERIFICATION.length;
  const [uploads,setUploads]=useState<Record<string,LocalUpload>>({});
