@@ -1,8 +1,8 @@
-name: aba-mela-local
+name: mela-local
 services:
   db:
     image: postgres:16-alpine
-    container_name: aba-mela-db
+    container_name: mela-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: mela
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: backend/AbaMela.Api/Dockerfile
-    container_name: aba-mela-api
+    container_name: mela-api
     restart: unless-stopped
     environment:
       ASPNETCORE_ENVIRONMENT: Development
@@ -32,7 +32,8 @@ services:
       Jwt__Issuer: Mela
       Jwt__Audience: Mela
       Jwt__ExpiresMinutes: 60
-      Cors__AllowedOrigins__0: http://localhost:5178
+      Cors__AllowedOrigins__0: http://localhost:5179
+      Cors__AllowedOrigins__1: http://127.0.0.1:5179
     ports:
       - "5018:8080"
     depends_on:
@@ -43,12 +44,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: aba-mela-web
+    container_name: mela-web
     restart: unless-stopped
     environment:
       VITE_API_URL: http://localhost:5018
     ports:
-      - "5178:5178"
+      - "5179:5179"
     depends_on:
       - api
 
