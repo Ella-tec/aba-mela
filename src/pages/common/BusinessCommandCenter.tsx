@@ -13,14 +13,14 @@ type HubSection = 'overview'|'projects'|'workforce'|'finance'|'equipment'|'docum
 type HubLink = { id: HubSection; label: string; description: string; icon: typeof Building2; href: string };
 const sections: HubLink[] = [
   { id:'overview', label:'Overview', description:'Your construction operations at a glance', icon:LayoutDashboard, href:'/business-center' },
-  { id:'projects', label:'Projects', description:'Project list, milestones and change control', icon:FolderKanban, href:'/organization/projects' },
-  { id:'workforce', label:'Workforce', description:'Employees, foremen, crews and certifications', icon:Users, href:'/organization/workforce' },
+  { id:'projects', label:'Projects', description:'Project list, milestones and change control', icon:FolderKanban, href:'/business-center/projects' },
+  { id:'workforce', label:'Workforce', description:'Employees, foremen, crews and certifications', icon:Users, href:'/business-center/workforce' },
   { id:'finance', label:'Finance', description:'Project budgets, costs, invoices and payments', icon:DollarSign, href:'/business-center/finance' },
   { id:'equipment', label:'Equipment', description:'Assets, rentals, tools and maintenance', icon:Truck, href:'/business-center/equipment' },
   { id:'documents', label:'Documents', description:'Project files, permits, contracts and reports', icon:FileText, href:'/business-center/documents' },
   { id:'safety', label:'Safety', description:'Incidents, toolbox talks, PPE and inspections', icon:ShieldCheck, href:'/business-center/safety' },
   { id:'scheduling', label:'Scheduling', description:'Crew plans, project dates and inspections', icon:CalendarDays, href:'/business-center/scheduling' },
-  { id:'analytics', label:'Analytics', description:'Performance, budget variance and utilization', icon:BarChart3, href:'/organization/analytics' },
+  { id:'analytics', label:'Analytics', description:'Performance, budget variance and utilization', icon:BarChart3, href:'/business-center/analytics' },
   { id:'ai', label:'Mela AI', description:'Ask questions about your Mela workspace', icon:Bot, href:'/business-center/ai' },
   { id:'settings', label:'Settings', description:'Workspace preferences and administration', icon:Settings, href:'/organization/settings' },
   { id:'overview', label:'Recycle Bin', description:'Restore supported deleted records', icon:Trash2, href:'/organization/recycle-bin' }
@@ -63,8 +63,8 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
       : destinationForHref(item.href);
 
   const actionLinks=[
-    {label:'Create project',href:'/organization/projects',icon:Plus},
-    {label:'Open workforce',href:'/organization/workforce',icon:Users},
+    {label:'Create project',href:'/business-center/projects',icon:Plus},
+    {label:'Open workforce',href:'/business-center/workforce',icon:Users},
     {label:'Assign foreman',href:'/organization/foreman',icon:HardHat},
     {label:'Timesheet Center',href:'/organization/timesheets',icon:ClipboardList},
     {label:'Finance Center',href:'/business-center/finance',icon:DollarSign},
@@ -72,7 +72,7 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
     {label:'Safety Center',href:'/business-center/safety',icon:ShieldCheck},
     {label:'Scheduling Center',href:'/business-center/scheduling',icon:CalendarDays},
     {label:'Equipment register',href:'/business-center/equipment',icon:Truck},
-    {label:'View reports',href:'/organization/analytics',icon:BarChart3},
+    {label:'View reports',href:'/business-center/analytics',icon:BarChart3},
     {label:'Mela AI Assistant',href:'/business-center/ai',icon:Bot},
     {label:'Open Recycle Bin',href:destinationFor(sections[sections.length-1]),icon:Trash2}
   ];
