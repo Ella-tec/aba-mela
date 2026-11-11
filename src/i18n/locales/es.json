@@ -55,7 +55,8 @@
     "projects": "Proyectos",
     "workforce": "Personal",
     "timesheets": "Hojas de horas",
-    "foreman": "Supervisor"
+    "foreman": "Supervisor",
+    "businessCenter": "Centro de negocios"
   },
   "auth": {
     "login": "Iniciar sesión",
@@ -214,7 +215,8 @@
     "emailApiNotice": "La actualización del correo aún no está conectada a la API. No se ha cambiado tu correo de inicio de sesión.",
     "passwordApiNotice": "El cambio de contraseña aún no está conectado a la API. Tu contraseña no se ha modificado.",
     "deleteApiNotice": "La eliminación de cuentas aún no está disponible en la API. No se ha eliminado tu cuenta.",
-    "deviceStorageNote": "Las preferencias y los datos de perfil de demostración se guardan en este navegador; no se sincronizan con tu cuenta en el servidor."
+    "deviceStorageNote": "Las preferencias y los datos de perfil de demostración se guardan en este navegador; no se sincronizan con tu cuenta en el servidor.",
+    "takePhoto": "Tomar foto"
   },
   "support": {
     "title": "Support Center",
