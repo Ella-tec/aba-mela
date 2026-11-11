@@ -86,6 +86,7 @@ export default function App() {
    <Route path="help/:id" element={<RecordDetailPage kind="article"/>}/>
    <Route path="home-passport" element={<HomePassport/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
+   <Route path="recycle-bin" element={<RecycleBinPage/>}/>
   </Route>
   <Route path="/professional" element={<PortalLayout type="professional"/>}>
    <Route index element={<ProfessionalDashboard/>}/>
@@ -100,6 +101,7 @@ export default function App() {
    <Route path="verification" element={<ProfessionalVerification/>}/>
    <Route path="reviews" element={<ProfessionalReviews/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
+   <Route path="recycle-bin" element={<RecycleBinPage/>}/>
   </Route>
   <Route path="/organization" element={<OrganizationLayout/>}>
    <Route index element={<OrganizationDashboard/>}/>
@@ -110,6 +112,7 @@ export default function App() {
    <Route path="timesheets" element={<TimesheetsPage/>}/>
    <Route path="analytics" element={<AnalyticsOverview/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
+   <Route path="recycle-bin" element={<RecycleBinPage/>}/>
   </Route>
   <Route path="/suppliers" element={<SupplierLayout><SupplierDashboard/></SupplierLayout>}/>
   <Route path="/suppliers/catalog" element={<SupplierLayout><SupplierCatalog/></SupplierLayout>}/>
