@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "predev": "node scripts/generate-pwa-icons.mjs",
     "prebuild": "node scripts/generate-pwa-icons.mjs",
-    "prepreview": "node scripts/generate-pwa-icons.mjs"
+    "prepreview": "node scripts/generate-pwa-icons.mjs",
+    "postinstall": "node scripts/generate-pwa-icons.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
