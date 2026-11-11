@@ -152,3 +152,42 @@ button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-colo
   .mela-public-layout > header > div > div > div:last-child { gap: .25rem; }
   .mela-public-layout > header > div > div > div:last-child > a:last-of-type { padding-inline: .5rem; }
 }
+
+
+/* Public pages: prevent accidental sideways movement on phones. */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+html, body {
+  overflow-x: clip;
+}
+.mela-public-layout,
+.mela-public-layout > header,
+.mela-public-layout > main {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.mela-public-layout > header > div {
+  min-width: 0;
+}
+.mela-public-layout main,
+.mela-public-layout main section,
+.mela-public-layout main section > div {
+  min-width: 0;
+}
+.mela-public-layout img,
+.mela-public-layout video,
+.mela-public-layout iframe {
+  max-width: 100%;
+}
+@media (max-width: 380px) {
+  .mela-public-layout > header > div {
+    padding-inline: .5rem;
+  }
+  .mela-public-layout > header a:last-of-type {
+    max-width: 100%;
+  }
+}
