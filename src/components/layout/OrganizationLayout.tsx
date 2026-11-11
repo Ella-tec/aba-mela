@@ -2,7 +2,7 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, BarChart3, MessageSquare, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, BarChart3, MessageSquare, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays, Bot } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -19,6 +19,7 @@ const nav=[
  {to:'/organization/safety',labelKey:'Safety',icon:ShieldCheck},
  {to:'/organization/scheduling',labelKey:'Scheduling',icon:CalendarDays},
  {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3},
+ {to:'/organization/ai',labelKey:'Mela AI',icon:Bot},
  {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
 export function OrganizationLayout(){
