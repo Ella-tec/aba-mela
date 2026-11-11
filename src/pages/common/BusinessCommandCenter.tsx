@@ -3,7 +3,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, FolderKanban, Users, HardHat, ClipboardList, DollarSign,
   Truck, FileText, ShieldCheck, CalendarDays, BarChart3, Bot, Settings,
-  Trash2, ChevronRight, X, Plus, Download, AlertTriangle, Wrench,
+  Trash2, ChevronRight, X, Plus, AlertTriangle,
   Receipt, Package, Clock3, Building2, Search, Sparkles, ClipboardCheck
 } from 'lucide-react';
 import { getAuth } from '@/lib/auth';
