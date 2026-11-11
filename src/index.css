@@ -58,6 +58,9 @@ html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, ht
 .mela-service-cleaning { background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=82'); }
 .mela-service-construction { background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=82'); }
 .mela-service-hvac { background-image: url('https://images.unsplash.com/photo-1631545806609-6c6b9a0b0c3f?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-carpentry { background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-masonry { background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-roofing { background-image: url('https://images.unsplash.com/photo-1635424710928-4c4e5b8d7c0c?auto=format&fit=crop&w=700&q=82'); }
 .mela-page-backdrop {
   position: relative;
   isolation: isolate;
