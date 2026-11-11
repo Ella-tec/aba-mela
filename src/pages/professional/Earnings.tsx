@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { MOCK_EARNINGS_SUMMARY, MOCK_JOBS, MOCK_PAYOUTS } from '@/data/mock';
 import { PayoutStatusBadge } from '@/components/ui/PaymentStatusBadge';
-import { Wallet, TrendingUp, Clock, Banknote, Search, Download, FileText, ChevronDown, ChevronUp, CalendarDays, BriefcaseBusiness, CreditCard, Info } from 'lucide-react';
+import { Wallet, TrendingUp, Clock, Banknote, Search, Download, FileText, ChevronDown, ChevronUp, CreditCard, Info } from 'lucide-react';
 import { MetricCard } from '@/components/ui/MetricCard';
 
 type Period='today'|'week'|'month'|'available';
@@ -12,7 +12,9 @@ const date=(value:string)=>new Date(value).toLocaleDateString('en-US',{month:'sh
 
 export function ProfessionalEarnings(){
  const s=MOCK_EARNINGS_SUMMARY;
- const [paramsPeriod,setParamsPeriod]=useState<Period|null>(null);
+ const [searchParams]=useSearchParams();
+ const rawPeriod=searchParams.get('period');
+ const paramsPeriod=(rawPeriod&&['today','week','month','available'].includes(rawPeriod)?rawPeriod:null) as Period|null;
  const [query,setQuery]=useState('');
  const [filter,setFilter]=useState<PayoutFilter>('all');
  const [expanded,setExpanded]=useState<string|null>(null);
@@ -41,7 +43,7 @@ export function ProfessionalEarnings(){
    <MetricCard to="/professional/earnings?period=month#earnings-detail" label="This month" value={money(s.thisMonth)} icon={Banknote} detail="View monthly breakdown"/>
    <MetricCard to="/professional/earnings?period=available#earnings-detail" label="Available balance" value={money(s.availableBalance)} icon={Clock} tone="text-primary-700" detail="View available balance"/>
   </div>
-  {paramsPeriod&&details[paramsPeriod]&&<section id="earnings-detail" className="rounded-xl border border-primary-200 bg-primary-50 p-4"><div className="text-sm font-medium text-primary-700">{details[paramsPeriod].label}</div><div className="mt-1 text-2xl font-bold text-primary-900">{money(details[paramsPeriod].amount)}</div><p className="mt-1 text-sm text-primary-800">{details[paramsPeriod].description}</p><button type="button" onClick={()=>setParamsPeriod(null)} className="mt-2 text-xs font-semibold text-primary-800 underline">Close breakdown</button></section>}
+  {paramsPeriod&&details[paramsPeriod]&&<section id="earnings-detail" className="rounded-xl border border-primary-200 bg-primary-50 p-4"><div className="text-sm font-medium text-primary-700">{details[paramsPeriod].label}</div><div className="mt-1 text-2xl font-bold text-primary-900">{money(details[paramsPeriod].amount)}</div><p className="mt-1 text-sm text-primary-800">{details[paramsPeriod].description}</p><Link to="/professional/earnings" className="mt-2 inline-flex text-xs font-semibold text-primary-800 underline">Close breakdown</Link></section>}
   <button type="button" onClick={()=>setExpanded(expanded==='pending'?'pending': 'pending')} className="w-full rounded-2xl border border-primary-200 bg-gradient-to-r from-primary-50 to-white p-5 text-left shadow-sm transition hover:border-primary-400 hover:shadow-md print:hidden" aria-expanded={expanded==='pending'}>
    <div className="flex flex-wrap items-center justify-between gap-3"><div><div className="flex items-center gap-2 text-sm font-semibold text-primary-800"><Wallet className="h-4 w-4"/>Pending payout</div><div className="mt-1 text-3xl font-bold tracking-tight text-gray-950">{money(s.pendingPayout)}</div><p className="mt-1 text-sm text-gray-600">Tap to view payment details, related jobs and payout breakdown</p></div><span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary-800 shadow-sm">{expanded==='pending'?'Hide details':'View details'} {expanded==='pending'?<ChevronUp className="h-4 w-4"/>:<ChevronDown className="h-4 w-4"/>}</span></div>
   </button>
