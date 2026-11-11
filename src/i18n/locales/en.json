@@ -56,7 +56,8 @@
     "projects": "Projects",
     "workforce": "Workforce",
     "timesheets": "Timesheets",
-    "foreman": "Foreman"
+    "foreman": "Foreman",
+    "businessCenter": "Business Center"
   },
   "auth": {
     "login": "Sign in",
@@ -395,6 +396,7 @@
     "emailApiNotice": "Email updates are not connected to the API yet. Your sign-in email has not changed.",
     "passwordApiNotice": "Password changes are not connected to the API yet. Your password has not changed.",
     "deleteApiNotice": "Account deletion is not available in the API yet. Your account has not been deleted.",
-    "deviceStorageNote": "Preferences and demo profile details are stored in this browser; they are not synchronized with your server account."
+    "deviceStorageNote": "Preferences and demo profile details are stored in this browser; they are not synchronized with your server account.",
+    "takePhoto": "Take photo"
   }
 }
