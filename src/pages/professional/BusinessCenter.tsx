@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { MOCK_JOBS } from '@/data/mock';
-import { Building2, FileText, Receipt, CreditCard, Camera, Wallet, Car, ShieldAlert, TrendingUp, Plus, Search, Download, Upload, CheckCircle2, Trash2, X, Image as ImageIcon } from 'lucide-react';
+import { Building2, FileText, Receipt, CreditCard, Camera, Wallet, Car, ShieldAlert, TrendingUp, Plus, Search, Download, Upload, Trash2, X, Image as ImageIcon } from 'lucide-react';
 
 type Section='overview'|'invoices'|'transactions'|'documents'|'photos'|'expenses'|'assets'|'liabilities'|'reports';
 type Entry={id:string;name:string;amount:number;status?:string;category?:string;date:string;notes?:string};
