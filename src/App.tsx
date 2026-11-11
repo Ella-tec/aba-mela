@@ -57,6 +57,12 @@ function AdminLanding() {
 function NotFoundPage() {
  return <PublicLayout><div className="mx-auto max-w-xl px-4 py-20 text-center"><h1 className="text-3xl font-bold text-gray-900">Page not found</h1><p className="mt-2 text-gray-600">This Mela page does not exist or may have moved.</p><Link to="/" className="mt-6 inline-flex rounded-lg bg-primary-700 px-5 py-2.5 font-semibold text-white hover:bg-primary-800">Return home</Link></div></PublicLayout>;
 }
+function SharedBusinessLayout() {
+ const auth=getAuth();
+ if(!auth)return <Navigate to="/login" replace/>;
+ if(auth.role==='Organization'||auth.role==='Admin')return <Navigate to="/organization/business-center" replace/>;
+ return <PortalLayout type={auth.role==='Professional'?'professional':'customer'}/>;
+}
 export default function App() {
  useEffect(() => {
   const root = document.documentElement;
@@ -122,14 +128,16 @@ export default function App() {
    <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
    <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
-  <Route path="/business-center" element={<BusinessCommandCenter/>}/>
-  <Route path="/business-center/projects" element={<BusinessCommandCenter initialSection="projects"/>}/>
-  <Route path="/business-center/finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
-  <Route path="/business-center/equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
-  <Route path="/business-center/documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
-  <Route path="/business-center/safety" element={<BusinessCommandCenter initialSection="safety"/>}/>
-  <Route path="/business-center/scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
-  <Route path="/business-center/ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
+  <Route path="/business-center" element={<SharedBusinessLayout/>}>
+   <Route index element={<BusinessCommandCenter/>}/>
+   <Route path="projects" element={<BusinessCommandCenter initialSection="projects"/>}/>
+   <Route path="finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
+   <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
+   <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
+   <Route path="safety" element={<BusinessCommandCenter initialSection="safety"/>}/>
+   <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
+   <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
+  </Route>
   <Route path="/suppliers" element={<SupplierLayout><SupplierDashboard/></SupplierLayout>}/>
   <Route path="/suppliers/catalog" element={<SupplierLayout><SupplierCatalog/></SupplierLayout>}/>
   <Route path="/suppliers/orders" element={<SupplierLayout><SupplierOrders/></SupplierLayout>}/>
