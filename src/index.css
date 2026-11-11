@@ -21,21 +21,59 @@ button:disabled,[aria-disabled="true"]{cursor:not-allowed}
 html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, html[data-reduce-motion="true"] *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 
 
-/* Soft photographic texture shared by the signed-in workspaces and public pages. */
+/* Mela photography: real trades, tools, crews, and active job sites. */
+.mela-home-hero {
+  background-color: #173b35;
+  background-image:
+    linear-gradient(90deg, rgba(12, 34, 29, .91) 0%, rgba(18, 48, 40, .78) 48%, rgba(18, 48, 40, .30) 100%),
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2200&q=88');
+  background-position: center, center 46%;
+  background-size: cover;
+}
+.mela-service-card {
+  min-height: 150px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: white;
+  background-color: #24483e;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1000px rgba(15, 35, 30, .46);
+}
+.mela-service-card > * { position: relative; z-index: 1; }
+.mela-service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(10,25,21,.12), rgba(10,25,21,.76));
+  transition: opacity .2s ease;
+}
+.mela-service-card:hover::before { opacity: .78; }
+.mela-service-card .mela-service-icon { background: rgba(255,255,255,.92); }
+.mela-service-plumbing { background-image: url('https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-electrical { background-image: url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-painting { background-image: url('https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-cleaning { background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-construction { background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-hvac { background-image: url('https://images.unsplash.com/photo-1631545806609-6c6b9a0b0c3f?auto=format&fit=crop&w=700&q=82'); }
 .mela-page-backdrop {
   position: relative;
   isolation: isolate;
   background-color: #f7f9f7;
   background-image:
-    linear-gradient(rgba(247, 249, 247, 0.94), rgba(247, 249, 247, 0.96)),
-    url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80');
+    linear-gradient(rgba(247, 249, 247, 0.91), rgba(247, 249, 247, 0.94)),
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=80');
   background-position: center, center;
   background-size: cover;
   background-attachment: fixed;
 }
 .mela-login-photo {
   background-color: #173b35;
-  background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=1800&q=85');
+  background-image:
+    linear-gradient(135deg, rgba(16,45,41,.70), rgba(16,45,41,.16)),
+    url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1800&q=85');
   background-position: center;
   background-size: cover;
 }
