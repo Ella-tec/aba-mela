@@ -52,11 +52,15 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
 
   if(!auth) return <Navigate to="/login" replace/>;
 
+  const organizationRole=auth.role==='Organization'||auth.role==='Admin';
+  const destinationForHref=(href:string)=>organizationRole&&href.startsWith('/business-center')
+    ? '/organization'+href.slice('/business-center'.length)
+    : href;
   const destinationFor=(item:HubLink)=>item.label==='Recycle Bin'
-    ? auth.role==='Organization'||auth.role==='Admin' ? '/organization/recycle-bin' : auth.role==='Professional' ? '/professional/recycle-bin' : '/customer/recycle-bin'
+    ? organizationRole ? '/organization/recycle-bin' : auth.role==='Professional' ? '/professional/recycle-bin' : '/customer/recycle-bin'
     : item.label==='Settings'
-      ? auth.role==='Organization'||auth.role==='Admin' ? '/organization/settings' : auth.role==='Professional' ? '/professional/settings' : '/customer/settings'
-      : item.href;
+      ? organizationRole ? '/organization/settings' : auth.role==='Professional' ? '/professional/settings' : '/customer/settings'
+      : destinationForHref(item.href);
 
   const actionLinks=[
     {label:'Create project',href:'/organization/projects',icon:Plus},
@@ -103,7 +107,7 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
         <span className="text-xs text-gray-400">Choose an action to open its workspace</span>
       </div>
       <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {actionLinks.map(item=><Link key={item.label} to={item.href} className="flex items-center gap-3 rounded-xl border border-gray-200 p-3 text-sm font-semibold text-gray-700 transition hover:border-orange-300 hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"><span className="rounded-lg bg-orange-50 p-2 text-orange-700"><item.icon className="h-4 w-4"/></span>{item.label}<ChevronRight className="ms-auto h-4 w-4 text-gray-400"/></Link>)}
+        {actionLinks.map(item=><Link key={item.label} to={destinationForHref(item.href)} className="flex items-center gap-3 rounded-xl border border-gray-200 p-3 text-sm font-semibold text-gray-700 transition hover:border-orange-300 hover:bg-orange-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"><span className="rounded-lg bg-orange-50 p-2 text-orange-700"><item.icon className="h-4 w-4"/></span>{item.label}<ChevronRight className="ms-auto h-4 w-4 text-gray-400"/></Link>)}
       </div>
     </section>
 
