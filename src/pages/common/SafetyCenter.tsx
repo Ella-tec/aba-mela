@@ -256,7 +256,7 @@ export function SafetyCenter() {
         </Panel>}
 
         {active === 'security' && <Panel><SectionTitle title="Account security and identity" detail="Use the existing Mela account settings for available account controls. Advanced security actions need backend authentication support."/>
-          <div className="grid gap-3 sm:grid-cols-2"><ExternalResource title="Mela account settings" detail="Profile, preferences and currently available account options" url="/professional/settings"/><ExternalResource title="FTC identity theft guidance" detail="Recognize, report and recover from identity theft" url="https://identitytheft.gov/"/></div>
+          <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-slate-200 p-4"><b className="block text-sm text-slate-900">Mela account settings</b><span className="mt-1 block text-xs text-slate-500">Open Settings from your account menu for available profile and security options.</span></div><ExternalResource title="FTC identity theft guidance" detail="Recognize, report and recover from identity theft" url="https://identitytheft.gov/"/></div>
           <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-slate-600"><li>Two-factor authentication and recovery codes</li><li>Device and active-session management</li><li>Login history and suspicious sign-in alerts</li><li>Secure password reset and account recovery</li><li>Fraud and impersonation reporting</li></ul>
           <p className="mt-3 text-xs text-slate-500">The demo does not claim to enable 2FA, biometric login or revoke sessions.</p>
         </Panel>}
@@ -276,7 +276,7 @@ export function SafetyCenter() {
         </Panel>}
 
         {active === 'support' && <Panel><SectionTitle title="Help and support" detail="Use existing support channels and official emergency resources. Live chat and ticket submission require the support backend."/>
-          <div className="grid gap-3 sm:grid-cols-2"><ExternalResource title="Mela customer support" detail="Open the current customer support page" url="/customer/support"/><ExternalResource title="Ready.gov emergency resources" detail="Preparedness information for households and workplaces" url="https://www.ready.gov/"/></div>
+          <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-slate-200 p-4"><b className="block text-sm text-slate-900">Mela support</b><span className="mt-1 block text-xs text-slate-500">Use the Support option available in your account menu.</span></div><ExternalResource title="Ready.gov emergency resources" detail="Preparedness information for households and workplaces" url="https://www.ready.gov/"/></div>
           <div className="mt-4 rounded-xl border border-slate-200 p-4"><b className="text-sm">Future support tools</b><p className="mt-1 text-sm text-slate-600">Support tickets, file attachments, issue tracking, response status, service-level targets, feedback and emergency escalation guidance.</p></div>
         </Panel>}
 
