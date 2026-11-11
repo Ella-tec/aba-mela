@@ -12,6 +12,12 @@ const nav=[
  {to:'/organization/foreman',labelKey:'nav.foreman',icon:HardHat},
  {to:'/organization/workforce',labelKey:'nav.workforce',icon:Users},
  {to:'/organization/timesheets',labelKey:'nav.timesheets',icon:ClipboardList},
+ {to:'/business-center',labelKey:'Business Center',icon:Building2},
+ {to:'/business-center/finance',labelKey:'Finance',icon:DollarSign},
+ {to:'/business-center/equipment',labelKey:'Equipment',icon:Truck},
+ {to:'/business-center/documents',labelKey:'Documents',icon:FileText},
+ {to:'/business-center/safety',labelKey:'Safety',icon:ShieldCheck},
+ {to:'/business-center/scheduling',labelKey:'Scheduling',icon:CalendarDays},
  {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3},
  {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
