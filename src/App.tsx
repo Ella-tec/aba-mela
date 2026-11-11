@@ -131,6 +131,8 @@ export default function App() {
   <Route path="/business-center" element={<SharedBusinessLayout/>}>
    <Route index element={<BusinessCommandCenter/>}/>
    <Route path="projects" element={<BusinessCommandCenter initialSection="projects"/>}/>
+   <Route path="workforce" element={<BusinessCommandCenter initialSection="workforce"/>}/>
+   <Route path="analytics" element={<BusinessCommandCenter initialSection="analytics"/>}/>
    <Route path="finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
    <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
    <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
