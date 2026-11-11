@@ -105,8 +105,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
-body, #root { min-width: 320px; min-height: 100%; }
-body { overflow-x: hidden; }
+html, body, #root { width: 100%; max-width: 100%; min-width: 320px; min-height: 100%; }
+body { overflow-x: clip; }
 img, video, canvas, svg { max-width: 100%; }
 input, select, textarea { max-width: 100%; }
 button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
@@ -132,4 +132,23 @@ button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-colo
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+
+/* Keep the public landing page and its header inside narrow phone viewports. */
+.mela-public-layout {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+.mela-public-layout > main {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+@media (max-width: 380px) {
+  .mela-public-layout > header > div { padding-inline: .625rem; }
+  .mela-public-layout > header > div > div > div:last-child { gap: .25rem; }
+  .mela-public-layout > header > div > div > div:last-child > a:last-of-type { padding-inline: .5rem; }
 }
