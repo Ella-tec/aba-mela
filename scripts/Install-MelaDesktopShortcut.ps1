@@ -37,11 +37,8 @@ $graphics.FillEllipse($white, 190, 187, 28, 28)
 $hIcon = $bitmap.GetHicon()
 $icon = [System.Drawing.Icon]::FromHandle($hIcon)
 $stream = [System.IO.File]::Create($IconPath)
-try { $icon.Save($stream) } finally { $stream.Dispose(); $icon.Dispose(); $graphics.Dispose(); $gold.Dispose(); $white.Dispose(); $bitmap.Dispose(); [void][MelaNativeMethods]::DestroyIcon($hIcon) }
+try { $icon.Save($stream) } finally { $stream.Dispose(); $icon.Dispose(); $graphics.Dispose(); $gold.Dispose(); $white.Dispose(); $bitmap.Dispose() }
 
-if (-not ("MelaNativeMethods" -as [type])) {
-    Add-Type -Namespace MelaNativeMethods -Name Native -MemberDefinition '[System.Runtime.InteropServices.DllImport("user32.dll", SetLastError=true)] public static extern bool DestroyIcon(System.IntPtr hIcon);'
-}
 
 $PowerShell = Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"
 $Shell = New-Object -ComObject WScript.Shell
