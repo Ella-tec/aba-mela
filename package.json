@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predev": "node scripts/generate-pwa-icons.mjs",
+    "prebuild": "node scripts/generate-pwa-icons.mjs",
+    "prepreview": "node scripts/generate-pwa-icons.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -31,6 +34,7 @@
     "oxlint": "^1.14.0",
     "tailwindcss": "^4.1.13",
     "typescript": "~5.8.3",
-    "vite": "^7.1.7"
+    "vite": "^7.1.7",
+    "sharp": "^0.34.5"
   }
 }
