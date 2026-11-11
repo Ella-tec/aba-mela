@@ -42,3 +42,16 @@ html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, ht
 @media (max-width: 1023px) {
   .mela-page-backdrop { background-attachment: scroll; }
 }
+
+/* Mela accessibility preferences */
+html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, html[data-reduce-motion="true"] *::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+html[data-font-size="small"]{font-size:14px} html[data-font-size="medium"]{font-size:16px} html[data-font-size="large"]{font-size:18px}
+html[data-high-contrast="true"] body{filter:contrast(1.18)}
+html[data-theme="dark"] body{background:#111a18;color:#edf4ef}
+html[data-theme="dark"] .bg-white{background-color:#1b2925!important}
+html[data-theme="dark"] .bg-gray-50{background-color:#14201c!important}
+html[data-theme="dark"] .text-gray-900,html[data-theme="dark"] .text-gray-800{color:#f0f5f1!important}
+html[data-theme="dark"] .text-gray-700,html[data-theme="dark"] .text-gray-600,html[data-theme="dark"] .text-gray-500{color:#c2d0c8!important}
+html[data-theme="dark"] .border-gray-100,html[data-theme="dark"] .border-gray-200,html[data-theme="dark"] .border-gray-300{border-color:#344840!important}
+html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{background-color:#17231f!important;color:#f0f5f1!important;border-color:#52675d!important}
+html[data-theme="dark"] .mela-page-backdrop{background-image:linear-gradient(rgba(17,29,25,.94),rgba(17,29,25,.96)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80')}
