@@ -150,7 +150,6 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T16:30:00',
     price: 225,
     isHot: true,
-    isHot: true,
     distanceMiles: 3.2,
   },
   {
