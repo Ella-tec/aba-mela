@@ -4,7 +4,7 @@ import {
   ClipboardCheck, Scale, BadgeCheck, LockKeyhole, CarFront, GraduationCap,
   Headset, Users, Hospital, Flame, Phone, ExternalLink, Search, Plus,
   CheckCircle2, AlertTriangle, FileText, Clock3, Navigation, ShieldAlert,
-  Stethoscope, BookOpen, Wrench, Eye, LifeBuoy
+  Stethoscope
 } from 'lucide-react';
 
 type SafetyTab =
