@@ -4,7 +4,11 @@ const APP_SHELL = [
   '/index.html',
   '/site.webmanifest',
   '/manifest.webmanifest',
-  '/favicon.svg'
+  '/favicon.svg',
+  '/mela-192.png',
+  '/mela-512.png',
+  '/mela-maskable-512.png',
+  '/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
