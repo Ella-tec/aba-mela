@@ -2,7 +2,7 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, BarChart3, MessageSquare, X } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, BarChart3, MessageSquare, X, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -12,7 +12,7 @@ const nav=[
  {to:'/organization/foreman',labelKey:'nav.foreman',icon:HardHat},
  {to:'/organization/workforce',labelKey:'nav.workforce',icon:Users},
  {to:'/organization/timesheets',labelKey:'nav.timesheets',icon:ClipboardList},
- {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3}
+ {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3},\n {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
 export function OrganizationLayout(){
  const {t}=useTranslation();const navigate=useNavigate();const location=useLocation();const[sidebarOpen,setSidebarOpen]=useState(false);const auth=getAuth();
