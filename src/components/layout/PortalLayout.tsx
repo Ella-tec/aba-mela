@@ -2,17 +2,17 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, Calendar, Briefcase, Wallet, Settings, LogOut, Menu, Wrench, Flame, ClipboardList, Search, HeadphonesIcon, Map, Radio, Home, Sparkles, MessageSquare, X, Building2 } from 'lucide-react';
+import { LayoutDashboard, Calendar, Briefcase, Wallet, Settings, LogOut, Menu, Wrench, Flame, ClipboardList, Search, HeadphonesIcon, Map, Radio, Home, Sparkles, MessageSquare, X, Building2, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 type PortalType='customer'|'professional';
 interface NavItem {to:string;labelKey:string;icon:React.ComponentType<{className?:string}>}
 const customerNav:NavItem[]=[
- {to:'/customer',labelKey:'nav.overview',icon:LayoutDashboard},{to:'/customer/find-service',labelKey:'nav.findService',icon:Search},{to:'/customer/smart-match',labelKey:'nav.findProfessionals',icon:Sparkles},{to:'/customer/bookings',labelKey:'nav.myBookings',icon:ClipboardList},{to:'/customer/create-booking',labelKey:'nav.createBooking',icon:Calendar},{to:'/customer/track',labelKey:'nav.liveMap',icon:Map},{to:'/customer/payments',labelKey:'nav.payments',icon:Wallet},{to:'/customer/reviews',labelKey:'nav.reviews',icon:Wrench},{to:'/customer/support',labelKey:'nav.support',icon:HeadphonesIcon},{to:'/customer/home-passport',labelKey:'nav.home',icon:Home}
+ {to:'/customer',labelKey:'nav.overview',icon:LayoutDashboard},{to:'/customer/find-service',labelKey:'nav.findService',icon:Search},{to:'/customer/smart-match',labelKey:'nav.findProfessionals',icon:Sparkles},{to:'/customer/bookings',labelKey:'nav.myBookings',icon:ClipboardList},{to:'/customer/create-booking',labelKey:'nav.createBooking',icon:Calendar},{to:'/customer/track',labelKey:'nav.liveMap',icon:Map},{to:'/customer/payments',labelKey:'nav.payments',icon:Wallet},{to:'/customer/reviews',labelKey:'nav.reviews',icon:Wrench},{to:'/customer/support',labelKey:'nav.support',icon:HeadphonesIcon},{to:'/customer/home-passport',labelKey:'nav.home',icon:Home},{to:'/customer/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
 const professionalNav:NavItem[]=[
- {to:'/professional',labelKey:'nav.overview',icon:LayoutDashboard},{to:'/professional/jobs',labelKey:'nav.availableJobs',icon:Briefcase},{to:'/professional/hot-jobs',labelKey:'nav.hotJobs',icon:Flame},{to:'/professional/my-jobs',labelKey:'nav.myJobs',icon:Wrench},{to:'/professional/map',labelKey:'nav.liveMap',icon:Map},{to:'/professional/dispatch',labelKey:'nav.dispatch',icon:Radio},{to:'/professional/earnings',labelKey:'nav.earnings',icon:Wallet},{to:'/professional/business-center',labelKey:'nav.businessCenter',icon:Building2},{to:'/professional/calendar',labelKey:'nav.calendar',icon:Calendar},{to:'/professional/verification',labelKey:'nav.verification',icon:ClipboardList},{to:'/professional/reviews',labelKey:'nav.reviews',icon:Sparkles}
+ {to:'/professional',labelKey:'nav.overview',icon:LayoutDashboard},{to:'/professional/jobs',labelKey:'nav.availableJobs',icon:Briefcase},{to:'/professional/hot-jobs',labelKey:'nav.hotJobs',icon:Flame},{to:'/professional/my-jobs',labelKey:'nav.myJobs',icon:Wrench},{to:'/professional/map',labelKey:'nav.liveMap',icon:Map},{to:'/professional/dispatch',labelKey:'nav.dispatch',icon:Radio},{to:'/professional/earnings',labelKey:'nav.earnings',icon:Wallet},{to:'/professional/business-center',labelKey:'nav.businessCenter',icon:Building2},{to:'/professional/calendar',labelKey:'nav.calendar',icon:Calendar},{to:'/professional/verification',labelKey:'nav.verification',icon:ClipboardList},{to:'/professional/reviews',labelKey:'nav.reviews',icon:Sparkles},{to:'/professional/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
 
 export function PortalLayout({type}:{type:PortalType}) {
