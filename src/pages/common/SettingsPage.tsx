@@ -13,8 +13,6 @@ export function SettingsPage(){
  function toggle(key:string,value:boolean,setter:(v:boolean)=>void){setter(value);pref(key,String(value))}
  function handlePhoto(e:ChangeEvent<HTMLInputElement>){const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){setStatus(t('settings.photoError'));return}if(file.size>2*1024*1024){setStatus(t('settings.photoTooLarge'));return}const reader=new FileReader();reader.onload=()=>setPendingPhoto(String(reader.result||''));reader.readAsDataURL(file)}
  function saveProfile(e:FormEvent){e.preventDefault();localStorage.setItem('mela-profile',JSON.stringify(profile));if(pendingPhoto){localStorage.setItem('mela-profile-photo',pendingPhoto);setPhoto(pendingPhoto);setPendingPhoto('')}setStatus(t('settings.profileSaved'))}
- function saveEmail(e:FormEvent){e.preventDefault();setShowEmail(false);setStatus(t('settings.emailApiNotice'))}
- function savePassword(e:FormEvent){e.preventDefault();setShowPassword(false);setPasswordFields({current:'',next:'',confirm:''});setStatus(t('settings.passwordApiNotice'))}
  const nameParts=(auth?.fullName||'').trim().split(/\s+/),firstName=profile.firstName??nameParts[0]??'',lastName=profile.lastName??nameParts.slice(1).join(' ');
  const field='w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-100',section='overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm';
  return <div className="mx-auto max-w-4xl space-y-6"><div><h2 className="text-2xl font-bold text-gray-900">{t('common.settings')}</h2><p className="mt-1 text-sm text-gray-500">{t('settings.subtitle')}</p></div>
