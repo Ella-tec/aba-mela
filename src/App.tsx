@@ -40,6 +40,7 @@ import { SupplierRentals } from '@/pages/supplier/Rentals';
 import { SettingsPage } from '@/pages/common/SettingsPage';
 import { RecycleBinPage } from '@/pages/common/RecycleBin';
 import { BusinessCommandCenter } from '@/pages/common/BusinessCommandCenter';
+import { SafetyCenter } from '@/pages/common/SafetyCenter';
 import { getAuth } from '@/lib/auth';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
@@ -124,7 +125,7 @@ export default function App() {
    <Route path="finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
    <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
    <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
-   <Route path="safety" element={<BusinessCommandCenter initialSection="safety"/>}/>
+   <Route path="safety" element={<SafetyCenter/>}/>
    <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
    <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
@@ -136,7 +137,7 @@ export default function App() {
    <Route path="finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
    <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
    <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
-   <Route path="safety" element={<BusinessCommandCenter initialSection="safety"/>}/>
+   <Route path="safety" element={<SafetyCenter/>}/>
    <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
    <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
