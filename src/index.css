@@ -96,3 +96,40 @@ html[data-theme="dark"] .text-gray-700,html[data-theme="dark"] .text-gray-600,ht
 html[data-theme="dark"] .border-gray-100,html[data-theme="dark"] .border-gray-200,html[data-theme="dark"] .border-gray-300{border-color:#344840!important}
 html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{background-color:#17231f!important;color:#f0f5f1!important;border-color:#52675d!important}
 html[data-theme="dark"] .mela-page-backdrop{background-image:linear-gradient(rgba(17,29,25,.94),rgba(17,29,25,.96)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80')}
+
+
+/* Mobile-first layout, touch targets, and safe-area support */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body, #root { min-width: 320px; min-height: 100%; }
+body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; }
+input, select, textarea { max-width: 100%; }
+button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
+:where(button, a, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid #2f624f;
+  outline-offset: 2px;
+}
+@supports (padding: max(0px)) {
+  .mela-safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .mela-safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
+}
+@media (max-width: 767px) {
+  html { scroll-padding-top: 4.5rem; }
+  /* Keep form text at 16px so iOS Safari does not zoom on focus. */
+  input, select, textarea { font-size: 16px !important; }
+  :where(button, a, [role="button"]) { touch-action: manipulation; }
+  .mela-home-hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); line-height: 1.12; }
+  .mela-home-hero > div { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .mela-service-card { min-height: 128px; padding: 1rem; }
+  .mela-page-backdrop { background-attachment: scroll; }
+  /* Wide accounting/data tables remain usable without stretching the phone viewport. */
+  .overflow-x-auto { max-width: 100%; -webkit-overflow-scrolling: touch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
