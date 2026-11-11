@@ -114,6 +114,13 @@ export default function App() {
    <Route path="analytics" element={<AnalyticsOverview/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
    <Route path="recycle-bin" element={<RecycleBinPage/>}/>
+   <Route path="business-center" element={<BusinessCommandCenter/>}/>
+   <Route path="finance" element={<BusinessCommandCenter initialSection="finance"/>}/>
+   <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
+   <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
+   <Route path="safety" element={<BusinessCommandCenter initialSection="safety"/>}/>
+   <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
+   <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
   <Route path="/business-center" element={<BusinessCommandCenter/>}/>
   <Route path="/business-center/projects" element={<BusinessCommandCenter initialSection="projects"/>}/>
