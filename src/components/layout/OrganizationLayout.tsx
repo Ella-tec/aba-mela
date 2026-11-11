@@ -12,7 +12,8 @@ const nav=[
  {to:'/organization/foreman',labelKey:'nav.foreman',icon:HardHat},
  {to:'/organization/workforce',labelKey:'nav.workforce',icon:Users},
  {to:'/organization/timesheets',labelKey:'nav.timesheets',icon:ClipboardList},
- {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3},\n {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
+ {to:'/organization/analytics',labelKey:'nav.analytics',icon:BarChart3},
+ {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
 export function OrganizationLayout(){
  const {t}=useTranslation();const navigate=useNavigate();const location=useLocation();const[sidebarOpen,setSidebarOpen]=useState(false);const auth=getAuth();
