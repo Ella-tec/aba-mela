@@ -12,25 +12,25 @@ if (-not (Test-Path $PublicFolder)) { New-Item -ItemType Directory -Path $Public
 
 # Draw the Mela mark into a real .ico file so Windows can display it on the shortcut.
 Add-Type -AssemblyName System.Drawing
-$bitmap = New-Object System.Drawing.Bitmap 256, 256
+$bitmap = [System.Drawing.Bitmap]::new(256, 256)
 $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
 $graphics.Clear([System.Drawing.Color]::FromArgb(23, 59, 53))
-$gold = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(244, 198, 106))
-$white = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
-$points = @(
-    (New-Object System.Drawing.Point 42,178),
-    (New-Object System.Drawing.Point 42,75),
-    (New-Object System.Drawing.Point 72,75),
-    (New-Object System.Drawing.Point 128,137),
-    (New-Object System.Drawing.Point 184,75),
-    (New-Object System.Drawing.Point 214,75),
-    (New-Object System.Drawing.Point 214,178),
-    (New-Object System.Drawing.Point 178,178),
-    (New-Object System.Drawing.Point 178,122),
-    (New-Object System.Drawing.Point 128,171),
-    (New-Object System.Drawing.Point 78,122),
-    (New-Object System.Drawing.Point 78,178)
+$gold = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(244, 198, 106))
+$white = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::White)
+$points = [System.Drawing.Point[]]@(
+    [System.Drawing.Point]::new(42,178),
+    [System.Drawing.Point]::new(42,75),
+    [System.Drawing.Point]::new(72,75),
+    [System.Drawing.Point]::new(128,137),
+    [System.Drawing.Point]::new(184,75),
+    [System.Drawing.Point]::new(214,75),
+    [System.Drawing.Point]::new(214,178),
+    [System.Drawing.Point]::new(178,178),
+    [System.Drawing.Point]::new(178,122),
+    [System.Drawing.Point]::new(128,171),
+    [System.Drawing.Point]::new(78,122),
+    [System.Drawing.Point]::new(78,178)
 )
 $graphics.FillPolygon($gold, $points)
 $graphics.FillEllipse($white, 190, 187, 28, 28)
