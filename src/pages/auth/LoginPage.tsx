@@ -31,7 +31,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="auth-screen min-h-screen flex flex-col">
       <div className="flex justify-end p-4"><LanguageSwitcher /></div>
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="w-full max-w-md">
@@ -42,7 +42,7 @@ export function LoginPage() {
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">{t('auth.login')}</h1>
           </div>
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/70 p-6 space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.email')}</label>
               <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
