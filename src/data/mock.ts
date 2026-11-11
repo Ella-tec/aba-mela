@@ -81,6 +81,14 @@ export const SERVICES = [
   { key: 'appliance', icon: 'Refrigerator' },
   { key: 'pest', icon: 'Bug' },
   { key: 'landscaping', icon: 'Trees' },
+  { key: 'drywall', icon: 'PanelsTopLeft' },
+  { key: 'flooring', icon: 'Layers' },
+  { key: 'fencing', icon: 'Fence' },
+  { key: 'windows', icon: 'AppWindow' },
+  { key: 'doors', icon: 'DoorOpen' },
+  { key: 'insulation', icon: 'Thermometer' },
+  { key: 'gutters', icon: 'Waves' },
+  { key: 'garage-doors', icon: 'Warehouse' },
 ] as const;
 
 // All people, prices, reviews, properties and job records below are fictional demo content.
@@ -174,6 +182,18 @@ export const MOCK_JOBS: Job[] = [
     price: 395,
     distanceMiles: 0.7,
   },
+  { id: 'JB-2005', service: 'Carpentry', serviceKey: 'carpentry', status: 'requested', customer: 'Oak & Main Property Group (demo)', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-11T09:00:00', price: 310, isHot: true, distanceMiles: 2.1 },
+  { id: 'JB-2006', service: 'Roofing', serviceKey: 'roofing', status: 'requested', customer: 'Prairie View Homes (demo)', address: 'Prairie Village, KS', scheduledAt: '2026-11-11T10:30:00', price: 680, distanceMiles: 4.8 },
+  { id: 'JB-2007', service: 'Flooring', serviceKey: 'flooring', status: 'requested', customer: 'Summit Retail Partners (demo)', address: 'Lee’s Summit, MO', scheduledAt: '2026-11-12T08:00:00', price: 540, distanceMiles: 5.2 },
+  { id: 'JB-2008', service: 'Landscaping', serviceKey: 'landscaping', status: 'assigned', customer: 'Greenway Residential (demo)', address: 'Brookside, Kansas City, MO', scheduledAt: '2026-11-12T13:00:00', price: 220, distanceMiles: 1.8 },
+  { id: 'JB-2009', service: 'Masonry', serviceKey: 'masonry', status: 'requested', customer: 'Cedar Ridge Apartments (demo)', address: 'North Kansas City, MO', scheduledAt: '2026-11-13T09:00:00', price: 760, distanceMiles: 6.4 },
+  { id: 'JB-2010', service: 'Appliance Repair', serviceKey: 'appliance', status: 'requested', customer: 'Hearthstone Living (demo)', address: 'Overland Park, KS', scheduledAt: '2026-11-13T11:00:00', price: 195, distanceMiles: 3.6 },
+  { id: 'JB-2011', service: 'Pest Control', serviceKey: 'pest', status: 'requested', customer: 'Bluebird Property Services (demo)', address: 'Mission, KS', scheduledAt: '2026-11-14T08:30:00', price: 145, distanceMiles: 4.1 },
+  { id: 'JB-2012', service: 'Tiling', serviceKey: 'tiling', status: 'requested', customer: 'Crossroads Workspace LLC (demo)', address: 'Crossroads, Kansas City, MO', scheduledAt: '2026-11-14T14:00:00', price: 420, distanceMiles: 2.7 },
+  { id: 'JB-2013', service: 'Drywall', serviceKey: 'drywall', status: 'requested', customer: 'River Market Lofts (demo)', address: 'River Market, Kansas City, MO', scheduledAt: '2026-11-15T09:00:00', price: 385, distanceMiles: 3.0 },
+  { id: 'JB-2014', service: 'Fencing', serviceKey: 'fencing', status: 'requested', customer: 'Meadowbrook Estates (demo)', address: 'Olathe, KS', scheduledAt: '2026-11-15T10:00:00', price: 620, distanceMiles: 7.2 },
+  { id: 'JB-2015', service: 'Window Installation', serviceKey: 'windows', status: 'requested', customer: 'Northland Commercial (demo)', address: 'Gladstone, MO', scheduledAt: '2026-11-16T08:00:00', price: 890, distanceMiles: 8.1 },
+  { id: 'JB-2016', service: 'Gutter Service', serviceKey: 'gutters', status: 'requested', customer: 'Maple Grove HOA (demo)', address: 'Raytown, MO', scheduledAt: '2026-11-16T13:30:00', price: 175, distanceMiles: 5.5 },
 ];
 
 export const MOCK_REVIEWS: Review[] = [
@@ -434,6 +454,14 @@ export const MOCK_TECHNICIANS: MapTechnician[] = [
   { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceMiles: 2.5 },
   { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceMiles: 1.7 },
   { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceMiles: 3.4 },
+  { id: 'T7', name: 'Jordan Reed (demo)', service: 'Carpentry', status: 'available', lat: 39.0550, lng: -94.5900, rating: 4.8, distanceMiles: 2.2 },
+  { id: 'T8', name: 'Maya Thompson (demo)', service: 'Roofing', status: 'busy', lat: 38.9550, lng: -94.6250, rating: 4.7, distanceMiles: 3.1 },
+  { id: 'T9', name: 'Noah Williams (demo)', service: 'Flooring', status: 'available', lat: 38.9900, lng: -94.5700, rating: 4.9, distanceMiles: 1.9 },
+  { id: 'T10', name: 'Sofia Martinez (demo)', service: 'Landscaping', status: 'working', lat: 38.9250, lng: -94.7000, rating: 4.6, distanceMiles: 4.0 },
+  { id: 'T11', name: 'Ethan Brooks (demo)', service: 'Masonry', status: 'available', lat: 39.1150, lng: -94.5500, rating: 4.8, distanceMiles: 2.8 },
+  { id: 'T12', name: 'Ava Johnson (demo)', service: 'Appliance Repair', status: 'onTheWay', lat: 39.0300, lng: -94.6800, rating: 4.7, distanceMiles: 2.5 },
+  { id: 'T13', name: 'Liam Carter (demo)', service: 'Pest Control', status: 'available', lat: 39.0800, lng: -94.6400, rating: 4.5, distanceMiles: 3.0 },
+  { id: 'T14', name: 'Isabella Davis (demo)', service: 'Tiling', status: 'busy', lat: 38.9700, lng: -94.5900, rating: 4.9, distanceMiles: 2.4 },
 ];
 
 export const MOCK_MAP_JOBS: MapJob[] = [
@@ -549,6 +577,48 @@ export const MOCK_PROJECTS: Project[] = [
     foreman: 'Tesfaye Bekele',
     workers: 8,
   },
+  {
+    id: 'PRJ-005',
+    name: 'River Market Retail Refresh',
+    client: 'River Market Commercial Partners (demo)',
+    location: 'River Market, Kansas City, MO',
+    status: 'active',
+    progress: 48,
+    budget: 64000,
+    spent: 29500,
+    startDate: '2026-10-10',
+    endDate: '2027-01-12',
+    foreman: 'Jordan Reed (demo)',
+    workers: 9,
+  },
+  {
+    id: 'PRJ-006',
+    name: 'Prairie Village Roof & Exterior',
+    client: 'Prairie View Homes (demo)',
+    location: 'Prairie Village, KS',
+    status: 'planning',
+    progress: 12,
+    budget: 52000,
+    spent: 4200,
+    startDate: '2026-11-18',
+    endDate: '2027-02-20',
+    foreman: 'Maya Thompson (demo)',
+    workers: 5,
+  },
+  {
+    id: 'PRJ-007',
+    name: 'Northland Office Maintenance',
+    client: 'Northland Commercial (demo)',
+    location: 'Gladstone, MO',
+    status: 'active',
+    progress: 71,
+    budget: 38000,
+    spent: 27100,
+    startDate: '2026-08-15',
+    endDate: '2026-12-01',
+    foreman: 'Ethan Brooks (demo)',
+    workers: 6,
+  },
 ];
 
 export const MOCK_MILESTONES: Milestone[] = [
@@ -569,6 +639,12 @@ export const MOCK_WORKERS: Worker[] = [
   { id: 'W6', name: 'Demo Worker Six', role: 'Site Supervisor', phone: '+1-555-0106', status: 'active', projectId: 'PRJ-002', dailyRate: 700 },
   { id: 'W7', name: 'Demo Worker Seven', role: 'Carpenter', phone: '+1-555-0107', status: 'onLeave', projectId: 'PRJ-001', dailyRate: 480 },
   { id: 'W8', name: 'Demo Worker Eight', role: 'Helper', phone: '+1-555-0108', status: 'inactive', dailyRate: 250 },
+  { id: 'W9', name: 'Jordan Reed (demo)', role: 'Finish Carpenter', phone: '+1-555-0109', status: 'active', projectId: 'PRJ-001', dailyRate: 520 },
+  { id: 'W10', name: 'Maya Thompson (demo)', role: 'Roofing Technician', phone: '+1-555-0110', status: 'active', projectId: 'PRJ-002', dailyRate: 610 },
+  { id: 'W11', name: 'Noah Williams (demo)', role: 'Flooring Installer', phone: '+1-555-0111', status: 'active', projectId: 'PRJ-001', dailyRate: 490 },
+  { id: 'W12', name: 'Sofia Martinez (demo)', role: 'Landscape Specialist', phone: '+1-555-0112', status: 'active', projectId: 'PRJ-002', dailyRate: 430 },
+  { id: 'W13', name: 'Ethan Brooks (demo)', role: 'Masonry Technician', phone: '+1-555-0113', status: 'active', projectId: 'PRJ-001', dailyRate: 560 },
+  { id: 'W14', name: 'Ava Johnson (demo)', role: 'Appliance Technician', phone: '+1-555-0114', status: 'onLeave', dailyRate: 470 },
 ];
 
 export const MOCK_TIMESHEETS: TimesheetEntry[] = [
@@ -617,6 +693,14 @@ export const TECH_PERFORMANCE = [
   { name: 'Demo Pro Three', jobs: 28, rating: 4.6, revenue: 6200, acceptance: 82 },
   { name: 'Demo Pro Four', jobs: 35, rating: 4.7, revenue: 2100, acceptance: 91 },
   { name: 'Demo Pro Five', jobs: 22, rating: 4.5, revenue: 3140, acceptance: 79 },
+  { name: 'Jordan Reed (demo)', jobs: 31, rating: 4.8, revenue: 4280, acceptance: 92 },
+  { name: 'Maya Thompson (demo)', jobs: 26, rating: 4.7, revenue: 5900, acceptance: 87 },
+  { name: 'Noah Williams (demo)', jobs: 38, rating: 4.9, revenue: 4750, acceptance: 95 },
+  { name: 'Sofia Martinez (demo)', jobs: 19, rating: 4.6, revenue: 2650, acceptance: 89 },
+  { name: 'Ethan Brooks (demo)', jobs: 24, rating: 4.8, revenue: 3980, acceptance: 91 },
+  { name: 'Ava Johnson (demo)', jobs: 29, rating: 4.7, revenue: 3420, acceptance: 90 },
+  { name: 'Liam Carter (demo)', jobs: 17, rating: 4.5, revenue: 2180, acceptance: 84 },
+  { name: 'Isabella Davis (demo)', jobs: 33, rating: 4.9, revenue: 5100, acceptance: 96 },
 ];
 
 export const PROJECT_ANALYTICS = [

@@ -31,18 +31,24 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="auth-screen min-h-screen flex flex-col">
       <div className="flex justify-end p-4"><LanguageSwitcher /></div>
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6">
+            <Link to="/" className="inline-flex items-center gap-2 mb-6 text-white">
               <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl"><img src="/favicon.svg" alt="" className="w-full h-full rounded-lg" /></div>
               <span className="font-bold text-2xl">{t('common.appName')}</span>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('auth.login')}</h1>
+            <h1 className="text-2xl font-bold text-white">{t('auth.login')}</h1>
           </div>
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <p className="text-center text-sm text-white/90 mb-5">One simple place to find home services, manage bookings, and keep every project moving.</p>
+          <div className="grid grid-cols-3 gap-2 mb-5 text-center text-xs text-white/95">
+            <div className="rounded-xl border border-white/25 bg-white/10 px-2 py-3 backdrop-blur-sm"><span className="block text-lg mb-1">⌂</span>Home care</div>
+            <div className="rounded-xl border border-white/25 bg-white/10 px-2 py-3 backdrop-blur-sm"><span className="block text-lg mb-1">✓</span>Pro profiles</div>
+            <div className="rounded-xl border border-white/25 bg-white/10 px-2 py-3 backdrop-blur-sm"><span className="block text-lg mb-1">↗</span>Job updates</div>
+          </div>
+          <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/70 p-6 space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.email')}</label>
               <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
