@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Header } from '@/components/layout/Header';
 import { PortalLayout } from '@/components/layout/PortalLayout';
 import { OrganizationLayout } from '@/components/layout/OrganizationLayout';
@@ -54,6 +55,13 @@ function NotFoundPage() {
  return <PublicLayout><div className="mx-auto max-w-xl px-4 py-20 text-center"><h1 className="text-3xl font-bold text-gray-900">Page not found</h1><p className="mt-2 text-gray-600">This Mela page does not exist or may have moved.</p><Link to="/" className="mt-6 inline-flex rounded-lg bg-primary-700 px-5 py-2.5 font-semibold text-white hover:bg-primary-800">Return home</Link></div></PublicLayout>;
 }
 export default function App() {
+ useEffect(() => {
+  const root = document.documentElement;
+  root.dataset.reduceMotion = localStorage.getItem('mela-pref-motion') === 'true' ? 'true' : 'false';
+  root.dataset.theme = localStorage.getItem('mela-pref-dark') === 'true' ? 'dark' : 'light';
+  root.dataset.highContrast = localStorage.getItem('mela-pref-contrast') === 'true' ? 'true' : 'false';
+  root.dataset.fontSize = localStorage.getItem('mela-pref-font') || 'medium';
+ }, []);
  return <BrowserRouter><Routes>
   <Route path="/" element={<PublicLayout><HomePage/></PublicLayout>}/>
   <Route path="/login" element={<LoginPage/>}/>
