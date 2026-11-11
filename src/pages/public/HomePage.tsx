@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Wrench, Zap, Paintbrush, Home, HardHat, Sparkles, CalendarCheck, ShieldCheck, MessageCircle } from 'lucide-react';
+import { Search, Wrench, Zap, Paintbrush, Home, HardHat, Sparkles, CalendarCheck, ShieldCheck, MessageCircle, Hammer, BrickWall } from 'lucide-react';
 
 const services=[
  {icon:Wrench,key:'plumbing',color:'bg-blue-100 text-blue-700'},
@@ -10,7 +10,10 @@ const services=[
  {icon:Paintbrush,key:'painting',color:'bg-purple-100 text-purple-700'},
  {icon:Home,key:'cleaning',color:'bg-green-100 text-green-700'},
  {icon:HardHat,key:'construction',color:'bg-orange-100 text-orange-700'},
- {icon:Sparkles,key:'hvac',color:'bg-cyan-100 text-cyan-700'}
+ {icon:Sparkles,key:'hvac',color:'bg-cyan-100 text-cyan-700'},
+ {icon:Hammer,key:'carpentry',color:'bg-amber-100 text-amber-700'},
+ {icon:BrickWall,key:'masonry',color:'bg-stone-100 text-stone-700'},
+ {icon:Home,key:'roofing',color:'bg-rose-100 text-rose-700'}
 ];
 export function HomePage(){
  const {t}=useTranslation();const navigate=useNavigate();const[service,setService]=useState('');const[zip,setZip]=useState('');
