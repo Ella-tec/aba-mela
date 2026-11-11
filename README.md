@@ -10,7 +10,7 @@ Mela uses its own ports so it can run beside your other applications without tak
 
 | Service | Local address |
 |---|---|
-| Frontend | http://localhost:5178 |
+| Frontend | http://localhost:5179 |
 | API health | http://localhost:5018/health |
 | API Swagger | http://localhost:5018/swagger |
 | PostgreSQL | localhost:5448 |
@@ -29,7 +29,7 @@ After downloading or cloning the project and installing Docker Desktop:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-MelaDesktopShortcut.ps1
 ```
 
-4. A **Mela** shortcut will appear on your Windows desktop. Double-click it whenever you want to start Mela. It starts the local frontend, API, and PostgreSQL services with Docker Compose, then opens Mela in your browser at http://localhost:5178.
+4. A **Mela** shortcut with the Mela logo will appear on your Windows desktop. Double-click it whenever you want to start Mela. It starts the local frontend, API, and PostgreSQL services with Docker Compose, then opens Mela in your browser at http://localhost:5179.
 
 Docker Desktop must be installed and running. The shortcut points to this project folder, so keep the folder in its current location. To stop the local services, open PowerShell in the project folder and run `docker compose down`. Your database volume is preserved.
 
@@ -61,7 +61,7 @@ docker compose up --build
 ```
 
 Then open:
-- Frontend: http://localhost:5178
+- Frontend: http://localhost:5179
 - API health: http://localhost:5018/health
 - API Swagger: http://localhost:5018/swagger
 
@@ -82,7 +82,7 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-Open http://localhost:5178. This starts only the frontend; the API and PostgreSQL must also be running for registration, login and API-backed workflows. If you run PostgreSQL locally, configure the API connection string to use port 5448 only when PostgreSQL is published by the Mela Docker Compose stack.
+Open http://localhost:5179. This starts only the frontend; the API and PostgreSQL must also be running for registration, login and API-backed workflows. If you run PostgreSQL locally, configure the API connection string to use port 5448 only when PostgreSQL is published by the Mela Docker Compose stack.
 
 Build the frontend with `npm run build`; preview with `npm run preview`.
 
@@ -95,7 +95,7 @@ $env:Jwt__Key="REPLACE_WITH_A_RANDOM_SECRET_AT_LEAST_32_BYTES_LONG"
 $env:Jwt__Issuer="Mela"
 $env:Jwt__Audience="Mela"
 $env:Jwt__ExpiresMinutes="60"
-$env:Cors__AllowedOrigins__0="http://localhost:5178"
+$env:Cors__AllowedOrigins__0="http://localhost:5179"
 dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localhost:5018
 ```
 
