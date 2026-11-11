@@ -11,7 +11,7 @@ export function ProfessionalJobs({ hotOnly=false, myJobs=false }:{hotOnly?:boole
  const jobs = useMemo(() => {
   if (myJobs) return MOCK_JOBS.filter(job => ['assigned','working','completed'].includes(job.status) || decisions[job.id] === 'accepted');
   const pool = hotOnly ? MOCK_JOBS.filter(job => job.isHot && job.status === 'requested') : MOCK_JOBS.filter(job => job.status === 'requested');
-  return pool.filter(job => decisions[job.id] !== 'declined');
+  return pool.filter(job => !decisions[job.id]);
  },[myJobs,hotOnly,decisions]);
  const title=myJobs?t('professional.myJobs'):hotOnly?t('professional.hotJobs'):t('professional.availableJobs');
  function decide(id:string,decision:Decision){const next={...decisions,[id]:decision};setDecisions(next);localStorage.setItem(STORAGE_KEY,JSON.stringify(next));if(decision==='accepted')setSelected(null);}
