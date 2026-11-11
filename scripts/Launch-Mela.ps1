@@ -1,7 +1,7 @@
-# Mela local launcher - starts the frontend, API, and PostgreSQL with Docker Compose.
+# Double-click launcher for the local Mela demo. Requires Docker Desktop.
 $ErrorActionPreference = "Stop"
 $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-$WebUrl = "http://localhost:5178"
+$WebUrl = "http://127.0.0.1:5179"
 $HealthUrl = "http://localhost:5018/health"
 
 Write-Host ""
@@ -16,12 +16,12 @@ Push-Location $ProjectRoot
 try {
     docker info *> $null
     if ($LASTEXITCODE -ne 0) {
-        throw "Docker Desktop is not running. Open Docker Desktop, wait until it says Engine running, then launch Mela again."
+        throw "Docker Desktop is not running. Open Docker Desktop, wait until Engine is running, then double-click Mela again."
     }
 
     docker compose up -d --build
     if ($LASTEXITCODE -ne 0) {
-        throw "Mela services could not start. Open PowerShell in the Mela folder and run: docker compose logs"
+        throw "Mela could not start. Open PowerShell in the Mela folder and run: docker compose logs"
     }
 }
 finally {
@@ -42,7 +42,7 @@ for ($Attempt = 0; $Attempt -lt 60; $Attempt++) {
     }
 }
 if (-not $Ready) {
-    Write-Warning "The API did not report healthy within two minutes. Mela may still be starting. Check Docker Desktop logs."
+    Write-Warning "The API did not report healthy within two minutes. The website will still open; check Docker Desktop if data features do not work."
 }
 
 Start-Process $WebUrl
