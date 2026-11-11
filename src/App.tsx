@@ -38,6 +38,7 @@ import { SupplierCatalog } from '@/pages/supplier/Catalog';
 import { SupplierOrders } from '@/pages/supplier/Orders';
 import { SupplierRentals } from '@/pages/supplier/Rentals';
 import { SettingsPage } from '@/pages/common/SettingsPage';
+import { RecycleBinPage } from '@/pages/common/RecycleBin';
 import { getAuth } from '@/lib/auth';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
