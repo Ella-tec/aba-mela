@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { addToRecycleBin } from '@/lib/recycleBin';
 import { MOCK_JOBS } from '@/data/mock';
-import { Building2, FileText, Receipt, CreditCard, Camera, Wallet, Car, ShieldAlert, TrendingUp, Plus, Search, Download, Upload, Trash2, X, Image as ImageIcon, Pencil, Eye } from 'lucide-react';
+import { Building2, FileText, Receipt, CreditCard, Camera, Wallet, Car, ShieldAlert, TrendingUp, Plus, Search, Download, Upload, Trash2, X, Image as ImageIcon, Pencil } from 'lucide-react';
 
 type Section='overview'|'invoices'|'transactions'|'documents'|'photos'|'expenses'|'assets'|'liabilities'|'reports';
 type Entry={id:string;name:string;amount:number;status?:string;category?:string;date:string;notes?:string};
@@ -14,7 +14,6 @@ function readStore():Store{try{const saved=JSON.parse(localStorage.getItem(KEY)|
 const FILE_DB='mela-business-files';
 function saveBrowserFile(id:string,file:File):Promise<void>{return new Promise((resolve,reject)=>{const request=indexedDB.open(FILE_DB,1);request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains('files'))db.createObjectStore('files')};request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result;const tx=db.transaction('files','readwrite');tx.objectStore('files').put(file,id);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)}}})}
 function readBrowserFile(id:string):Promise<Blob|null>{return new Promise((resolve,reject)=>{const request=indexedDB.open(FILE_DB,1);request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result;if(!db.objectStoreNames.contains('files')){db.close();resolve(null);return}const tx=db.transaction('files','readonly');const get=tx.objectStore('files').get(id);get.onsuccess=()=>{db.close();resolve((get.result as Blob|undefined)||null)};get.onerror=()=>{db.close();reject(get.error)}}})}
-function deleteBrowserFile(id:string):Promise<void>{return new Promise((resolve,reject)=>{const request=indexedDB.open(FILE_DB,1);request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result;const tx=db.transaction('files','readwrite');tx.objectStore('files').delete(id);tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)}}})}
 const money=(n:number)=>n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2});
 const tabs:{id:Section;label:string;icon:typeof Building2}[]=[{id:'overview',label:'Overview',icon:Building2},{id:'invoices',label:'Invoices',icon:Receipt},{id:'transactions',label:'Transactions',icon:CreditCard},{id:'documents',label:'Documents',icon:FileText},{id:'photos',label:'Job Photos',icon:Camera},{id:'expenses',label:'Expenses',icon:Wallet},{id:'assets',label:'Assets',icon:Car},{id:'liabilities',label:'Liabilities',icon:ShieldAlert},{id:'reports',label:'Profit & Loss',icon:TrendingUp}];
 export function BusinessCenter(){
