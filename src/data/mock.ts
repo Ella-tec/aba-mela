@@ -150,6 +150,7 @@ export const MOCK_JOBS: Job[] = [
     scheduledAt: '2026-11-02T16:30:00',
     price: 225,
     isHot: true,
+    isHot: true,
     distanceMiles: 3.2,
   },
   {
@@ -161,6 +162,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Lee’s Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
     price: 125,
+    isHot: true,
     distanceMiles: 2.4,
   },
   {
@@ -175,7 +177,7 @@ export const MOCK_JOBS: Job[] = [
     distanceMiles: 0.7,
   },
   { id: 'JB-2005', service: 'Roofing', serviceKey: 'roofing', status: 'requested', customer: 'Priya S.', address: 'Plaza, Kansas City, MO', scheduledAt: '2026-11-12T08:30:00', price: 680, isHot: true, distanceMiles: 2.1 },
-  { id: 'JB-2006', service: 'Carpentry', serviceKey: 'carpentry', status: 'requested', customer: 'Marcus T.', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-12T10:00:00', price: 340, distanceMiles: 3.4 },
+  { id: 'JB-2006', service: 'Carpentry', serviceKey: 'carpentry', status: 'requested', customer: 'Marcus T.', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-12T10:00:00', price: 340, isHot: true, distanceMiles: 3.4 },
   { id: 'JB-2007', service: 'Painting', serviceKey: 'painting', status: 'requested', customer: 'Elena R.', address: 'Prairie Village, KS', scheduledAt: '2026-11-13T09:00:00', price: 520, distanceMiles: 4.8 },
   { id: 'JB-2008', service: 'Landscaping', serviceKey: 'landscaping', status: 'requested', customer: 'Jordan B.', address: 'North Kansas City, MO', scheduledAt: '2026-11-13T11:00:00', price: 275, distanceMiles: 5.2 },
   { id: 'JB-2009', service: 'Masonry', serviceKey: 'masonry', status: 'requested', customer: 'Cameron W.', address: 'Independence, MO', scheduledAt: '2026-11-14T08:00:00', price: 890, distanceMiles: 6.1 },
@@ -184,6 +186,12 @@ export const MOCK_JOBS: Job[] = [
   { id: 'JB-2012', service: 'Tile Installation', serviceKey: 'tiling', status: 'requested', customer: 'Olivia P.', address: 'Lee’s Summit, MO', scheduledAt: '2026-11-15T12:00:00', price: 740, distanceMiles: 8.2 },
   { id: 'JB-2013', service: 'HVAC Maintenance', serviceKey: 'hvac', status: 'requested', customer: 'Heartland Retail (demo)', address: 'Overland Park, KS', scheduledAt: '2026-11-16T08:00:00', price: 310, distanceMiles: 4.5 },
   { id: 'JB-2014', service: 'Deep Cleaning', serviceKey: 'cleaning', status: 'requested', customer: 'Avery L.', address: 'Brookside, Kansas City, MO', scheduledAt: '2026-11-16T14:00:00', price: 225, distanceMiles: 2.6 },
+  { id: 'JB-2015', service: 'Emergency Plumbing', serviceKey: 'plumbing', status: 'requested', customer: 'Taylor R.', address: 'Westport, Kansas City, MO', scheduledAt: '2026-11-11T08:00:00', price: 285, isHot: true, distanceMiles: 1.1 },
+  { id: 'JB-2016', service: 'Electrical Panel Check', serviceKey: 'electrical', status: 'requested', customer: 'Morgan P.', address: 'Mission Hills, KS', scheduledAt: '2026-11-11T10:30:00', price: 410, isHot: true, distanceMiles: 3.8 },
+  { id: 'JB-2017', service: 'Roof Leak Repair', serviceKey: 'roofing', status: 'requested', customer: 'Casey D.', address: 'Roeland Park, KS', scheduledAt: '2026-11-11T13:00:00', price: 560, isHot: true, distanceMiles: 4.2 },
+  { id: 'JB-2018', service: 'HVAC Tune-up', serviceKey: 'hvac', status: 'requested', customer: 'Jamie K.', address: 'Downtown Kansas City, MO', scheduledAt: '2026-11-12T09:00:00', price: 195, distanceMiles: 2.0 },
+  { id: 'JB-2019', service: 'Fence Repair', serviceKey: 'carpentry', status: 'requested', customer: 'Robin S.', address: 'Gladstone, MO', scheduledAt: '2026-11-12T14:00:00', price: 325, distanceMiles: 6.4 },
+  { id: 'JB-2020', service: 'Move-out Cleaning', serviceKey: 'cleaning', status: 'requested', customer: 'Alex N.', address: 'West Plaza, Kansas City, MO', scheduledAt: '2026-11-13T08:30:00', price: 245, distanceMiles: 2.7 },
 ];
 
 export const MOCK_REVIEWS: Review[] = [
