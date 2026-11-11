@@ -17,6 +17,22 @@ Mela uses its own ports so it can run beside your other applications without tak
 
 The ports inside Docker containers remain the standard service ports. Only the host-side ports are unique to Mela.
 
+## Create a Mela desktop shortcut (Windows)
+
+After downloading or cloning the project and installing Docker Desktop:
+
+1. Open the Mela project folder in File Explorer.
+2. Open the `scripts` folder.
+3. Right-click `Install-MelaDesktopShortcut.ps1` and choose **Run with PowerShell**. If Windows blocks it, open PowerShell in the project folder and run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-MelaDesktopShortcut.ps1
+```
+
+4. A **Mela** shortcut will appear on your Windows desktop. Double-click it whenever you want to start Mela. It starts the local frontend, API, and PostgreSQL services with Docker Compose, then opens Mela in your browser at http://localhost:5178.
+
+Docker Desktop must be installed and running. The shortcut points to this project folder, so keep the folder in its current location. To stop the local services, open PowerShell in the project folder and run `docker compose down`. Your database volume is preserved.
+
 ## Open and run in VS Code (recommended)
 
 The easiest setup uses **Docker Desktop**. It runs the React frontend, ASP.NET Core API, and PostgreSQL database together. You do **not** need to install .NET 8 on Windows when using this option.
