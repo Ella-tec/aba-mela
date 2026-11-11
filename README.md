@@ -33,6 +33,29 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-MelaDeskto
 
 Docker Desktop must be installed and running. The shortcut points to this project folder, so keep the folder in its current location. To stop the local services, open PowerShell in the project folder and run `docker compose down`. Your database volume is preserved.
 
+## Install Mela on phones, tablets and computers (PWA)
+
+Mela is configured as a Progressive Web App (PWA). One hosted HTTPS version can be installed on supported phones, tablets and computers; separate Android and iOS builds are not required for this web-app installation route.
+
+### Supported installation routes
+
+- **Android:** Open Mela in Chrome, open the three-dot menu, and choose **Install app** or **Add to Home screen**.
+- **iPhone and iPad:** Open Mela in Safari, tap **Share → Add to Home Screen**, enable **Open as Web App** if offered, then tap **Add**. iOS 16.4 and later also supports installation from other supported browsers' share menus.
+- **Windows, ChromeOS and Linux:** Open Mela in Chrome or Edge and use the address-bar install icon or browser menu → **Install Mela**.
+- **macOS:** Use Chrome or Edge's install command, or Safari 17+ on macOS Sonoma or later → **File → Add to Dock**.
+- **Other devices:** Mela remains a responsive website wherever a modern browser is available; standalone installation depends on the device and browser.
+
+### PWA icons and offline shell
+
+The project generates PNG icons for Android/Chromium (192px and 512px), a maskable icon, and an Apple touch icon from the shared Mela SVG mark. Icon generation runs automatically before npm run dev, npm run build, and npm run preview. The first dependency install must include the updated package manifest:
+
+```powershell
+npm install
+```
+
+The service worker caches the application shell and generated icons, and displays the cached app shell when the network is unavailable. Live provider search, sign-in, API data, maps and other server-backed features still require an internet connection and the backend; offline caching does not make those services work offline.
+
+**Important:** Public installation requires Mela to be deployed to a public HTTPS address. The local http://localhost:5179 address is only for development and testing on the same computer. This PWA is not yet a native App Store / Google Play store package; store distribution requires separate platform packaging, developer accounts, review and release work.
 ## Open and run in VS Code (recommended)
 
 The easiest setup uses **Docker Desktop**. It runs the React frontend, ASP.NET Core API, and PostgreSQL database together. You do **not** need to install .NET 8 on Windows when using this option.
