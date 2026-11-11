@@ -11,13 +11,9 @@ export default defineConfig({
     },
   },
   server: {
-    host: '127.0.0.1',
+    // Allow phones and tablets on the same trusted Wi-Fi to preview Mela.
+    host: '0.0.0.0',
     port: 5179,
     strictPort: true,
-    hmr: {
-      host: 'localhost',
-      protocol: 'ws',
-      clientPort: 5179,
-    },
   },
 })
