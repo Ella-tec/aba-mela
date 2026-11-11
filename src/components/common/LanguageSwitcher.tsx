@@ -32,9 +32,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     <div className={cn('relative', className)} ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm font-medium"
+        className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-gray-50 sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
       >
-        <Languages className="w-4 h-4" />
+        <Languages className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
         <span>{current.flag} {current.label}</span>
       </button>
 
