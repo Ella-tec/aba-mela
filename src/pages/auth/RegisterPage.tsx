@@ -54,12 +54,13 @@ export function RegisterPage() {
       <div className="flex-1 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-lg">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6">
+            <Link to="/" className="inline-flex items-center gap-2 mb-6 text-white">
               <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl"><img src="/favicon.svg" alt="" className="w-full h-full rounded-lg" /></div>
               <span className="font-bold text-2xl">{t('common.appName')}</span>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('auth.register')}</h1>
+            <h1 className="text-2xl font-bold text-white">{t('auth.register')}</h1>
           </div>
+          <p className="text-center text-sm text-white/90 mb-5">Choose how you want to use Mela. Create a customer account, join as a skilled professional, or manage a project team.</p>
           {!accountType ? (
             <div className="space-y-3">
               <p className="text-center text-gray-600 mb-4">{t('auth.selectAccountType')}</p>
