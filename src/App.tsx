@@ -19,6 +19,7 @@ import { SmartMatch } from '@/pages/customer/SmartMatch';
 import { RecordDetailPage } from '@/pages/customer/RecordDetail';
 import { ProfessionalDashboard } from '@/pages/professional/Dashboard';
 import { ProfessionalJobs } from '@/pages/professional/Jobs';
+import { BusinessCenter } from '@/pages/professional/BusinessCenter';
 import { ProfessionalVerification } from '@/pages/professional/Verification';
 import { ProfessionalReviews } from '@/pages/professional/Reviews';
 import { ProfessionalEarnings } from '@/pages/professional/Earnings';
@@ -93,6 +94,7 @@ export default function App() {
    <Route path="map" element={<ProfessionalMapView/>}/>
    <Route path="dispatch" element={<DispatchCenter/>}/>
    <Route path="earnings" element={<ProfessionalEarnings/>}/>
+   <Route path="business-center" element={<BusinessCenter/>}/>
    <Route path="calendar" element={<CalendarPage/>}/>
    <Route path="verification" element={<ProfessionalVerification/>}/>
    <Route path="reviews" element={<ProfessionalReviews/>}/>
