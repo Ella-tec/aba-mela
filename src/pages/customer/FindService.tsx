@@ -27,7 +27,7 @@ const tradeMeta: Record<string,{label:string;description:string;icon:typeof Wren
  moving:{label:'Moving & hauling',description:'Residential moves, furniture handling, loading support and responsible item hauling.',icon:Truck,group:'Home care'},
  remodeling:{label:'Remodeling',description:'Room renovations, kitchen and bath updates, coordinated repairs and home improvement projects.',icon:Building2,group:'Renovation & specialty'},
  welding:{label:'Welding & metalwork',description:'Metal fabrication, custom gates, repairs and structural metalwork by qualified specialists.',icon:Wrench,group:'Renovation & specialty'},
- concrete:{label:'Concrete services',description:'Concrete placement, resurfacing, small slabs, steps, walkways and repair projects.',icon:Building2,group:'Exterior & structure'}
+ concrete:{label:'Concrete services',description:'Concrete placement, resurfacing, small slabs, steps, walkways and repair projects.',icon:Building2,group:'Exterior & structure'},
  'fiber-splicing':{label:'Fiber splicing',description:'Fusion and ribbon splicing, splice closures, fiber restoration, optical testing and splice documentation.',icon:Cable,group:'Technology & low voltage'},
  'fiber-installation':{label:'Fiber installation',description:'FTTH drops, indoor and outdoor fiber runs, conduit routing, termination and new fiber deployments.',icon:RadioTower,group:'Technology & low voltage'},
  'fiber-repair':{label:'Fiber optic repair',description:'Fiber fault location, damaged cable repair, OTDR testing, signal-loss diagnosis and restoration.',icon:Cable,group:'Technology & low voltage'},
