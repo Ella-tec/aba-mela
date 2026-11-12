@@ -5,7 +5,7 @@ import { MOCK_JOBS } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import {
   Flame, Briefcase, Wallet, Star, CloudSun, MapPin, Clock3,
-  ArrowUpRight, CalendarDays, CheckCircle2, Wind, Droplets, RefreshCw,
+  ArrowUpRight, CalendarDays, Wind, Droplets, RefreshCw,
 } from 'lucide-react';
 
 type WeatherSnapshot = {
