@@ -160,6 +160,23 @@ export function BusinessCommandCenter({ initialSection = 'overview' }: BusinessC
   if (initialSection === 'documents') return <DocumentsWorkspace base={base}/>;
   if (initialSection === 'scheduling') return <SchedulingWorkspace base={base}/>;
 
+  if (initialSection !== 'overview') {
+    const fallback: Record<string, { title: string; description: string; href: string }> = {
+      projects: { title: 'Projects', description: 'Open project records, milestones and project details.', href: isOrganization ? '/organization/projects' : '/professional/jobs' },
+      workforce: { title: 'Workforce', description: 'Review workers, crew details and available assignments.', href: isOrganization ? '/organization/workforce' : '/professional/business-center' },
+      safety: { title: 'Safety', description: 'Open job-site safety, emergency resources and inspections.', href: base + '/safety' },
+      analytics: { title: 'Analytics', description: 'Review project performance and available reports.', href: base + '/analytics' },
+      ai: { title: 'Mela AI', description: 'Use the Mela assistant to ask questions about supported workspace information.', href: base + '/business-center' },
+      settings: { title: 'Settings', description: 'Manage your account and workspace preferences.', href: isOrganization ? '/organization/settings' : '/professional/settings' },
+    };
+    const workspace = fallback[initialSection] || fallback.projects;
+    return <WorkspaceFrame base={base} title={workspace.title} subtitle={workspace.description}>
+      <Panel><SectionHeading title={workspace.title + ' workspace'} description="Open the existing Mela workspace to continue. This shortcut keeps your current project records and role permissions in place."/>
+        <Link to={workspace.href} className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-orange-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-800">Open {workspace.title}<ArrowUpRight className="h-4 w-4"/></Link>
+      </Panel>
+    </WorkspaceFrame>;
+  }
+
   const workspaces = [
     {title:'Projects',detail:'Project register, milestones and budgets',href:base+'/projects',icon:FolderKanban,action:'Open projects'},
     {title:'Workforce',detail:'Workers, foremen, crews and timesheets',href:base+'/workforce',icon:Users,action:'Open workforce'},
