@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Users, UserCheck, CalendarDays, ClipboardList, Search, Clock3, CircleAlert, ArrowUpRight, Phone, HardHat } from 'lucide-react';
+import { Users, UserCheck, CalendarDays, ClipboardList, Search, CircleAlert, ArrowUpRight, Phone, HardHat } from 'lucide-react';
 import { MOCK_WORKERS, MOCK_PROJECTS, MOCK_MILESTONES, MOCK_TIMESHEETS } from '@/data/mock';
 import { cn } from '@/lib/utils';
 
@@ -10,7 +10,7 @@ const crewIds = ['W1', 'W2', 'W3', 'W7', 'W11'];
 const crewInitialStatus: Record<string, 'Present' | 'On Leave'> = { W1:'Present', W2:'Present', W3:'Present', W7:'On Leave', W11:'Present' };
 const workerStatus: Record<string,string> = { active:'Active', onLeave:'On Leave', inactive:'Inactive' };
 
-function Card({ children, id }: { children: React.ReactNode; id: string }) {
+function Card({ children, id }: { children: ReactNode; id: string }) {
   return <section id={id} className="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">{children}</section>;
 }
 function Heading({ icon: Icon, title, detail, action }: { icon: typeof Users; title:string; detail:string; action?:React.ReactNode }) {
