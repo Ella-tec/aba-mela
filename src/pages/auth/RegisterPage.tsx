@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { User, Wrench, Building2 } from 'lucide-react';
+import { User, Wrench, Building2, ArrowLeft } from 'lucide-react';
 import { register } from '@/lib/auth';
 
 type AccountType = 'customer' | 'professional' | 'organization';
@@ -49,11 +49,11 @@ export function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <div className="flex justify-end p-4"><LanguageSwitcher /></div>
-      <div className="flex-1 flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-lg">
-          <div className="text-center mb-8">
+    <div className="min-h-screen w-full min-w-0 flex flex-col overflow-x-clip bg-gray-50 mela-page-backdrop">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 pt-4 sm:px-6"><Link to="/" className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6e2da] bg-white/90 px-4 text-sm font-semibold text-[#173b35] shadow-sm transition hover:bg-[#edf4ef]"><ArrowLeft className="h-4 w-4" /> Back to Home</Link><LanguageSwitcher /></div>
+      <div className="flex-1 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
+        <div className="w-full max-w-lg min-w-0">
+          <div className="text-center mb-6 sm:mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
               <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl"><img src="/favicon.svg" alt="" className="w-full h-full rounded-lg" /></div>
               <span className="font-bold text-2xl">{t('common.appName')}</span>

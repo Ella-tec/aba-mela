@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
 import { login } from '@/lib/auth';
+import { ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -31,38 +32,52 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <div className="flex justify-end p-4"><LanguageSwitcher /></div>
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xl"><img src="/favicon.svg" alt="" className="w-full h-full rounded-lg" /></div>
-              <span className="font-bold text-2xl">{t('common.appName')}</span>
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('auth.login')}</h1>
-          </div>
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.email')}</label>
-              <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">{t('auth.password')}</label>
-              <input id="password" type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-            </div>
-            {error && <p role="alert" className="text-sm text-red-700 bg-red-50 rounded-lg p-3">{error}</p>}
-            <button type="submit" disabled={busy} className="w-full py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 disabled:opacity-60">
-              {busy ? 'Signing in…' : t('auth.login')}
-            </button>
-          </form>
-          <p className="mt-6 text-center text-sm text-gray-600">
-            {t('auth.noAccount')} <Link to="/register" className="text-primary-600 font-medium hover:underline">{t('auth.register')}</Link>
-          </p>
+    <div className="min-h-screen bg-[#f4f6f3] lg:grid lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="mela-login-photo relative flex min-h-[250px] flex-col justify-between overflow-hidden px-7 py-7 text-white sm:px-10 sm:py-9 lg:min-h-screen lg:px-14 lg:py-12">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#102d29]/85 via-[#173b35]/55 to-[#173b35]/25" />
+        <div className="relative z-10 flex items-center gap-3">
+          <img src="/favicon.svg" alt="" className="h-11 w-11 rounded-xl bg-white/15 p-1.5" />
+          <span className="text-2xl font-bold tracking-tight">{t('common.appName')}</span>
         </div>
-      </div>
+        <div className="relative z-10 max-w-xl py-8">
+          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold tracking-wide text-white/90 backdrop-blur-sm"><MapPin className="h-3.5 w-3.5" /> KANSAS CITY METRO</span>
+          <h1 className="max-w-lg text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">Your home deserves the right hands.</h1>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">Find trusted local help, keep projects moving, and manage every detail in one thoughtful place.</p>
+          <div className="mt-7 flex items-center gap-2 text-sm text-white/85"><ShieldCheck className="h-4 w-4 text-[#f4c66a]" /> One place for customers, professionals, and project teams</div>
+        </div>
+        <p className="relative z-10 hidden text-xs text-white/70 lg:block">Mela · Home services and project care, made simpler.</p>
+      </section>
+
+      <section className="relative flex min-h-[calc(100vh-250px)] flex-col bg-white px-5 py-6 sm:px-8 lg:min-h-screen lg:px-12">
+        <div className="flex justify-end"><LanguageSwitcher /></div>
+        <div className="flex flex-1 items-center justify-center py-10">
+          <div className="w-full max-w-md">
+            <div className="mb-8">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-primary-600">Welcome back</p>
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900">{t('auth.login')}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">Sign in to continue to your Mela workspace.</p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.email')}</label>
+                <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
+                  className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
+              </div>
+              <div>
+                <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.password')}</label>
+                <input id="password" type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter your password"
+                  className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
+              </div>
+              {error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+              <button type="submit" disabled={busy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-200 disabled:cursor-not-allowed disabled:opacity-60">
+                {busy ? 'Signing in…' : t('auth.login')} {!busy && <ArrowRight className="h-4 w-4" />}
+              </button>
+            </form>
+            <p className="mt-7 text-center text-sm text-gray-600">{t('auth.noAccount')} <Link to="/register" className="font-semibold text-primary-700 hover:underline">{t('auth.register')}</Link></p>
+            <div className="mt-10 border-t border-gray-100 pt-5 text-center text-xs text-gray-400">Secure access to your Mela account</div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

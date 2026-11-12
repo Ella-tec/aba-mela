@@ -19,3 +19,175 @@ button:disabled,[aria-disabled="true"]{cursor:not-allowed}
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
 html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, html[data-reduce-motion="true"] *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+
+
+/* Mela photography: real trades, tools, crews, and active job sites. */
+.mela-home-hero {
+  background-color: #173b35;
+  background-image:
+    linear-gradient(90deg, rgba(12, 34, 29, .91) 0%, rgba(18, 48, 40, .78) 48%, rgba(18, 48, 40, .30) 100%),
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2200&q=88');
+  background-position: center, center 46%;
+  background-size: cover;
+}
+.mela-service-card {
+  min-height: 150px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: white;
+  background-color: #24483e;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1000px rgba(15, 35, 30, .46);
+}
+.mela-service-card > * { position: relative; z-index: 1; }
+.mela-service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(10,25,21,.12), rgba(10,25,21,.76));
+  transition: opacity .2s ease;
+}
+.mela-service-card:hover::before { opacity: .78; }
+.mela-service-card .mela-service-icon { background: rgba(255,255,255,.92); }
+.mela-service-plumbing { background-image: url('https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-electrical { background-image: url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-painting { background-image: url('https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-cleaning { background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-construction { background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-hvac { background-image: url('https://images.unsplash.com/photo-1631545806609-6c6b9a0b0c3f?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-carpentry { background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-masonry { background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=82'); }
+.mela-service-roofing { background-image: url('https://images.unsplash.com/photo-1635424710928-4c4e5b8d7c0c?auto=format&fit=crop&w=700&q=82'); }
+.mela-page-backdrop {
+  position: relative;
+  isolation: isolate;
+  background-color: #f7f9f7;
+  background-image:
+    linear-gradient(rgba(247, 249, 247, 0.91), rgba(247, 249, 247, 0.94)),
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=80');
+  background-position: center, center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.mela-login-photo {
+  background-color: #173b35;
+  background-image:
+    linear-gradient(135deg, rgba(16,45,41,.70), rgba(16,45,41,.16)),
+    url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1800&q=85');
+  background-position: center;
+  background-size: cover;
+}
+@media (max-width: 1023px) {
+  .mela-page-backdrop { background-attachment: scroll; }
+}
+
+/* Mela accessibility preferences */
+html[data-reduce-motion="true"] *, html[data-reduce-motion="true"] *::before, html[data-reduce-motion="true"] *::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+html[data-font-size="small"]{font-size:14px} html[data-font-size="medium"]{font-size:16px} html[data-font-size="large"]{font-size:18px}
+html[data-high-contrast="true"] body{filter:contrast(1.18)}
+html[data-theme="dark"] body{background:#111a18;color:#edf4ef}
+html[data-theme="dark"] .bg-white{background-color:#1b2925!important}
+html[data-theme="dark"] .bg-gray-50{background-color:#14201c!important}
+html[data-theme="dark"] .text-gray-900,html[data-theme="dark"] .text-gray-800{color:#f0f5f1!important}
+html[data-theme="dark"] .text-gray-700,html[data-theme="dark"] .text-gray-600,html[data-theme="dark"] .text-gray-500{color:#c2d0c8!important}
+html[data-theme="dark"] .border-gray-100,html[data-theme="dark"] .border-gray-200,html[data-theme="dark"] .border-gray-300{border-color:#344840!important}
+html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{background-color:#17231f!important;color:#f0f5f1!important;border-color:#52675d!important}
+html[data-theme="dark"] .mela-page-backdrop{background-image:linear-gradient(rgba(17,29,25,.94),rgba(17,29,25,.96)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80')}
+
+
+/* Mobile-first layout, touch targets, and safe-area support */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+html, body, #root { width: 100%; max-width: 100%; min-width: 320px; min-height: 100%; }
+body { overflow-x: clip; }
+img, video, canvas, svg { max-width: 100%; }
+input, select, textarea { max-width: 100%; }
+button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
+:where(button, a, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid #2f624f;
+  outline-offset: 2px;
+}
+@supports (padding: max(0px)) {
+  .mela-safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .mela-safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
+}
+@media (max-width: 767px) {
+  html { scroll-padding-top: 4.5rem; }
+  /* Keep form text at 16px so iOS Safari does not zoom on focus. */
+  input, select, textarea { font-size: 16px !important; }
+  :where(button, a, [role="button"]) { touch-action: manipulation; }
+  .mela-home-hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); line-height: 1.12; }
+  .mela-home-hero > div { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .mela-service-card { min-height: 128px; padding: 1rem; }
+  .mela-page-backdrop { background-attachment: scroll; }
+  /* Wide accounting/data tables remain usable without stretching the phone viewport. */
+  .overflow-x-auto { max-width: 100%; -webkit-overflow-scrolling: touch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+
+/* Keep the public landing page and its header inside narrow phone viewports. */
+.mela-public-layout {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+.mela-public-layout > main {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+@media (max-width: 380px) {
+  .mela-public-layout > header > div { padding-inline: .625rem; }
+  .mela-public-layout > header > div > div > div:last-child { gap: .25rem; }
+  .mela-public-layout > header > div > div > div:last-child > a:last-of-type { padding-inline: .5rem; }
+}
+
+
+/* Public pages: prevent accidental sideways movement on phones. */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+html, body {
+  overflow-x: clip;
+}
+.mela-public-layout,
+.mela-public-layout > header,
+.mela-public-layout > main {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.mela-public-layout > header > div {
+  min-width: 0;
+}
+.mela-public-layout main,
+.mela-public-layout main section,
+.mela-public-layout main section > div {
+  min-width: 0;
+}
+.mela-public-layout img,
+.mela-public-layout video,
+.mela-public-layout iframe {
+  max-width: 100%;
+}
+@media (max-width: 380px) {
+  .mela-public-layout > header > div {
+    padding-inline: .5rem;
+  }
+  .mela-public-layout > header a:last-of-type {
+    max-width: 100%;
+  }
+}

@@ -4,12 +4,14 @@ import en from './locales/en.json';
 import am from './locales/am.json';
 import ar from './locales/ar.json';
 import fr from './locales/fr.json';
+import es from './locales/es.json';
 
 const resources = {
   en: { translation: en },
   am: { translation: am },
   ar: { translation: ar },
   fr: { translation: fr },
+  es: { translation: es },
 };
 
 i18n

@@ -161,6 +161,7 @@ export const MOCK_JOBS: Job[] = [
     address: 'Lee’s Summit, MO',
     scheduledAt: '2026-11-03T09:00:00',
     price: 125,
+    isHot: true,
     distanceMiles: 2.4,
   },
   {
@@ -174,6 +175,22 @@ export const MOCK_JOBS: Job[] = [
     price: 395,
     distanceMiles: 0.7,
   },
+  { id: 'JB-2005', service: 'Roofing', serviceKey: 'roofing', status: 'requested', customer: 'Priya S.', address: 'Plaza, Kansas City, MO', scheduledAt: '2026-11-12T08:30:00', price: 680, isHot: true, distanceMiles: 2.1 },
+  { id: 'JB-2006', service: 'Carpentry', serviceKey: 'carpentry', status: 'requested', customer: 'Marcus T.', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-12T10:00:00', price: 340, isHot: true, distanceMiles: 3.4 },
+  { id: 'JB-2007', service: 'Painting', serviceKey: 'painting', status: 'requested', customer: 'Elena R.', address: 'Prairie Village, KS', scheduledAt: '2026-11-13T09:00:00', price: 520, distanceMiles: 4.8 },
+  { id: 'JB-2008', service: 'Landscaping', serviceKey: 'landscaping', status: 'requested', customer: 'Jordan B.', address: 'North Kansas City, MO', scheduledAt: '2026-11-13T11:00:00', price: 275, distanceMiles: 5.2 },
+  { id: 'JB-2009', service: 'Masonry', serviceKey: 'masonry', status: 'requested', customer: 'Cameron W.', address: 'Independence, MO', scheduledAt: '2026-11-14T08:00:00', price: 890, distanceMiles: 6.1 },
+  { id: 'JB-2010', service: 'Appliance Repair', serviceKey: 'appliance', status: 'requested', customer: 'Nadia K.', address: 'River Market, Kansas City, MO', scheduledAt: '2026-11-14T13:30:00', price: 195, distanceMiles: 1.8 },
+  { id: 'JB-2011', service: 'Pest Control', serviceKey: 'pest', status: 'requested', customer: 'Samuel D.', address: 'Liberty, MO', scheduledAt: '2026-11-15T09:30:00', price: 160, distanceMiles: 7.3 },
+  { id: 'JB-2012', service: 'Tile Installation', serviceKey: 'tiling', status: 'requested', customer: 'Olivia P.', address: 'Lee’s Summit, MO', scheduledAt: '2026-11-15T12:00:00', price: 740, distanceMiles: 8.2 },
+  { id: 'JB-2013', service: 'HVAC Maintenance', serviceKey: 'hvac', status: 'requested', customer: 'Heartland Retail (demo)', address: 'Overland Park, KS', scheduledAt: '2026-11-16T08:00:00', price: 310, distanceMiles: 4.5 },
+  { id: 'JB-2014', service: 'Deep Cleaning', serviceKey: 'cleaning', status: 'requested', customer: 'Avery L.', address: 'Brookside, Kansas City, MO', scheduledAt: '2026-11-16T14:00:00', price: 225, distanceMiles: 2.6 },
+  { id: 'JB-2015', service: 'Emergency Plumbing', serviceKey: 'plumbing', status: 'requested', customer: 'Taylor R.', address: 'Westport, Kansas City, MO', scheduledAt: '2026-11-11T08:00:00', price: 285, isHot: true, distanceMiles: 1.1 },
+  { id: 'JB-2016', service: 'Electrical Panel Check', serviceKey: 'electrical', status: 'requested', customer: 'Morgan P.', address: 'Mission Hills, KS', scheduledAt: '2026-11-11T10:30:00', price: 410, isHot: true, distanceMiles: 3.8 },
+  { id: 'JB-2017', service: 'Roof Leak Repair', serviceKey: 'roofing', status: 'requested', customer: 'Casey D.', address: 'Roeland Park, KS', scheduledAt: '2026-11-11T13:00:00', price: 560, isHot: true, distanceMiles: 4.2 },
+  { id: 'JB-2018', service: 'HVAC Tune-up', serviceKey: 'hvac', status: 'requested', customer: 'Jamie K.', address: 'Downtown Kansas City, MO', scheduledAt: '2026-11-12T09:00:00', price: 195, distanceMiles: 2.0 },
+  { id: 'JB-2019', service: 'Fence Repair', serviceKey: 'carpentry', status: 'requested', customer: 'Robin S.', address: 'Gladstone, MO', scheduledAt: '2026-11-12T14:00:00', price: 325, distanceMiles: 6.4 },
+  { id: 'JB-2020', service: 'Move-out Cleaning', serviceKey: 'cleaning', status: 'requested', customer: 'Alex N.', address: 'West Plaza, Kansas City, MO', scheduledAt: '2026-11-13T08:30:00', price: 245, distanceMiles: 2.7 },
 ];
 
 export const MOCK_REVIEWS: Review[] = [
@@ -434,6 +451,11 @@ export const MOCK_TECHNICIANS: MapTechnician[] = [
   { id: 'T4', name: 'Demo Pro Four', service: 'Cleaning', status: 'available', lat: 38.8814, lng: -94.8191, rating: 4.7, distanceMiles: 2.5 },
   { id: 'T5', name: 'Demo Pro Five', service: 'HVAC', status: 'busy', lat: 39.0228, lng: -94.7152, rating: 4.5, distanceMiles: 1.7 },
   { id: 'T6', name: 'Demo Pro Six', service: 'Plumbing', status: 'offline', lat: 39.2461, lng: -94.4191, rating: 4.4, distanceMiles: 3.4 },
+  { id: 'T7', name: 'Jordan Ellis', service: 'Roofing', status: 'available', lat: 39.0551, lng: -94.5832, rating: 4.9, distanceMiles: 1.2 },
+  { id: 'T8', name: 'Maya Thompson', service: 'Carpentry', status: 'working', lat: 39.0375, lng: -94.5967, rating: 4.8, distanceMiles: 2.0 },
+  { id: 'T9', name: 'Noah Williams', service: 'Landscaping', status: 'available', lat: 39.1184, lng: -94.6272, rating: 4.7, distanceMiles: 2.8 },
+  { id: 'T10', name: 'Sofia Martinez', service: 'HVAC', status: 'onTheWay', lat: 38.9532, lng: -94.6061, rating: 4.9, distanceMiles: 3.1 },
+  { id: 'T11', name: 'Ethan Brooks', service: 'Electrical', status: 'busy', lat: 39.0802, lng: -94.5121, rating: 4.6, distanceMiles: 3.6 },
 ];
 
 export const MOCK_MAP_JOBS: MapJob[] = [
@@ -549,6 +571,21 @@ export const MOCK_PROJECTS: Project[] = [
     foreman: 'Tesfaye Bekele',
     workers: 8,
   },
+  {
+    id: 'PRJ-005', name: 'Northland Family Home Restoration', client: 'Northland Residential Partners (demo)',
+    location: 'Liberty, MO', status: 'active', progress: 48, budget: 64000, spent: 29800,
+    startDate: '2026-10-10', endDate: '2027-01-10', foreman: 'Jordan Ellis', workers: 9,
+  },
+  {
+    id: 'PRJ-006', name: 'River Market Retail Refresh', client: 'River Market Retail Group (demo)',
+    location: 'River Market, Kansas City, MO', status: 'planning', progress: 8, budget: 52000, spent: 4200,
+    startDate: '2026-11-20', endDate: '2027-02-15', foreman: 'Maya Thompson', workers: 4,
+  },
+  {
+    id: 'PRJ-007', name: 'Prairie Village Exterior Upgrade', client: 'Prairie Village Property Co. (demo)',
+    location: 'Prairie Village, KS', status: 'active', progress: 71, budget: 39000, spent: 27400,
+    startDate: '2026-09-15', endDate: '2026-12-01', foreman: 'Noah Williams', workers: 6,
+  },
 ];
 
 export const MOCK_MILESTONES: Milestone[] = [
@@ -569,6 +606,10 @@ export const MOCK_WORKERS: Worker[] = [
   { id: 'W6', name: 'Demo Worker Six', role: 'Site Supervisor', phone: '+1-555-0106', status: 'active', projectId: 'PRJ-002', dailyRate: 700 },
   { id: 'W7', name: 'Demo Worker Seven', role: 'Carpenter', phone: '+1-555-0107', status: 'onLeave', projectId: 'PRJ-001', dailyRate: 480 },
   { id: 'W8', name: 'Demo Worker Eight', role: 'Helper', phone: '+1-555-0108', status: 'inactive', dailyRate: 250 },
+  { id: 'W9', name: 'Jordan Ellis', role: 'Roofing Specialist', phone: '+1-555-0109', status: 'active', projectId: 'PRJ-003', dailyRate: 620 },
+  { id: 'W10', name: 'Maya Thompson', role: 'Finish Carpenter', phone: '+1-555-0110', status: 'active', projectId: 'PRJ-003', dailyRate: 540 },
+  { id: 'W11', name: 'Noah Williams', role: 'Landscape Technician', phone: '+1-555-0111', status: 'active', projectId: 'PRJ-001', dailyRate: 390 },
+  { id: 'W12', name: 'Sofia Martinez', role: 'HVAC Technician', phone: '+1-555-0112', status: 'onLeave', projectId: 'PRJ-002', dailyRate: 590 },
 ];
 
 export const MOCK_TIMESHEETS: TimesheetEntry[] = [

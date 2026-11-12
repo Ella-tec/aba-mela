@@ -24,7 +24,8 @@
     "location": "Location",
     "details": "Details",
     "noResults": "No results found",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "close": "Close"
   },
   "nav": {
     "services": "Services",
@@ -55,7 +56,8 @@
     "projects": "Projects",
     "workforce": "Workforce",
     "timesheets": "Timesheets",
-    "foreman": "Foreman"
+    "foreman": "Foreman",
+    "businessCenter": "Business Center"
   },
   "auth": {
     "login": "Sign in",
@@ -126,7 +128,15 @@
     "busy": "Busy",
     "offline": "Offline",
     "noJobs": "No jobs available right now",
-    "profileSetup": "Complete your profile"
+    "profileSetup": "Complete your profile",
+    "hot": "Hot",
+    "estimatedPay": "Estimated pay",
+    "jobsCount": "jobs",
+    "jobsDemoNotice": "Browse sample opportunities and accept the jobs that interest you.",
+    "myJobsDescription": "Jobs you accepted in this demo and sample assigned jobs.",
+    "acceptedDemo": "Accepted (demo)",
+    "assignedJob": "Sample assignment",
+    "localDemoOnly": "Accept and decline decisions are saved in this browser only. They are not sent to a provider."
   },
   "booking": {
     "status": {
@@ -345,5 +355,48 @@
     "acceptance": "Acceptance",
     "onTrack": "On Track",
     "csat": "CSAT"
+  },
+  "settings": {
+    "subtitle": "Manage how Mela behaves on this device.",
+    "notifications": "Notifications",
+    "localOnly": "Local demo preferences only",
+    "emailUpdates": "Email updates",
+    "emailUpdatesHelp": "Choose whether to receive service and account update preferences.",
+    "serviceAlerts": "Service alerts",
+    "serviceAlertsHelp": "Choose whether to show booking and workflow alert preferences.",
+    "appearance": "Appearance",
+    "accessibility": "Accessibility preferences",
+    "darkMode": "Dark Mode",
+    "reduceMotion": "Reduce Motion",
+    "highContrast": "High Contrast Mode",
+    "fontSize": "Font Size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "language": "Language",
+    "languageHelp": "Choose the language used across Mela.",
+    "myAccount": "My Account",
+    "profileHelp": "Update your profile details saved in this browser.",
+    "profilePicture": "Profile picture",
+    "uploadPhoto": "Upload picture",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "saveProfile": "Save profile",
+    "updateEmail": "Update Email Address",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "deleteAccountHelp": "Permanent account deletion requires support from the server.",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "savedLocal": "Preference saved on this device.",
+    "photoError": "Please choose an image file.",
+    "photoTooLarge": "The image must be smaller than 2 MB.",
+    "profileSaved": "Profile saved on this device.",
+    "emailApiNotice": "Email updates are not connected to the API yet. Your sign-in email has not changed.",
+    "passwordApiNotice": "Password changes are not connected to the API yet. Your password has not changed.",
+    "deleteApiNotice": "Account deletion is not available in the API yet. Your account has not been deleted.",
+    "deviceStorageNote": "Preferences and demo profile details are stored in this browser; they are not synchronized with your server account.",
+    "takePhoto": "Take photo"
   }
 }

@@ -8,6 +8,7 @@ const languages = [
   { code: 'am', label: 'አማርኛ', flag: '🇪🇹' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
 ];
 
 export function LanguageSwitcher({ className }: { className?: string }) {
