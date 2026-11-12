@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import {
   FolderKanban, HardHat, Clock3, DollarSign, Plus, ArrowUpRight,
   Building2, Users, UserCog, FileText, CalendarDays, Package,
   Receipt, ClipboardCheck, Truck, CheckCircle2, Circle, Search,
-  Upload, Download, X, Wallet, ChartNoAxesCombined
+  Upload, Wallet, ChartNoAxesCombined
 } from 'lucide-react';
 import { getAuth } from '@/lib/auth';
 import { MOCK_PROJECTS, MOCK_WORKERS, MOCK_TIMESHEETS } from '@/data/mock';
@@ -185,7 +185,7 @@ export function BusinessCommandCenter({ initialSection = 'overview' }: BusinessC
         <MetricCard label="Active projects" value={activeProjects.length || 4} detail="Open project register" icon={FolderKanban} href={base+'/projects'}/>
         <MetricCard label="Workers on site" value={activeWorkers.length || 9} detail="Active workforce records" icon={HardHat} href={base+'/workforce'}/>
         <MetricCard label="Pending timesheets" value={pendingTimesheets.length || 3} detail="Awaiting review" icon={Clock3} href="/organization/timesheets"/>
-        <MetricCard label="Budget used" value={budgetUsed || 48 + '%'} detail="Active project budgets · demo data" icon={DollarSign} href={base+'/analytics'}/>
+        <MetricCard label="Budget used" value={`${budgetUsed || 48}%`} detail="Active project budgets · demo data" icon={DollarSign} href={base+'/analytics'}/>
         <MetricCard label="Open RFIs" value="Not connected" detail="Requires project RFI records" icon={FileText} muted/>
         <MetricCard label="Safety incidents" value="Not connected" detail="No live incident feed yet" icon={HardHat} muted/>
         <MetricCard label="Invoices awaiting approval" value="Not connected" detail="Finance API not connected" icon={Receipt} muted/>
