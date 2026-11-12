@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react';
 import { BookOpen, GraduationCap, Search, ExternalLink, PlayCircle, FileText, Zap, Wind, Droplets, Hammer, Home, Paintbrush, Trees } from 'lucide-react';
-
-type Resource={title:string;detail:string;url:string;kind:'video'|'guide'|'book';source:string};
 const tracks=[
  {id:'construction',name:'Construction',icon:Home,description:'Job-site fundamentals, planning, tools and construction safety',resources:[
   {title:'OSHA construction training',detail:'Official construction safety topics, standards and training resources.',url:'https://www.osha.gov/construction',kind:'guide',source:'OSHA'},
