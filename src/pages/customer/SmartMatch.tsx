@@ -4,7 +4,7 @@ import { MOCK_TECHNICIANS } from '@/data/mock';
 import { Sparkles, MapPin, Star, ShieldCheck, ArrowUpRight, Users, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const SERVICES=['All trades','Plumbing','Electrical','Cleaning','Painting','HVAC','Roofing','Carpentry','Landscaping'];
+const SERVICES=['All trades','Plumbing','Electrical','Cleaning','Painting','HVAC','Roofing','Carpentry','Landscaping','Fiber Installation','Fiber optic repair','CCTV camera installation','Security camera systems','Access control systems','Alarm system installation','Structured cabling','Network & data cabling','Intercom systems','Audio/video installation','Smart-home installation','Low-voltage troubleshooting','Gate automation'];
 export function SmartMatch(){
  const[service,setService]=useState('All trades');const[area,setArea]=useState('Kansas City, MO');const[selected,setSelected]=useState<string|null>(null);
  const results=useMemo(()=>MOCK_TECHNICIANS.filter(tech=>tech.status==='available'&&(service==='All trades'||tech.service.toLowerCase()===service.toLowerCase())).sort((a,b)=>b.rating-a.rating||(a.distanceMiles??Number.MAX_SAFE_INTEGER)-(b.distanceMiles??Number.MAX_SAFE_INTEGER)),[service]);
