@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Users, UserCheck, CalendarDays, ClipboardList, Search, CircleAlert, ArrowUpRight, Phone, HardHat, Clock3, Eye, X, MapPin, BriefcaseBusiness } from 'lucide-react';
+import { Users, UserCheck, CalendarDays, ClipboardList, Search, CircleAlert, ArrowUpRight, Phone, HardHat, Clock3, Eye, X } from 'lucide-react';
 import { MOCK_WORKERS, MOCK_PROJECTS, MOCK_MILESTONES, MOCK_TIMESHEETS } from '@/data/mock';
 import { cn } from '@/lib/utils';
 
