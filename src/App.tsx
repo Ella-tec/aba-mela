@@ -112,6 +112,7 @@ export default function App() {
    <Route path="calendar" element={<CalendarPage/>}/>
    <Route path="verification" element={<ProfessionalVerification/>}/>
    <Route path="safety" element={<SafetyCenter/>}/>
+   <Route path="learning" element={<LearningCenter/>}/>
    <Route path="reviews" element={<ProfessionalReviews/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
    <Route path="recycle-bin" element={<RecycleBinPage/>}/>
@@ -131,6 +132,7 @@ export default function App() {
    <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
    <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
    <Route path="safety" element={<SafetyCenter/>}/>
+   <Route path="learning" element={<LearningCenter/>}/>
    <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
    <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
