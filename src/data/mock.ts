@@ -94,6 +94,16 @@ export const SERVICES = [
   { key: 'smart-home-installation', icon: 'ShieldCheck' },
   { key: 'low-voltage-troubleshooting', icon: 'Cable' },
   { key: 'gate-automation', icon: 'Cog' },
+  { key: 'flooring', icon: 'Wrench' },
+  { key: 'drywall', icon: 'Wrench' },
+  { key: 'windows', icon: 'Wrench' },
+  { key: 'fencing', icon: 'Wrench' },
+  { key: 'insulation', icon: 'Wrench' },
+  { key: 'solar', icon: 'Wrench' },
+  { key: 'moving', icon: 'Wrench' },
+  { key: 'remodeling', icon: 'Wrench' },
+  { key: 'welding', icon: 'Wrench' },
+  { key: 'concrete', icon: 'Wrench' },
 ] as const;
 
 // All people, prices, reviews, properties and job records below are fictional demo content.
@@ -554,6 +564,16 @@ export const MOCK_PROFESSIONAL_DIRECTORY: DemoProfessionalProfile[] = [
   { id:'DP-83', name:"Aiden Brooks", serviceKey:'gate-automation', service:"Gate automation", specialty:"Sliding gate motors, safety edges and remote controls", experience:'8 years', profileType:'Sample profile' },
   { id:'DP-84', name:"Mariam Hassan", serviceKey:'gate-automation', service:"Gate automation", specialty:"Swing gate operators, keypad entry and access integration", experience:'7 years', profileType:'Sample profile' },
   { id:'DP-85', name:"Diego Ramirez", serviceKey:'gate-automation', service:"Gate automation", specialty:"Automatic gate installation, loop detectors and maintenance", experience:'9 years', profileType:'Sample profile' },
+  { id:'DP-86', name:"Ethan Brooks", serviceKey:'flooring', service:"Flooring", specialty:"Hardwood and luxury vinyl plank installation", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-87', name:"Nora Williams", serviceKey:'drywall', service:"Drywall & finishing", specialty:"Drywall repair, taping and smooth-wall finishing", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-88', name:"Caleb Morgan", serviceKey:'windows', service:"Windows & doors", specialty:"Window replacement, door fitting and weather sealing", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-89', name:"Amir Johnson", serviceKey:'fencing', service:"Fencing & gates", specialty:"Wood, vinyl and metal fence installation", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-90', name:"Leah Carter", serviceKey:'insulation', service:"Insulation", specialty:"Attic insulation, air sealing and energy upgrades", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-91', name:"Marcus Reed", serviceKey:'solar', service:"Solar installation", specialty:"Solar panel installation and system commissioning", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-92', name:"Olivia Hayes", serviceKey:'moving', service:"Moving & hauling", specialty:"Residential moving, packing and furniture handling", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-93', name:"Benjamin Clark", serviceKey:'remodeling', service:"Remodeling", specialty:"Kitchen and bathroom renovation coordination", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-94', name:"Isabella Turner", serviceKey:'welding', service:"Welding & metalwork", specialty:"Custom metal fabrication and gate repairs", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-95', name:"Gabriel Price", serviceKey:'concrete', service:"Concrete services", specialty:"Concrete slabs, walkways and surface restoration", experience:'7 years', profileType:'Sample profile' },
 ];
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
