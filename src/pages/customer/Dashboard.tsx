@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { StatusBadge } from '@/components/ui/StatusBadge';
-import { CalendarPlus, Search, Wallet, ClipboardList, Sparkles, ArrowUpRight, ShieldCheck, Users, Star } from 'lucide-react';
+import { CalendarPlus, Wallet, ClipboardList, Sparkles, ArrowUpRight, ShieldCheck, Users, Star } from 'lucide-react';
 import { listBookings, listServices } from '@/lib/auth';
 import type { BookingRecord, ServiceCategory } from '@/lib/auth';
 import { MOCK_TECHNICIANS } from '@/data/mock';
