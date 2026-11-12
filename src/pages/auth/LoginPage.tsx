@@ -88,14 +88,36 @@ export function LoginPage() {
   return (
     <div className="min-h-screen bg-[#f4f6f3] lg:grid lg:grid-cols-[1.1fr_0.9fr]">
       <section className="mela-login-photo relative flex min-h-[250px] flex-col justify-between overflow-hidden px-7 py-7 text-white sm:px-10 sm:py-9 lg:min-h-screen lg:px-14 lg:py-12">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#102d29]/85 via-[#173b35]/55 to-[#173b35]/25" />
+        <style>{`
+          @keyframes melaSlideFadeIn { from { opacity: 0; } to { opacity: 1; } }
+          @keyframes melaSlideFadeOut { from { opacity: 1; } to { opacity: 0; } }
+          .mela-slide-enter { animation: melaSlideFadeIn 1s ease both; }
+          .mela-slide-exit { animation: melaSlideFadeOut 1s ease both; }
+          @media (prefers-reduced-motion: reduce) {
+            .mela-slide-enter, .mela-slide-exit { animation-duration: 0.01ms; }
+          }
+        `}</style>
+        {previousPhrase !== null && (
+          <img key={`previous-${previousPhrase}`} src={loginSlides[previousPhrase].image} alt="" aria-hidden="true" className="mela-slide-exit absolute inset-0 h-full w-full object-cover" />
+        )}
+        <img key={`active-${activePhrase}`} src={loginSlides[activePhrase].image} alt={loginSlides[activePhrase].alt} className="mela-slide-enter absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#102d29]/85 via-[#173b35]/60 to-[#173b35]/35" />
         <div className="relative z-10 flex items-center gap-3">
           <img src="/favicon.svg" alt="" className="h-11 w-11 rounded-xl bg-white/15 p-1.5" />
           <span className="text-2xl font-bold tracking-tight">{t('common.appName')}</span>
         </div>
         <div className="relative z-10 max-w-xl py-8">
           <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold tracking-wide text-white/90 backdrop-blur-sm"><MapPin className="h-3.5 w-3.5" /> KANSAS CITY METRO</span>
-          <h1 className="max-w-lg text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">Your home deserves the right hands.</h1>
+          <div className="relative min-h-[5.5rem] max-w-lg sm:min-h-[7rem]" aria-live="polite" aria-atomic="true">
+            {previousPhrase !== null && (
+              <h1 key={`old-copy-${previousPhrase}`} className="mela-slide-exit absolute inset-0 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                {loginSlides[previousPhrase].phrase}
+              </h1>
+            )}
+            <h1 key={`new-copy-${activePhrase}`} className="mela-slide-enter relative text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+              {loginSlides[activePhrase].phrase}
+            </h1>
+          </div>
           <p className="mt-4 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">Find trusted local help, keep projects moving, and manage every detail in one thoughtful place.</p>
           <div className="mt-7 flex items-center gap-2 text-sm text-white/85"><ShieldCheck className="h-4 w-4 text-[#f4c66a]" /> One place for customers, professionals, and project teams</div>
         </div>
