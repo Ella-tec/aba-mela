@@ -632,7 +632,7 @@ export const MOCK_TECHNICIANS: MapTechnician[] = [
   { id: 'T32', name: 'Jack Rivera', service: 'Carpentry', status: 'available', lat: 39.0872, lng: -94.5261, rating: 4.7, distanceMiles: 3.6 },
   { id: 'T33', name: 'Noah Carter', service: 'Landscaping', status: 'available', lat: 39.1122, lng: -94.5261, rating: 4.9, distanceMiles: 1.6 },
   { id: 'T34', name: 'Ava Richardson', service: 'Landscaping', status: 'available', lat: 39.1372, lng: -94.5261, rating: 4.8, distanceMiles: 2.7 },
-  { id: 'T35', name: 'Mason Cooper', service: 'Landscaping', status: 'available', lat: 39.1622, lng: -94.5261, rating: 4.7, distanceMiles: 3.8 },,
+  { id: 'T35', name: 'Mason Cooper', service: 'Landscaping', status: 'available', lat: 39.1622, lng: -94.5261, rating: 4.7, distanceMiles: 3.8 },
   { id: 'T36', name: 'Lena Brooks', service: 'Fiber Installation', status: 'available', lat: 39.0437, lng: -94.5946, rating: 4.9, distanceMiles: 1.3 },
   { id: 'T37', name: 'Adrian Cole', service: 'Fiber Installation', status: 'available', lat: 39.0717, lng: -94.5946, rating: 4.8, distanceMiles: 2.1 },
   { id: 'T38', name: 'Nora Hayes', service: 'Fiber Installation', status: 'available', lat: 39.0997, lng: -94.5946, rating: 4.7, distanceMiles: 3 },
