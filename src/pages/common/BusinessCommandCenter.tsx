@@ -2,14 +2,14 @@ import { useMemo, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, FolderKanban, Users, HardHat, ClipboardList, DollarSign,
-  Truck, FileText, ShieldCheck, CalendarDays, BarChart3, Bot, Settings,
-  Trash2, ChevronRight, X, Plus, AlertTriangle,
-  Receipt, Package, Clock3, Building2, Search, Sparkles, ClipboardCheck
+  Truck, FileText, CalendarDays, BarChart3, Bot, Settings,
+  Trash2, ChevronRight, X, Plus,
+  Receipt, Package, Clock3, Building2, Search, Sparkles
 } from 'lucide-react';
 import { getAuth } from '@/lib/auth';
 import { MOCK_PROJECTS, MOCK_WORKERS, MOCK_TIMESHEETS, MOCK_RENTALS, MOCK_PRODUCTS } from '@/data/mock';
 
-type HubSection = 'overview'|'projects'|'workforce'|'finance'|'equipment'|'documents'|'safety'|'scheduling'|'analytics'|'ai'|'settings';
+type HubSection = 'overview'|'projects'|'workforce'|'finance'|'equipment'|'documents'|'scheduling'|'analytics'|'ai'|'settings';
 type HubLink = { id: HubSection; label: string; description: string; icon: typeof Building2; href: string };
 const sections: HubLink[] = [
   { id:'overview', label:'Overview', description:'Your construction operations at a glance', icon:LayoutDashboard, href:'/business-center' },
@@ -18,12 +18,10 @@ const sections: HubLink[] = [
   { id:'finance', label:'Finance', description:'Project budgets, costs, invoices and payments', icon:DollarSign, href:'/business-center/finance' },
   { id:'equipment', label:'Equipment', description:'Assets, rentals, tools and maintenance', icon:Truck, href:'/business-center/equipment' },
   { id:'documents', label:'Documents', description:'Project files, permits, contracts and reports', icon:FileText, href:'/business-center/documents' },
-  { id:'safety', label:'Safety', description:'Incidents, toolbox talks, PPE and inspections', icon:ShieldCheck, href:'/business-center/safety' },
   { id:'scheduling', label:'Scheduling', description:'Crew plans, project dates and inspections', icon:CalendarDays, href:'/business-center/scheduling' },
   { id:'analytics', label:'Analytics', description:'Performance, budget variance and utilization', icon:BarChart3, href:'/business-center/analytics' },
   { id:'ai', label:'Mela AI', description:'Ask questions about your Mela workspace', icon:Bot, href:'/business-center/ai' },
   { id:'settings', label:'Settings', description:'Workspace preferences and administration', icon:Settings, href:'/organization/settings' },
-  { id:'overview', label:'Recycle Bin', description:'Restore supported deleted records', icon:Trash2, href:'/organization/recycle-bin' }
 ];
 
 function Metric({label,value,detail,icon:Icon,to}:{label:string;value:string|number;detail:string;icon:typeof Building2;to:string}) {
@@ -75,7 +73,6 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
     {label:'Timesheet Center',href:'/organization/timesheets',icon:ClipboardList},
     {label:'Finance Center',href:'/business-center/finance',icon:DollarSign},
     {label:'Document Center',href:'/business-center/documents',icon:FileText},
-    {label:'Safety Center',href:'/business-center/safety',icon:ShieldCheck},
     {label:'Scheduling Center',href:'/business-center/scheduling',icon:CalendarDays},
     {label:'Equipment register',href:'/business-center/equipment',icon:Truck},
     {label:'View reports',href:'/business-center/analytics',icon:BarChart3},
@@ -83,16 +80,16 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
     {label:'Open Recycle Bin',href:destinationFor(sections[sections.length-1]),icon:Trash2}
   ];
 
-  return <div className="mx-auto max-w-[1500px] space-y-6">
-    <header className="flex flex-col justify-between gap-4 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-orange-950 p-6 text-white shadow-lg sm:flex-row sm:items-center sm:p-8">
+  return <div className="mx-auto max-w-[1500px] space-y-8 px-1 sm:px-2">
+    <header className="flex flex-col justify-between gap-5 rounded-[2rem] border border-orange-100 bg-gradient-to-br from-white via-orange-50/70 to-amber-50/80 p-7 text-slate-900 shadow-sm sm:flex-row sm:items-center sm:p-9">
       <div className="max-w-2xl">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-orange-100"><Building2 className="h-3.5 w-3.5"/> MELA CONSTRUCTION WORKSPACE</div>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Business Command Center</h1>
-        <p className="mt-2 max-w-xl text-sm leading-6 text-slate-200">One place to move between projects, people, finances, equipment, documents, safety, scheduling and reporting.</p>
+        <div className="inline-flex items-center gap-2 rounded-full border border-orange-100 bg-white/80 px-3 py-1.5 text-xs font-semibold tracking-wide text-orange-800"><Building2 className="h-3.5 w-3.5"/> MELA CONSTRUCTION WORKSPACE</div>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Business Center</h1>
+        <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600">A calm, clear workspace for projects, people, budgets, equipment, documents and reporting.</p>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <button type="button" onClick={()=>setMegaOpen(true)} className="inline-flex items-center gap-2 rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 shadow transition hover:bg-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"><Sparkles className="h-4 w-4"/> Access Everything</button>
-        <Link to="/organization/projects" className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-sm font-semibold text-white hover:bg-white/15"><Plus className="h-4 w-4"/> Create Project</Link>
+        <button type="button" onClick={()=>setMegaOpen(true)} className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"><Sparkles className="h-4 w-4"/> Access Everything</button>
+        <Link to="/organization/projects" className="inline-flex items-center gap-2 rounded-xl border border-orange-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-orange-300 hover:bg-orange-50"><Plus className="h-4 w-4"/> Create Project</Link>
       </div>
     </header>
 
@@ -102,7 +99,6 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
       <Metric label="Pending timesheets" value={pendingTimesheets.length} detail="Awaiting review" icon={Clock3} to="/organization/timesheets"/>
       <Metric label="Budget used" value={budgetPercent+'%'} detail="Active project budgets · demo data" icon={DollarSign} to="/organization/analytics"/>
       <Metric label="Open RFIs" value="Not connected" detail="Requires project RFI records" icon={ClipboardCheck} to="/business-center/projects"/>
-      <Metric label="Safety incidents" value="Not connected" detail="No live incident feed yet" icon={AlertTriangle} to="/business-center/safety"/>
       <Metric label="Invoices awaiting approval" value="Not connected" detail="Finance API not connected" icon={Receipt} to="/business-center/finance"/>
       <Metric label="Equipment in use" value={MOCK_RENTALS.filter(x=>x.status==='active').length} detail="Sample rental records" icon={Truck} to="/business-center/equipment"/>
     </div>
@@ -130,7 +126,7 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
           <span className="min-w-0 flex-1"><span className="block font-semibold text-gray-900">{item.label}</span><span className="mt-1 block text-sm leading-5 text-gray-500">{item.description}</span></span><ChevronRight className="mt-1 h-4 w-4 shrink-0 text-gray-400"/>
         </Link>)}
       </div>
-      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI, safety and document integrations are not connected to a production organization database yet.</p>
+      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI and document integrations are not connected to a production organization database yet.</p>
     </section>
 
     {active!=='overview' && <section className="rounded-2xl border border-orange-200 bg-orange-50/60 p-5">
@@ -139,7 +135,6 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
       {active==='equipment' && <div className="mt-4 grid gap-3 sm:grid-cols-2"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active rentals</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_RENTALS.filter(x=>x.status==='active').length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Catalog items</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_PRODUCTS.length}</p></div></div>}
       {active==='workforce' && <div className="mt-4 grid gap-3 sm:grid-cols-3"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Total workers</p><p className="text-2xl font-bold text-gray-900">{MOCK_WORKERS.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active workers</p><p className="text-2xl font-bold text-gray-900">{activeWorkers.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Pending timesheets</p><p className="text-2xl font-bold text-gray-900">{pendingTimesheets.length}</p></div></div>}
       {active==='projects' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><Link key={p.id} to={'/organization/projects/'+p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm hover:bg-orange-50"><span className="font-semibold text-gray-800">{p.name}</span><span className="text-gray-500">{p.progress}% complete</span></Link>)}</div>}
-      {active==='safety' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Safety register is ready for connection</p><p className="mt-1 text-sm text-gray-600">Incident reporting, OSHA records, PPE checks, toolbox talks and site audits need a secured organization API and permission model before they can be treated as official records.</p></div>}
       {active==='documents' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Project document library</p><p className="mt-1 text-sm text-gray-600">The central folder, version history, permissions and PDF preview workflow require server-side file storage. Use existing upload workflows until that integration is connected.</p></div>}
       {active==='scheduling' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><div key={p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm"><span className="font-medium text-gray-800">{p.name}</span><span className="text-gray-500">{p.startDate} · {p.endDate||'End date not set'}</span></div>)}</div>}
       {active==='ai' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Mela AI assistant</p><p className="mt-1 text-sm text-gray-600">Open the Mela AI assistant control available in the app to ask about supported information. Project forecasting and cross-module answers require connected, permission-filtered live data.</p><div className="mt-3 flex flex-wrap gap-2">{['Show active projects','Which timesheets are pending?','Summarize project budgets','Show equipment rentals'].map(q=><span key={q} className="rounded-full bg-slate-100 px-3 py-1.5 text-xs text-slate-700">{q}</span>)}</div></div>}
@@ -159,7 +154,7 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
           <span className="min-w-0 flex-1"><span className="block font-semibold text-gray-900">{item.label}</span><span className="mt-1 block text-sm leading-5 text-gray-500">{item.description}</span></span><ChevronRight className="mt-1 h-4 w-4 shrink-0 text-gray-400"/>
         </Link>)}
       </div>
-      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI, safety and document integrations are not connected to a production organization database yet.</p>
+      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI and document integrations are not connected to a production organization database yet.</p>
     </section>
 
     {active!=='overview' && <section className="rounded-2xl border border-orange-200 bg-orange-50/60 p-5">
@@ -168,7 +163,6 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
       {active==='equipment' && <div className="mt-4 grid gap-3 sm:grid-cols-2"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active rentals</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_RENTALS.filter(x=>x.status==='active').length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Catalog items</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_PRODUCTS.length}</p></div></div>}
       {active==='workforce' && <div className="mt-4 grid gap-3 sm:grid-cols-3"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Total workers</p><p className="text-2xl font-bold text-gray-900">{MOCK_WORKERS.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active workers</p><p className="text-2xl font-bold text-gray-900">{activeWorkers.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Pending timesheets</p><p className="text-2xl font-bold text-gray-900">{pendingTimesheets.length}</p></div></div>}
       {active==='projects' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><Link key={p.id} to={'/organization/projects/'+p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm hover:bg-orange-50"><span className="font-semibold text-gray-800">{p.name}</span><span className="text-gray-500">{p.progress}% complete</span></Link>)}</div>}
-      {active==='safety' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Safety register is ready for connection</p><p className="mt-1 text-sm text-gray-600">Incident reporting, OSHA records, PPE checks, toolbox talks and site audits need a secured organization API and permission model before they can be treated as official records.</p></div>}
       {active==='documents' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Project document library</p><p className="mt-1 text-sm text-gray-600">The central folder, version history, permissions and PDF preview workflow require server-side file storage. Use existing upload workflows until that integration is connected.</p></div>}
       {active==='scheduling' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><div key={p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm"><span className="font-medium text-gray-800">{p.name}</span><span className="text-gray-500">{p.startDate} · {p.endDate||'End date not set'}</span></div>)}</div>}
       {active==='ai' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Mela AI assistant</p><p className="mt-1 text-sm text-gray-600">Open the Mela AI assistant control available in the app to ask about supported information. Project forecasting and cross-module answers require connected, permission-filtered live data.</p><div className="mt-3 flex flex-wrap gap-2">{['Show active projects','Which timesheets are pending?','Summarize project budgets','Show equipment rentals'].map(q=><span key={q} className="rounded-full bg-slate-100 px-3 py-1.5 text-xs text-slate-700">{q}</span>)}</div></div>}
@@ -198,7 +192,7 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
           <span className="min-w-0 flex-1"><span className="block font-semibold text-gray-900">{item.label}</span><span className="mt-1 block text-sm leading-5 text-gray-500">{item.description}</span></span><ChevronRight className="mt-1 h-4 w-4 shrink-0 text-gray-400"/>
         </Link>)}
       </div>
-      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI, safety and document integrations are not connected to a production organization database yet.</p>
+      <p className="text-xs text-gray-500">Demo transparency: project, workforce, timesheet, equipment and rental figures use sample records. Finance, RFI and document integrations are not connected to a production organization database yet.</p>
     </section>
 
     {active!=='overview' && <section className="rounded-2xl border border-orange-200 bg-orange-50/60 p-5">
@@ -207,7 +201,6 @@ export function BusinessCommandCenter({ initialSection='overview' }:{initialSect
       {active==='equipment' && <div className="mt-4 grid gap-3 sm:grid-cols-2"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active rentals</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_RENTALS.filter(x=>x.status==='active').length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Catalog items</p><p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_PRODUCTS.length}</p></div></div>}
       {active==='workforce' && <div className="mt-4 grid gap-3 sm:grid-cols-3"><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Total workers</p><p className="text-2xl font-bold text-gray-900">{MOCK_WORKERS.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Active workers</p><p className="text-2xl font-bold text-gray-900">{activeWorkers.length}</p></div><div className="rounded-xl bg-white p-4"><p className="text-sm text-gray-500">Pending timesheets</p><p className="text-2xl font-bold text-gray-900">{pendingTimesheets.length}</p></div></div>}
       {active==='projects' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><Link key={p.id} to={'/organization/projects/'+p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm hover:bg-orange-50"><span className="font-semibold text-gray-800">{p.name}</span><span className="text-gray-500">{p.progress}% complete</span></Link>)}</div>}
-      {active==='safety' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Safety register is ready for connection</p><p className="mt-1 text-sm text-gray-600">Incident reporting, OSHA records, PPE checks, toolbox talks and site audits need a secured organization API and permission model before they can be treated as official records.</p></div>}
       {active==='documents' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Project document library</p><p className="mt-1 text-sm text-gray-600">The central folder, version history, permissions and PDF preview workflow require server-side file storage. Use existing upload workflows until that integration is connected.</p></div>}
       {active==='scheduling' && <div className="mt-4 space-y-2">{projects.slice(0,5).map(p=><div key={p.id} className="flex items-center justify-between rounded-xl bg-white p-3 text-sm"><span className="font-medium text-gray-800">{p.name}</span><span className="text-gray-500">{p.startDate} · {p.endDate||'End date not set'}</span></div>)}</div>}
       {active==='ai' && <div className="mt-4 rounded-xl bg-white p-4"><p className="font-semibold text-gray-900">Mela AI assistant</p><p className="mt-1 text-sm text-gray-600">Open the Mela AI assistant control available in the app to ask about supported information. Project forecasting and cross-module answers require connected, permission-filtered live data.</p><div className="mt-3 flex flex-wrap gap-2">{['Show active projects','Which timesheets are pending?','Summarize project budgets','Show equipment rentals'].map(q=><span key={q} className="rounded-full bg-slate-100 px-3 py-1.5 text-xs text-slate-700">{q}</span>)}</div></div>}
