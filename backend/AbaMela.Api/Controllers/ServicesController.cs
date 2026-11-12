@@ -33,14 +33,21 @@ public class ServicesController(AppDbContext db) : ControllerBase
     public async Task<ActionResult> List()
     {
         // Add missing categories on older installations without duplicating existing rows.
-        var existingKeys = await db.ServiceCategories.Select(service => service.Key).ToListAsync();
-        var missingKeys = DefaultServiceKeys.Except(existingKeys, StringComparer.OrdinalIgnoreCase).ToArray();
-        if (missingKeys.Length > 0)
+        var existingServices = await db.ServiceCategories.ToListAsync();
+        foreach (var service in existingServices.Where(service =>
+                     DefaultServiceKeys.Contains(service.Key, StringComparer.OrdinalIgnoreCase)))
         {
-            foreach (var key in missingKeys)
-                db.ServiceCategories.Add(new ServiceCategory { Key = key });
-            await db.SaveChangesAsync();
+            // Restore catalog entries that may have been disabled in an older database.
+            service.IsActive = true;
         }
+
+        var existingKeys = existingServices.Select(service => service.Key).ToList();
+        var missingKeys = DefaultServiceKeys.Except(existingKeys, StringComparer.OrdinalIgnoreCase).ToArray();
+        foreach (var key in missingKeys)
+            db.ServiceCategories.Add(new ServiceCategory { Key = key });
+
+        if (missingKeys.Length > 0 || existingServices.Count > 0)
+            await db.SaveChangesAsync();
 
         var items = await db.ServiceCategories.Where(service => service.IsActive)
             .OrderBy(service => service.Key).ToListAsync();
