@@ -10,7 +10,7 @@ import {
 type SafetyTab =
   | 'overview' | 'emergency' | 'nearby' | 'medical' | 'location' | 'alerts'
   | 'weather' | 'jobsite' | 'inspections' | 'regulations' | 'certifications'
-  | 'security' | 'vehicle' | 'protection' | 'learning' | 'support' | 'contacts';
+  | 'security' | 'vehicle' | 'driving' | 'electrical' | 'animals' | 'plants' | 'ergonomics' | 'physical' | 'protection' | 'learning' | 'support' | 'contacts';
 
 const tabs: { id: SafetyTab; label: string; icon: typeof ShieldCheck; group: string }[] = [
   { id: 'overview', label: 'Overview', icon: ShieldCheck, group: 'Start here' },
@@ -26,6 +26,12 @@ const tabs: { id: SafetyTab; label: string; icon: typeof ShieldCheck; group: str
   { id: 'certifications', label: 'Certifications & documents', icon: BadgeCheck, group: 'Compliance' },
   { id: 'security', label: 'Security & identity', icon: LockKeyhole, group: 'Protection' },
   { id: 'vehicle', label: 'Vehicle safety', icon: CarFront, group: 'Protection' },
+  { id: 'driving', label: 'Driving & road safety', icon: CarFront, group: 'Work safety' },
+  { id: 'electrical', label: 'Electrical safety', icon: Zap, group: 'Work safety' },
+  { id: 'animals', label: 'Dog & animal safety', icon: HeartPulse, group: 'Work safety' },
+  { id: 'plants', label: 'Plant & chemical hazards', icon: Trees, group: 'Work safety' },
+  { id: 'ergonomics', label: 'Back & shoulder care', icon: Stethoscope, group: 'Health & ergonomics' },
+  { id: 'physical', label: 'Physical safety by trade', icon: HardHat, group: 'Health & ergonomics' },
   { id: 'protection', label: 'Payment protection', icon: ShieldAlert, group: 'Protection' },
   { id: 'learning', label: 'Learning & training', icon: GraduationCap, group: 'Resources' },
   { id: 'support', label: 'Support center', icon: Headset, group: 'Resources' },
@@ -268,6 +274,43 @@ export function SafetyCenter() {
         {active === 'protection' && <Panel><SectionTitle title="Payment and customer protection" detail="Information and future workflow placeholders. Payment holds, escrow, refunds and claims are not activated by this demo."/>
           <div className="grid gap-3 sm:grid-cols-2"><ExternalResource title="FTC – Avoid scams" detail="Recognize payment and service scams" url="https://consumer.ftc.gov/scams"/><ExternalResource title="Consumer complaint guidance" detail="Learn how to report a consumer issue" url="https://www.ftc.gov/about-ftc/bureaus-offices/bureau-consumer-protection"/></div>
           <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-slate-600"><li>Payment status and transaction history</li><li>Dispute and refund request tracking</li><li>Fraud reporting and investigation workflow</li><li>Insurance claim document checklist</li><li>Clear customer and technician protection policies</li></ul>
+        </Panel>}
+
+        {(active === 'driving' || active === 'electrical' || active === 'animals' || active === 'plants' || active === 'ergonomics' || active === 'physical') && <Panel>
+          <SectionTitle title={current.label} detail="Free official safety guidance and learning resources. Follow your employer's safety plan, applicable regulations and qualified training."/>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {active === 'driving' && <>
+              <ExternalResource title="OSHA – Motor vehicle safety" detail="Work-related driving hazards, fleet safety and prevention guidance" url="https://www.osha.gov/motor-vehicle-safety"/>
+              <ExternalResource title="NHTSA – Safe driving" detail="Federal road-safety information, vehicle recalls and safe-driving resources" url="https://www.nhtsa.gov/road-safety"/>
+              <ExternalResource title="Distracted driving" detail="Understand distraction risks and safer driving practices" url="https://www.nhtsa.gov/risky-driving/distracted-driving"/>
+            </>}
+            {active === 'electrical' && <>
+              <ExternalResource title="OSHA – Electrical safety" detail="Electrical hazards, safe work practices and standards" url="https://www.osha.gov/electrical"/>
+              <ExternalResource title="OSHA – Lockout / tagout" detail="Control hazardous energy before servicing equipment" url="https://www.osha.gov/control-hazardous-energy"/>
+              <ExternalResource title="Electrical safety videos" detail="Free electrical safety demonstrations and training video search" url="https://www.youtube.com/results?search_query=electrical+safety+training+OSHA"/>
+            </>}
+            {active === 'animals' && <>
+              <ExternalResource title="CDC – Healthy pets and animal safety" detail="Guidance for preventing bites, scratches and animal-related illness" url="https://www.cdc.gov/healthy-pets/about/index.html"/>
+              <ExternalResource title="CDC – Dog bites" detail="Prevention information for working around dogs" url="https://www.cdc.gov/dog-bites/about/index.html"/>
+              <ExternalResource title="Working around animals" detail="Free animal-safety training video search" url="https://www.youtube.com/results?search_query=worker+safety+working+around+dogs+animals"/>
+            </>}
+            {active === 'plants' && <>
+              <ExternalResource title="Poison Control – Plants" detail="Identify and respond to possible poisonous plant exposures" url="https://www.poison.org/articles/plant"/>
+              <ExternalResource title="OSHA – Pesticides" detail="Worker protection and pesticide exposure guidance" url="https://www.osha.gov/pesticides"/>
+              <ExternalResource title="CDC – Outdoor workers" detail="Outdoor work hazards, including plants, insects, heat and exposure" url="https://www.cdc.gov/niosh/outdoor-workers/about/index.html"/>
+            </>}
+            {active === 'ergonomics' && <>
+              <ExternalResource title="OSHA – Ergonomics" detail="Prevent work-related musculoskeletal disorders" url="https://www.osha.gov/ergonomics"/>
+              <ExternalResource title="NIOSH – Safe lifting" detail="Research and guidance for reducing lifting-related injuries" url="https://www.cdc.gov/niosh/topics/ergonomics/"/>
+              <ExternalResource title="Back and shoulder care videos" detail="Free workplace ergonomics and safe-lifting video search" url="https://www.youtube.com/results?search_query=OSHA+ergonomics+safe+lifting+back+shoulder"/>
+            </>}
+            {active === 'physical' && <>
+              <ExternalResource title="OSHA – Personal protective equipment" detail="PPE selection, use and workplace protection guidance" url="https://www.osha.gov/personal-protective-equipment"/>
+              <ExternalResource title="OSHA – Fall protection" detail="Prevent falls when working at heights and on ladders" url="https://www.osha.gov/fall-protection"/>
+              <ExternalResource title="NIOSH – Construction safety" detail="Research-based information for construction and trade workers" url="https://www.cdc.gov/niosh/construction/"/>
+            </>}
+          </div>
+          <p className="mt-4 rounded-xl bg-amber-50 p-4 text-xs leading-5 text-amber-900">Training links support awareness; they do not replace hands-on instruction, required certification, site-specific hazard assessments or emergency procedures. For immediate danger, stop work when safe and contact emergency services or your supervisor.</p>
         </Panel>}
 
         {active === 'learning' && <Panel><SectionTitle title="Learning and training library" detail="Curated external learning resources. External courses do not automatically become Mela-verified certifications."/>
