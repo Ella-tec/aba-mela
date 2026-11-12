@@ -107,6 +107,7 @@ export default function App() {
    <Route path="business-center" element={<BusinessCenter/>}/>
    <Route path="calendar" element={<CalendarPage/>}/>
    <Route path="verification" element={<ProfessionalVerification/>}/>
+   <Route path="safety" element={<SafetyCenter/>}/>
    <Route path="reviews" element={<ProfessionalReviews/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
    <Route path="recycle-bin" element={<RecycleBinPage/>}/>
