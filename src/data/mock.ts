@@ -474,6 +474,13 @@ export const MOCK_PROFESSIONAL_DIRECTORY: DemoProfessionalProfile[] = [
   { id:'DP-17', name:'Owen Carter', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber-optic cable splicing & termination', experience:'8 years', profileType:'Sample profile' },
   { id:'DP-18', name:'Nora Hayes', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber testing, OTDR & troubleshooting', experience:'6 years', profileType:'Sample profile' },
   { id:'DP-19', name:'Caleb Foster', serviceKey:'fiber', service:'Fiber optics', specialty:'FTTH installation & fusion splicing', experience:'9 years', profileType:'Sample profile' },
+  { id:'DP-20', name:'Olivia Brooks', serviceKey:'fiber', service:'Fiber optics', specialty:'Fusion splicing & fiber closures', experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-21', name:'Marcus Reed', serviceKey:'fiber', service:'Fiber optics', specialty:'OSP fiber installation & cable placement', experience:'10 years', profileType:'Sample profile' },
+  { id:'DP-22', name:'Ethan Cole', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber testing, certification & OTDR analysis', experience:'6 years', profileType:'Sample profile' },
+  { id:'DP-23', name:'Ava Mitchell', serviceKey:'fiber', service:'Fiber optics', specialty:'FTTH drops, connectors & termination', experience:'5 years', profileType:'Sample profile' },
+  { id:'DP-24', name:'Liam Parker', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber-optic troubleshooting & restoration', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-25', name:'Grace Bennett', serviceKey:'fiber', service:'Fiber optics', specialty:'Inside-plant fiber splicing & documentation', experience:'9 years', profileType:'Sample profile' },
+  { id:'DP-26', name:'Daniel Foster', serviceKey:'fiber', service:'Fiber optics', specialty:'Outside-plant fiber construction & splicing', experience:'11 years', profileType:'Sample profile' },
 ];
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
