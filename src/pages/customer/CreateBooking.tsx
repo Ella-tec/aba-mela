@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { listServices, createBooking } from '@/lib/auth';
 import type { ServiceCategory } from '@/lib/auth';
 import { cn } from '@/lib/utils';
-import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, CheckCircle2, Droplets, Layers, CalendarDays, MapPin, ClipboardList } from 'lucide-react';
+import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, CheckCircle2, Layers, CalendarDays, MapPin, ClipboardList } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  plumbing:Wrench,electrical:Zap,painting:Paintbrush,cleaning:Sparkles,carpentry:Hammer,hvac:Wind,masonry:Home,roofing:Home,tiling:Layers,appliance:Home,pest:Bug,landscaping:Trees,fiber:Zap,flooring:Layers,drywall:Layers,solar:Zap
