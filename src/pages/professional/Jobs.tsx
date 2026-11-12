@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { MOCK_JOBS, type Job } from '@/data/mock';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Flame, MapPin, CheckCircle2, Clock3, X, FileText, UserRound, CalendarDays, Wallet } from 'lucide-react';
