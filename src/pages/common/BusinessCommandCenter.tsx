@@ -4,7 +4,7 @@ import {
   FolderKanban, HardHat, Clock3, DollarSign, Plus, ArrowUpRight,
   Building2, Users, UserCog, FileText, CalendarDays, Package,
   Receipt, ClipboardCheck, Truck, CheckCircle2, Circle, Search,
-  Upload, Wallet, ChartNoAxesCombined
+  Upload, Wallet, BarChart3
 } from 'lucide-react';
 import { getAuth } from '@/lib/auth';
 import { MOCK_PROJECTS, MOCK_WORKERS, MOCK_TIMESHEETS } from '@/data/mock';
@@ -82,7 +82,7 @@ function FinanceWorkspace({ base }: { base: string }) {
     <div className="grid gap-3 sm:grid-cols-3"><MetricCard label="Expense records" value={expenses.length} detail="Local demo register" icon={Receipt}/><MetricCard label="Recorded spend" value={total.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0})} detail="Across listed expenses" icon={Wallet}/><MetricCard label="Awaiting approval" value={expenses.filter(x=>x.status==='Pending').length} detail="Needs finance review" icon={ClipboardCheck}/></div>
     <Panel><SectionHeading title="Add an expense" description="Create a temporary expense record for this demonstration."/><div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_160px_auto]"><label className="text-xs font-semibold text-slate-600">Expense description<input value={description} onChange={e=>setDescription(e.target.value)} placeholder="e.g. Lumber delivery" className="mt-1.5 min-h-11 w-full rounded-lg border border-slate-300 px-3 text-sm font-normal outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100"/></label><label className="text-xs font-semibold text-slate-600">Amount (USD)<input type="number" min="0.01" step="0.01" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="0.00" className="mt-1.5 min-h-11 w-full rounded-lg border border-slate-300 px-3 text-sm font-normal outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100"/></label><button type="button" onClick={addExpense} className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-orange-700 px-4 text-sm font-semibold text-white hover:bg-orange-800"><Plus className="h-4 w-4"/> Add expense</button></div></Panel>
     <Panel><SectionHeading title="Expense register" description="Mark pending demo expenses as approved when reviewed."/><div className="space-y-2">{expenses.map(item=><div key={item.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-100 p-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-600"><Receipt className="h-4 w-4"/></span><span className="min-w-0 flex-1"><b className="block text-sm text-slate-800">{item.title}</b><small className="text-xs text-slate-400">{item.id}</small></span><b className="text-sm tabular-nums text-slate-900">{item.amount.toLocaleString('en-US',{style:'currency',currency:'USD'})}</b>{item.status==='Pending' ? <button type="button" onClick={()=>setExpenses(rows=>rows.map(row=>row.id===item.id?{...row,status:'Approved'}:row))} className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-800 hover:bg-emerald-100">Approve</button> : <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">Approved</span>}</div>)}</div></Panel>
-    <Panel><SectionHeading title="Connected finance workflows" description="Open the related construction records."/><div className="grid gap-3 sm:grid-cols-2"><WorkspaceLink title="Project budgets" detail="Review project-level budget and cost information." href={base+'/analytics'} icon={ChartNoAxesCombined} action="Open analytics"/><WorkspaceLink title="Timesheets" detail="Review submitted work hours before payroll." href="/organization/timesheets" icon={Clock3} action="Review timesheets"/></div></Panel>
+    <Panel><SectionHeading title="Connected finance workflows" description="Open the related construction records."/><div className="grid gap-3 sm:grid-cols-2"><WorkspaceLink title="Project budgets" detail="Review project-level budget and cost information." href={base+'/analytics'} icon={BarChart3} action="Open analytics"/><WorkspaceLink title="Timesheets" detail="Review submitted work hours before payroll." href="/organization/timesheets" icon={Clock3} action="Review timesheets"/></div></Panel>
   </WorkspaceFrame>;
 }
 
@@ -168,7 +168,7 @@ export function BusinessCommandCenter({ initialSection = 'overview' }: BusinessC
     {title:'Documents',detail:'Project files, permits and records',href:base+'/documents',icon:FileText,action:'Open documents'},
     {title:'Safety',detail:'Inspections, hazards and site safety',href:base+'/safety',icon:HardHat,action:'Open safety'},
     {title:'Scheduling',detail:'Site activities, dates and crew plans',href:base+'/scheduling',icon:CalendarDays,action:'Open scheduling'},
-    {title:'Analytics',detail:'Project performance and budget insights',href:base+'/analytics',icon:ChartNoAxesCombined,action:'Open analytics'},
+    {title:'Analytics',detail:'Project performance and budget insights',href:base+'/analytics',icon:BarChart3,action:'Open analytics'},
   ];
 
   return <main className="mx-auto w-full min-w-0 max-w-7xl space-y-5 sm:space-y-6">
