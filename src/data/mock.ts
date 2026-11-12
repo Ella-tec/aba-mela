@@ -93,6 +93,7 @@ export const SERVICES = [
   { key: 'audio-video-installation', icon: 'Monitor' },
   { key: 'smart-home-installation', icon: 'ShieldCheck' },
   { key: 'low-voltage-troubleshooting', icon: 'Cable' },
+  { key: 'gate-automation', icon: 'Cog' },
 ] as const;
 
 // All people, prices, reviews, properties and job records below are fictional demo content.
@@ -550,6 +551,9 @@ export const MOCK_PROFESSIONAL_DIRECTORY: DemoProfessionalProfile[] = [
   { id:'DP-80', name:"Maya Thompson", serviceKey:'audio-video-installation', service:"Audio/video installation", specialty:"Conference-room AV and home theater setup", experience:'7 years', profileType:'Sample profile' },
   { id:'DP-81', name:"Ethan Chen", serviceKey:'smart-home-installation', service:"Smart-home installation", specialty:"Smart switches, hubs and connected-device setup", experience:'7 years', profileType:'Sample profile' },
   { id:'DP-82', name:"Isabel Garcia", serviceKey:'low-voltage-troubleshooting', service:"Low-voltage troubleshooting", specialty:"Signal tracing, continuity checks and cable testing", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-83', name:"Aiden Brooks", serviceKey:'gate-automation', service:"Gate automation", specialty:"Sliding gate motors, safety edges and remote controls", experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-84', name:"Mariam Hassan", serviceKey:'gate-automation', service:"Gate automation", specialty:"Swing gate operators, keypad entry and access integration", experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-85', name:"Diego Ramirez", serviceKey:'gate-automation', service:"Gate automation", specialty:"Automatic gate installation, loop detectors and maintenance", experience:'9 years', profileType:'Sample profile' },
 ];
 
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
