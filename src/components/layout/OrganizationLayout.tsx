@@ -18,13 +18,12 @@ const businessLinks=[
  {to:'/organization/finance',label:'Finance',icon:DollarSign},
  {to:'/organization/equipment',label:'Equipment',icon:Truck},
  {to:'/organization/documents',label:'Documents',icon:FileText},
- {to:'/organization/safety',label:'Safety',icon:ShieldCheck},
  {to:'/organization/scheduling',label:'Scheduling',icon:CalendarDays},
  {to:'/organization/analytics',label:'Analytics',icon:BarChart3},
  {to:'/organization/ai',label:'Mela AI',icon:Bot}
 ];
 export function OrganizationLayout(){
- const {t}=useTranslation();const navigate=useNavigate();const location=useLocation();const[sidebarOpen,setSidebarOpen]=useState(false);const[businessOpen,setBusinessOpen]=useState(location.pathname.startsWith('/organization/finance')||location.pathname.startsWith('/organization/equipment')||location.pathname.startsWith('/organization/documents')||location.pathname.startsWith('/organization/safety')||location.pathname.startsWith('/organization/scheduling')||location.pathname.startsWith('/organization/analytics')||location.pathname.startsWith('/organization/ai'));const auth=getAuth();
+ const {t}=useTranslation();const navigate=useNavigate();const location=useLocation();const[sidebarOpen,setSidebarOpen]=useState(false);const[businessOpen,setBusinessOpen]=useState(location.pathname.startsWith('/organization/finance')||location.pathname.startsWith('/organization/equipment')||location.pathname.startsWith('/organization/documents')||location.pathname.startsWith('/organization/scheduling')||location.pathname.startsWith('/organization/analytics')||location.pathname.startsWith('/organization/ai'));const auth=getAuth();
  if(!auth)return <Navigate to="/login" replace/>;
  if(auth.role!=='Organization'&&auth.role!=='Admin')return <Navigate to={auth.role==='Professional'?'/professional':'/customer'} replace/>;
  const businessActive=location.pathname==='/organization/business-center'||businessLinks.some(item=>location.pathname===item.to);
@@ -42,10 +41,11 @@ export function OrganizationLayout(){
       {businessLinks.map(item=>{const active=location.pathname===item.to;return <Link key={item.to} to={item.to} aria-current={active?'page':undefined} onClick={()=>setSidebarOpen(false)} className={cn('flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',active?'bg-orange-50 font-semibold text-orange-700':'text-gray-500 hover:bg-gray-100 hover:text-gray-900')}><item.icon className="h-4 w-4 shrink-0"/>{item.label}</Link>})}
      </div>}
     </div>
+    <Link to="/organization/safety" aria-current={location.pathname==='/organization/safety'?'page':undefined} onClick={()=>setSidebarOpen(false)} className={cn('mt-2 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors',location.pathname==='/organization/safety'?'bg-orange-50 text-orange-700':'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}><ShieldCheck className="h-5 w-5 shrink-0"/>Safety Center</Link>
    </nav>
    <div className="space-y-1 border-t border-gray-100 p-3"><Link to="/organization/settings" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"><Settings className="h-5 w-5"/>{t('common.settings')}</Link><button type="button" onClick={()=>{logout();navigate('/login',{replace:true})}} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"><LogOut className="h-5 w-5"/>{t('common.logout')}</button></div>
   </div></aside>
   {sidebarOpen&&<button type="button" aria-label="Close navigation overlay" onClick={()=>setSidebarOpen(false)} className="fixed inset-0 z-20 cursor-default bg-black/40 lg:hidden"/>}
-  <div className="flex min-w-0 flex-1 flex-col"><header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6"><div className="flex items-center gap-3"><button type="button" aria-label="Open navigation" aria-expanded={sidebarOpen} aria-controls="organization-sidebar" className="rounded-lg p-2 hover:bg-gray-100 lg:hidden" onClick={()=>setSidebarOpen(true)}><Menu className="h-5 w-5"/></button><h1 className="truncate text-lg font-semibold text-gray-900">{t('construction.dashboard')}</h1></div><div className="flex items-center gap-3"><Link to="/organization/business-center" aria-label="Open Business Center" className="rounded-lg p-2 hover:bg-gray-100"><Building2 className="h-5 w-5 text-gray-600"/></Link><LanguageSwitcher/></div></header><main id="main-content" className="flex-1 overflow-auto p-4 sm:p-6 mela-page-backdrop"><Outlet/></main></div>
+  <div className="flex min-w-0 flex-1 flex-col"><header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6"><div className="flex items-center gap-3"><button type="button" aria-label="Open navigation" aria-expanded={sidebarOpen} aria-controls="organization-sidebar" className="rounded-lg p-2 hover:bg-gray-100 lg:hidden" onClick={()=>setSidebarOpen(true)}><Menu className="h-5 w-5"/></button><h1 className="truncate text-lg font-semibold text-gray-900">{t('construction.dashboard')}</h1></div><div className="flex items-center gap-3"><LanguageSwitcher/></div></header><main id="main-content" className="flex-1 overflow-auto p-4 sm:p-6 mela-page-backdrop"><Outlet/></main></div>
  </div>;
 }
