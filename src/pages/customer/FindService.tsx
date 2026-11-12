@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { listServices } from '@/lib/auth';
 import type { ServiceCategory } from '@/lib/auth';
 import { MOCK_PROFESSIONAL_DIRECTORY } from '@/data/mock';
-import { Search, Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, ArrowUpRight, RefreshCw, Droplets, Layers, Truck, Building2, Sun, Camera, Cable, ShieldCheck, Wifi, Monitor, RadioTower, Network } from 'lucide-react';
+import { Search, Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, ArrowUpRight, RefreshCw, Droplets, Layers, Truck, Building2, Sun, Camera, Cable, ShieldCheck, Wifi, Monitor, RadioTower, Network, Cog } from 'lucide-react';
 
 const tradeMeta: Record<string,{label:string;description:string;icon:typeof Wrench;group:string}> = {
  plumbing:{label:'Plumbing',description:'Residential and commercial plumbing, fixture installation, leak diagnosis, drain service and water-line repairs.',icon:Droplets,group:'Home systems'},
@@ -39,7 +39,8 @@ const tradeMeta: Record<string,{label:string;description:string;icon:typeof Wren
  'intercom-systems':{label:'Intercom systems',description:'Audio/video intercoms, door-entry stations, multi-unit systems and access integration.',icon:Monitor,group:'Technology & low voltage'},
  'audio-video-installation':{label:'Audio/video installation',description:'Displays, conference-room AV, home theater, speakers, video distribution and equipment setup.',icon:Monitor,group:'Technology & low voltage'},
  'smart-home-installation':{label:'Smart-home installation',description:'Smart switches, sensors, hubs, connected devices and low-voltage home automation.',icon:Wifi,group:'Technology & low voltage'},
- 'low-voltage-troubleshooting':{label:'Low-voltage troubleshooting',description:'Low-voltage wiring, signal tracing, continuity checks, cable testing and system fault diagnosis.',icon:Cable,group:'Technology & low voltage'}
+ 'low-voltage-troubleshooting':{label:'Low-voltage troubleshooting',description:'Low-voltage wiring, signal tracing, continuity checks, cable testing and system fault diagnosis.',icon:Cable,group:'Technology & low voltage'},
+ 'gate-automation':{label:'Gate automation',description:'Automatic sliding and swing gates, gate motors, remotes, keypad entry, safety sensors, loop detectors and scheduled maintenance.',icon:Cog,group:'Technology & low voltage'}
 };
 const groupOrder=['All trades','Home systems','Home care','Finishes & interiors','Exterior & structure','Outdoor services','Renovation & specialty','Technology & low voltage'];
 
