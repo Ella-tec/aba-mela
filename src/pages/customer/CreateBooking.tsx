@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { listServices, createBooking } from '@/lib/auth';
 import type { ServiceCategory } from '@/lib/auth';
 import { cn } from '@/lib/utils';
-import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, CheckCircle2, Layers, CalendarDays, MapPin, ClipboardList, Camera, Cable, ShieldCheck, Wifi, Monitor, RadioTower } from 'lucide-react';
+import { Wrench, Zap, Paintbrush, Sparkles, Hammer, Wind, Home, Bug, Trees, CheckCircle2, Layers, CalendarDays, MapPin, ClipboardList, Camera, Cable, ShieldCheck, Wifi, Monitor, RadioTower, Cog } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
- plumbing:Wrench,electrical:Zap,painting:Paintbrush,cleaning:Sparkles,carpentry:Hammer,hvac:Wind,masonry:Home,roofing:Home,tiling:Layers,appliance:Home,pest:Bug,landscaping:Trees,fiber:Zap,'fiber-splicing':Cable,'fiber-installation':RadioTower,'fiber-repair':Cable,'cctv-installation':Camera,'security-camera-installation':Camera,'access-control':ShieldCheck,'alarm-systems':ShieldCheck,'structured-cabling':Cable,'network-cabling':Wifi,'intercom-systems':Monitor,'audio-video-installation':Monitor,'smart-home-installation':Wifi,'low-voltage-troubleshooting':Cable,flooring:Layers,drywall:Layers,solar:Zap
+ plumbing:Wrench,electrical:Zap,painting:Paintbrush,cleaning:Sparkles,carpentry:Hammer,hvac:Wind,masonry:Home,roofing:Home,tiling:Layers,appliance:Home,pest:Bug,landscaping:Trees,fiber:Zap,'fiber-splicing':Cable,'fiber-installation':RadioTower,'fiber-repair':Cable,'cctv-installation':Camera,'security-camera-installation':Camera,'access-control':ShieldCheck,'alarm-systems':ShieldCheck,'structured-cabling':Cable,'network-cabling':Wifi,'intercom-systems':Monitor,'audio-video-installation':Monitor,'smart-home-installation':Wifi,'low-voltage-troubleshooting':Cable,'gate-automation':Cog,flooring:Layers,drywall:Layers,solar:Zap
 };
 
 export function CreateBooking() {
