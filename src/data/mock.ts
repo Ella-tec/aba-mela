@@ -621,7 +621,7 @@ export const MOCK_TECHNICIANS: MapTechnician[] = [
   { id: 'T8', name: 'Maya Thompson', service: 'Carpentry', status: 'working', lat: 39.0375, lng: -94.5967, rating: 4.8, distanceMiles: 2.0 },
   { id: 'T9', name: 'Noah Williams', service: 'Landscaping', status: 'available', lat: 39.1184, lng: -94.6272, rating: 4.7, distanceMiles: 2.8 },
   { id: 'T10', name: 'Sofia Martinez', service: 'HVAC', status: 'onTheWay', lat: 38.9532, lng: -94.6061, rating: 4.9, distanceMiles: 3.1 },
-  { id: 'T11', name: 'Ethan Brooks', service: 'Electrical', status: 'busy', lat: 39.0802, lng: -94.5121, rating: 4.6, distanceMiles: 3.6 },,
+  { id: 'T11', name: 'Ethan Brooks', service: 'Electrical', status: 'busy', lat: 39.0802, lng: -94.5121, rating: 4.6, distanceMiles: 3.6 },
   { id: 'T12', name: 'Avery Brooks', service: 'Plumbing', status: 'available', lat: 39.0372, lng: -94.6311, rating: 4.8, distanceMiles: 1.1 },
   { id: 'T13', name: 'Marcus Reed', service: 'Plumbing', status: 'available', lat: 39.0622, lng: -94.6311, rating: 4.7, distanceMiles: 2.2 },
   { id: 'T14', name: 'Caleb Turner', service: 'Plumbing', status: 'available', lat: 39.0872, lng: -94.6311, rating: 4.6, distanceMiles: 3 },
