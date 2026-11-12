@@ -173,7 +173,20 @@
     "tiling": "Instalación de azulejos",
     "appliance": "Reparación de electrodomésticos",
     "pest": "Control de plagas",
-    "landscaping": "Jardinería"
+    "landscaping": "Jardinería",
+    "fiber-splicing": "Empalme de fibra óptica",
+    "fiber-installation": "Instalación de fibra óptica",
+    "fiber-repair": "Reparación de fibra óptica",
+    "cctv-installation": "Instalación de cámaras CCTV",
+    "security-camera-installation": "Sistemas de cámaras de seguridad",
+    "access-control": "Sistemas de control de acceso",
+    "alarm-systems": "Sistemas de alarma",
+    "structured-cabling": "Cableado estructurado",
+    "network-cabling": "Cableado de red y datos",
+    "intercom-systems": "Sistemas de intercomunicación",
+    "audio-video-installation": "Instalación de audio y video",
+    "smart-home-installation": "Instalación de hogar inteligente",
+    "low-voltage-troubleshooting": "Diagnóstico de sistemas de bajo voltaje"
   },
   "settings": {
     "subtitle": "Administra las preferencias de Mela en este dispositivo.",
