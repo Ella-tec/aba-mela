@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BookOpen, GraduationCap, Search, ExternalLink, PlayCircle, FileText, Zap, Wind, Droplets, Hammer, Home, Paintbrush, Trees, Sparkles, Wrench, Layers, BriefcaseBusiness } from 'lucide-react';
 
-type Resource={title:string;detail:string;url:string;kind:'video'|'guide'|'book';source:string};
 const tracks=[
 {id:'construction',name:'Construction',icon:Home,description:'Project fundamentals, materials, measuring, drawings and construction workflow.',steps:['Learn tools, materials and measurements','Read basic plans and project drawings','Practice a simple materials list','Review a project from planning to finish'],resources:[
 {title:'Construction fundamentals',detail:'Beginner video lessons on tools, materials, measuring and project workflow.',url:'https://www.youtube.com/results?search_query=construction+fundamentals+beginner+skills+lessons',kind:'video',source:'YouTube'},
