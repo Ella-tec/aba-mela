@@ -41,16 +41,6 @@ const tradeMeta: Record<string,{label:string;description:string;icon:typeof Wren
  'smart-home-installation':{label:'Smart-home installation',description:'Smart switches, sensors, hubs, connected devices and low-voltage home automation.',icon:Wifi,group:'Technology & low voltage'},
  'low-voltage-troubleshooting':{label:'Low-voltage troubleshooting',description:'Low-voltage wiring, signal tracing, continuity checks, cable testing and system fault diagnosis.',icon:Cable,group:'Technology & low voltage'},
  'gate-automation':{label:'Gate automation',description:'Automatic sliding and swing gates, gate motors, remotes, keypad entry, safety sensors, loop detectors and scheduled maintenance.',icon:Cog,group:'Technology & low voltage'},
- flooring:{label:'Flooring',description:'Hardwood, laminate, vinyl and tile flooring installation, refinishing and repair.',icon:Layers,group:'Finishes & interiors'},
- drywall:{label:'Drywall & finishing',description:'Drywall hanging, patching, taping, skim coating and texture matching.',icon:Layers,group:'Finishes & interiors'},
- windows:{label:'Windows & doors',description:'Window and door installation, hardware replacement, weather sealing and adjustment.',icon:Home,group:'Exterior & structure'},
- fencing:{label:'Fencing & gates',description:'Fence installation and repair, gate adjustment, posts, panels and outdoor boundaries.',icon:Home,group:'Exterior & structure'},
- insulation:{label:'Insulation',description:'Attic and wall insulation upgrades, air sealing and building-envelope improvements.',icon:Home,group:'Home systems'},
- solar:{label:'Solar installation',description:'Solar system consultation, panel installation and electrical coordination.',icon:Sun,group:'Home systems'},
- moving:{label:'Moving & hauling',description:'Residential moves, furniture handling, loading support and responsible item hauling.',icon:Truck,group:'Home care'},
- remodeling:{label:'Remodeling',description:'Room renovations, kitchen and bath updates and coordinated home improvements.',icon:Building2,group:'Renovation & specialty'},
- welding:{label:'Welding & metalwork',description:'Metal fabrication, custom gates, repairs and structural metalwork.',icon:Wrench,group:'Renovation & specialty'},
- concrete:{label:'Concrete services',description:'Concrete placement, resurfacing, small slabs, steps, walkways and repair projects.',icon:Building2,group:'Exterior & structure'}
 };
 const groupOrder=['All trades','Home systems','Home care','Finishes & interiors','Exterior & structure','Outdoor services','Renovation & specialty','Technology & low voltage'];
 
