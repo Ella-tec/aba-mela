@@ -16,7 +16,7 @@ public class ServicesController(AppDbContext db) : ControllerBase
         "fiber-splicing", "fiber-installation", "fiber-repair",
         "cctv-installation", "security-camera-installation", "access-control",
         "alarm-systems", "structured-cabling", "network-cabling", "intercom-systems",
-        "audio-video-installation", "smart-home-installation", "low-voltage-troubleshooting"
+        "audio-video-installation", "smart-home-installation", "low-voltage-troubleshooting", "gate-automation"
     ];
 
     [HttpGet]
