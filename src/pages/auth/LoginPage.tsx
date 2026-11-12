@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,60 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [activePhrase, setActivePhrase] = useState(0);
+  const [previousPhrase, setPreviousPhrase] = useState<number | null>(null);
+
+  const loginSlides = [
+    {
+      phrase: 'Where good work finds the right home.',
+      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Warm, finished home interior',
+    },
+    {
+      phrase: 'Built for the people who build your world.',
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Construction professionals working together on site',
+    },
+    {
+      phrase: 'Trusted hands. Clear projects. One calm place.',
+      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Bright, organized modern workspace',
+    },
+    {
+      phrase: 'From first call to final touch — made simple.',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Beautiful home renovation progress',
+    },
+    {
+      phrase: 'Local experts. Seamless projects. Zero stress.',
+      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Friendly team of local professionals',
+    },
+    {
+      phrase: 'Your project, properly cared for.',
+      image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Carefully arranged professional tools',
+    },
+    {
+      phrase: 'Home services that actually feel thoughtful.',
+      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Peaceful finished home exterior',
+    },
+  ];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActivePhrase(current => {
+        const choices = loginSlides.map((_, index) => index).filter(index => index !== current);
+        const next = choices[Math.floor(Math.random() * choices.length)];
+        setPreviousPhrase(current);
+        window.setTimeout(() => setPreviousPhrase(previous => previous === current ? null : previous), 1100);
+        return next;
+      });
+    }, 7000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
