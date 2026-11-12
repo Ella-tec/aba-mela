@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BookOpen, GraduationCap, Search, ExternalLink, PlayCircle, FileText, Wrench, Zap, Wind, Droplets, Hammer, Home, Paintbrush, Trees } from 'lucide-react';
+import { BookOpen, GraduationCap, Search, ExternalLink, PlayCircle, FileText, Zap, Wind, Droplets, Hammer, Home, Paintbrush, Trees } from 'lucide-react';
 
 type Resource={title:string;detail:string;url:string;kind:'video'|'guide'|'book';source:string};
 const tracks=[
