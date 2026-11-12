@@ -443,6 +443,39 @@ export interface MapJob {
   techId?: string;
 }
 
+export interface DemoProfessionalProfile {
+  id: string;
+  name: string;
+  serviceKey: string;
+  service: string;
+  specialty: string;
+  experience: string;
+  profileType: 'Sample profile';
+}
+
+// Fictional directory examples for layout testing only. These are not verified or bookable providers.
+export const MOCK_PROFESSIONAL_DIRECTORY: DemoProfessionalProfile[] = [
+  { id:'DP-01', name:'Matt Wolf', serviceKey:'plumbing', service:'Plumbing', specialty:'Leak detection, fixtures & drain repairs', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-02', name:'Riley Sims', serviceKey:'plumbing', service:'Plumbing', specialty:'Water heaters & residential pipework', experience:'6 years', profileType:'Sample profile' },
+  { id:'DP-03', name:'Tylor Smith', serviceKey:'electrical', service:'Electrical', specialty:'Lighting, outlets & troubleshooting', experience:'9 years', profileType:'Sample profile' },
+  { id:'DP-04', name:'Taylor Schelstare', serviceKey:'electrical', service:'Electrical', specialty:'Residential wiring & panel projects', experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-05', name:'Bradon Ergton', serviceKey:'cleaning', service:'Cleaning', specialty:'Deep cleaning & move-in / move-out', experience:'5 years', profileType:'Sample profile' },
+  { id:'DP-06', name:'Lucas Stickny', serviceKey:'cleaning', service:'Cleaning', specialty:'Residential and office maintenance', experience:'6 years', profileType:'Sample profile' },
+  { id:'DP-07', name:'Own Stkeny', serviceKey:'painting', service:'Painting', specialty:'Interior finishes & surface preparation', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-08', name:'John Patric', serviceKey:'painting', service:'Painting', specialty:'Exterior coatings & detailed trim work', experience:'10 years', profileType:'Sample profile' },
+  { id:'DP-09', name:'Nick Stckeney', serviceKey:'hvac', service:'HVAC', specialty:'Heating, cooling & seasonal maintenance', experience:'9 years', profileType:'Sample profile' },
+  { id:'DP-10', name:'Jordan Ellis', serviceKey:'hvac', service:'HVAC', specialty:'Airflow, thermostats & system diagnostics', experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-11', name:'Maya Thompson', serviceKey:'roofing', service:'Roofing', specialty:'Shingle systems, flashing & leak repairs', experience:'11 years', profileType:'Sample profile' },
+  { id:'DP-12', name:'Noah Williams', serviceKey:'roofing', service:'Roofing', specialty:'Roof inspections & replacement projects', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-13', name:'Sofia Martinez', serviceKey:'carpentry', service:'Carpentry', specialty:'Finish carpentry, doors & custom trim', experience:'7 years', profileType:'Sample profile' },
+  { id:'DP-14', name:'Ethan Brooks', serviceKey:'carpentry', service:'Carpentry', specialty:'Framing, cabinetry & wood repairs', experience:'10 years', profileType:'Sample profile' },
+  { id:'DP-15', name:'Avery Bennett', serviceKey:'landscaping', service:'Landscaping', specialty:'Planting, garden layouts & lawn care', experience:'6 years', profileType:'Sample profile' },
+  { id:'DP-16', name:'Cameron Reed', serviceKey:'landscaping', service:'Landscaping', specialty:'Outdoor maintenance & landscape installs', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-17', name:'Owen Carter', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber-optic cable splicing & termination', experience:'8 years', profileType:'Sample profile' },
+  { id:'DP-18', name:'Nora Hayes', serviceKey:'fiber', service:'Fiber optics', specialty:'Fiber testing, OTDR & troubleshooting', experience:'6 years', profileType:'Sample profile' },
+  { id:'DP-19', name:'Caleb Foster', serviceKey:'fiber', service:'Fiber optics', specialty:'FTTH installation & fusion splicing', experience:'9 years', profileType:'Sample profile' },
+];
+
 // Kansas City metro sample coordinates. All pins below are fictional demo records, not live providers.
 export const MOCK_TECHNICIANS: MapTechnician[] = [
   { id: 'T1', name: 'Demo Pro One', service: 'Plumbing', status: 'onTheWay', lat: 39.0120, lng: -94.5900, rating: 4.8, distanceMiles: 0.7 },
