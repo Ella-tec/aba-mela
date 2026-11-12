@@ -19,46 +19,52 @@ export function LoginPage() {
   const loginSlides = [
     {
       phrase: 'Where good work finds the right home.',
+      services: ['Plumbing', 'HVAC', 'Electrical'],
+      image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Home service professional working on electrical equipment',
+    },
+    {
+      phrase: 'Connected homes, from fiber to smart security.',
+      services: ['Fiber installation', 'CCTV', 'Security systems', 'Gate automation'],
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Technology components and connected systems',
+    },
+    {
+      phrase: 'The details that make a house feel like home.',
+      services: ['Roofing', 'Painting', 'Tile installation', 'Flooring'],
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Construction professionals working on a building project',
+    },
+    {
+      phrase: 'A better first impression, inside and out.',
+      services: ['Landscaping', 'Windows', 'Door repair', 'Carpentry'],
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Beautiful home exterior and landscaped property',
+    },
+    {
+      phrase: 'Smarter energy for the place you call home.',
+      services: ['Solar systems', 'Electrical', 'HVAC'],
+      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Solar panels installed on a rooftop',
+    },
+    {
+      phrase: 'From the big move to the final cleanout.',
+      services: ['Moving', 'Hauling', 'Cleanup'],
+      image: 'https://images.unsplash.com/photo-1600518464441-9306b6a5c6c3?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Moving boxes prepared for a home move',
+    },
+    {
+      phrase: 'One local place for every project on your list.',
+      services: ['Home repairs', 'Renovations', 'Outdoor care'],
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
       alt: 'Warm, finished home interior',
-    },
-    {
-      phrase: 'Built for the people who build your world.',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Construction professionals working together on site',
-    },
-    {
-      phrase: 'Trusted hands. Clear projects. One calm place.',
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Bright, organized modern workspace',
-    },
-    {
-      phrase: 'From first call to final touch — made simple.',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Beautiful home renovation progress',
-    },
-    {
-      phrase: 'Local experts. Seamless projects. Zero stress.',
-      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Friendly team of local professionals',
-    },
-    {
-      phrase: 'Your project, properly cared for.',
-      image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Carefully arranged professional tools',
-    },
-    {
-      phrase: 'Home services that actually feel thoughtful.',
-      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Peaceful finished home exterior',
     },
   ];
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActivePhrase(current => {
-        const choices = loginSlides.map((_, index) => index).filter(index => index !== current);
-        const next = choices[Math.floor(Math.random() * choices.length)];
+        const next = (current + 1) % loginSlides.length;
         setPreviousPhrase(current);
         window.setTimeout(() => setPreviousPhrase(previous => previous === current ? null : previous), 1100);
         return next;
@@ -119,7 +125,12 @@ export function LoginPage() {
             </h1>
           </div>
           <p className="mt-4 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">Find trusted local help, keep projects moving, and manage every detail in one thoughtful place.</p>
-          <div className="mt-7 flex items-center gap-2 text-sm text-white/85"><ShieldCheck className="h-4 w-4 text-[#f4c66a]" /> One place for customers, professionals, and project teams</div>
+          <div className="mt-5 flex max-w-xl flex-wrap gap-2" aria-label="Featured Mela services">
+            {loginSlides[activePhrase].services.map(service => (
+              <span key={service} className="rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-xs font-semibold text-white shadow-sm backdrop-blur-sm">{service}</span>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center gap-2 text-sm text-white/85"><ShieldCheck className="h-4 w-4 shrink-0 text-[#f4c66a]" /> One place for customers, professionals, and project teams</div>
         </div>
         <p className="relative z-10 hidden text-xs text-white/70 lg:block">Mela · Home services and project care, made simpler.</p>
       </section>
