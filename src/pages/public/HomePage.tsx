@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, Wrench, Zap, Paintbrush, Home, HardHat, Sparkles, CalendarCheck, ShieldCheck, MessageCircle, Hammer, BrickWall, Cable, Camera, ShieldCheck, Wifi, Monitor, RadioTower, Cog, Bell } from 'lucide-react';
+import { Search, Wrench, Zap, Paintbrush, Home, HardHat, Sparkles, CalendarCheck, ShieldCheck, MessageCircle, Hammer, BrickWall, Cable, Camera, Wifi, Monitor, RadioTower, Cog, Bell } from 'lucide-react';
 
 const services=[
  {icon:Wrench,key:'plumbing',color:'bg-blue-100 text-blue-700'},
