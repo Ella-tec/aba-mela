@@ -214,6 +214,19 @@ export const MOCK_JOBS: Job[] = [
   { id: 'JB-2018', service: 'HVAC Tune-up', serviceKey: 'hvac', status: 'requested', customer: 'Jamie K.', address: 'Downtown Kansas City, MO', scheduledAt: '2026-11-12T09:00:00', price: 195, distanceMiles: 2.0 },
   { id: 'JB-2019', service: 'Fence Repair', serviceKey: 'carpentry', status: 'requested', customer: 'Robin S.', address: 'Gladstone, MO', scheduledAt: '2026-11-12T14:00:00', price: 325, distanceMiles: 6.4 },
   { id: 'JB-2020', service: 'Move-out Cleaning', serviceKey: 'cleaning', status: 'requested', customer: 'Alex N.', address: 'West Plaza, Kansas City, MO', scheduledAt: '2026-11-13T08:30:00', price: 245, distanceMiles: 2.7 },
+  { id: 'JB-2021', service: 'Fiber Installation Request', serviceKey: 'fiber-installation', status: 'requested', customer: 'Demo Customer 01', address: 'Brookside, Kansas City, MO', scheduledAt: '2026-11-16T09:00:00', price: 245, distanceMiles: 1.4 },
+  { id: 'JB-2022', service: 'Fiber Optic Repair', serviceKey: 'fiber-repair', status: 'requested', customer: 'Demo Customer 02', address: 'Crossroads, Kansas City, MO', scheduledAt: '2026-11-17T11:00:00', price: 185, distanceMiles: 1.6 },
+  { id: 'JB-2023', service: 'CCTV Camera Installation', serviceKey: 'cctv-installation', status: 'requested', customer: 'Demo Customer 03', address: 'Overland Park, KS', scheduledAt: '2026-11-18T13:30:00', price: 420, distanceMiles: 1.7 },
+  { id: 'JB-2024', service: 'Security Camera System Setup', serviceKey: 'security-camera-installation', status: 'requested', customer: 'Demo Customer 04', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-19T15:00:00', price: 390, distanceMiles: 1.9 },
+  { id: 'JB-2025', service: 'Access Control Installation', serviceKey: 'access-control', status: 'requested', customer: 'Demo Customer 05', address: 'North Kansas City, MO', scheduledAt: '2026-11-20T09:00:00', price: 475, distanceMiles: 2.1 },
+  { id: 'JB-2026', service: 'Alarm System Installation', serviceKey: 'alarm-systems', status: 'requested', customer: 'Demo Customer 06', address: 'Lee's Summit, MO', scheduledAt: '2026-11-21T11:00:00', price: 285, distanceMiles: 2.3 },
+  { id: 'JB-2027', service: 'Structured Cabling Project', serviceKey: 'structured-cabling', status: 'requested', customer: 'Demo Customer 07', address: 'West Plaza, Kansas City, MO', scheduledAt: '2026-11-22T13:30:00', price: 520, distanceMiles: 2.4 },
+  { id: 'JB-2028', service: 'Network and Data Cabling', serviceKey: 'network-cabling', status: 'requested', customer: 'Demo Customer 08', address: 'Brookside, Kansas City, MO', scheduledAt: '2026-11-23T15:00:00', price: 310, distanceMiles: 2.6 },
+  { id: 'JB-2029', service: 'Intercom System Installation', serviceKey: 'intercom-systems', status: 'requested', customer: 'Demo Customer 09', address: 'Crossroads, Kansas City, MO', scheduledAt: '2026-11-24T09:00:00', price: 360, distanceMiles: 2.8 },
+  { id: 'JB-2030', service: 'Audio/Video Installation', serviceKey: 'audio-video-installation', status: 'requested', customer: 'Demo Customer 10', address: 'Overland Park, KS', scheduledAt: '2026-11-25T11:00:00', price: 450, distanceMiles: 2.9 },
+  { id: 'JB-2031', service: 'Smart-home Installation', serviceKey: 'smart-home-installation', status: 'requested', customer: 'Demo Customer 11', address: 'Waldo, Kansas City, MO', scheduledAt: '2026-11-16T13:30:00', price: 325, distanceMiles: 3.1 },
+  { id: 'JB-2032', service: 'Low-voltage Troubleshooting', serviceKey: 'low-voltage-troubleshooting', status: 'requested', customer: 'Demo Customer 12', address: 'North Kansas City, MO', scheduledAt: '2026-11-17T15:00:00', price: 195, distanceMiles: 3.3 },
+  { id: 'JB-2033', service: 'Gate Automation Service', serviceKey: 'gate-automation', status: 'requested', customer: 'Demo Customer 13', address: 'Lee's Summit, MO', scheduledAt: '2026-11-18T09:00:00', price: 680, distanceMiles: 3.4 },
 ];
 
 export const MOCK_REVIEWS: Review[] = [
@@ -679,6 +692,19 @@ export const MOCK_MAP_JOBS: MapJob[] = [
   { id: 'JB-2002', service: 'Electrical', customer: 'Daniel G.', address: 'Crossroads Arts District', lat: 39.0911, lng: -94.4155, status: 'requested', isHot: true },
   { id: 'JB-2004', service: 'HVAC', customer: 'Office Park Ltd', address: 'Overland Park', lat: 38.9822, lng: -94.6708, status: 'assigned', techId: 'T5' },
   { id: 'BK-1001', service: 'Plumbing', customer: 'You', address: 'Brookside', lat: 39.0997, lng: -94.5786, status: 'onTheWay', techId: 'T1' },
+  { id: 'JB-2021', service: 'Fiber Installation', customer: 'Demo Customer 01', address: 'Brookside, Kansas City, MO', lat: 39.0637, lng: -94.6036, status: 'requested' },
+  { id: 'JB-2022', service: 'Fiber optic repair', customer: 'Demo Customer 02', address: 'Crossroads, Kansas City, MO', lat: 39.0817, lng: -94.6036, status: 'requested' },
+  { id: 'JB-2023', service: 'CCTV camera installation', customer: 'Demo Customer 03', address: 'Overland Park, KS', lat: 39.0997, lng: -94.6036, status: 'requested' },
+  { id: 'JB-2024', service: 'Security camera systems', customer: 'Demo Customer 04', address: 'Waldo, Kansas City, MO', lat: 39.1177, lng: -94.6036, status: 'requested' },
+  { id: 'JB-2025', service: 'Access control systems', customer: 'Demo Customer 05', address: 'North Kansas City, MO', lat: 39.1357, lng: -94.6036, status: 'requested' },
+  { id: 'JB-2026', service: 'Alarm system installation', customer: 'Demo Customer 06', address: 'Lee's Summit, MO', lat: 39.0637, lng: -94.5786, status: 'requested' },
+  { id: 'JB-2027', service: 'Structured cabling', customer: 'Demo Customer 07', address: 'West Plaza, Kansas City, MO', lat: 39.0817, lng: -94.5786, status: 'requested' },
+  { id: 'JB-2028', service: 'Network & data cabling', customer: 'Demo Customer 08', address: 'Brookside, Kansas City, MO', lat: 39.0997, lng: -94.5786, status: 'requested' },
+  { id: 'JB-2029', service: 'Intercom systems', customer: 'Demo Customer 09', address: 'Crossroads, Kansas City, MO', lat: 39.1177, lng: -94.5786, status: 'requested' },
+  { id: 'JB-2030', service: 'Audio/video installation', customer: 'Demo Customer 10', address: 'Overland Park, KS', lat: 39.1357, lng: -94.5786, status: 'requested' },
+  { id: 'JB-2031', service: 'Smart-home installation', customer: 'Demo Customer 11', address: 'Waldo, Kansas City, MO', lat: 39.0637, lng: -94.5536, status: 'requested' },
+  { id: 'JB-2032', service: 'Low-voltage troubleshooting', customer: 'Demo Customer 12', address: 'North Kansas City, MO', lat: 39.0817, lng: -94.5536, status: 'requested' },
+  { id: 'JB-2033', service: 'Gate automation', customer: 'Demo Customer 13', address: 'Lee's Summit, MO', lat: 39.0997, lng: -94.5536, status: 'requested' },
 ];
 
 export const KANSAS_CITY_CENTER = { lat: 39.0997, lng: -94.5786 };
