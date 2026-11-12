@@ -33,7 +33,7 @@ const tabs: { id: SafetyTab; label: string; icon: typeof ShieldCheck; group: str
   { id: 'ergonomics', label: 'Back & shoulder care', icon: Stethoscope, group: 'Health & ergonomics' },
   { id: 'physical', label: 'Physical safety by trade', icon: HardHat, group: 'Health & ergonomics' },
   { id: 'protection', label: 'Payment protection', icon: ShieldAlert, group: 'Protection' },
-  { id: 'learning', label: 'Learning & training', icon: GraduationCap, group: 'Resources' },
+  { id: 'learning', label: 'Safety videos & OSHA', icon: GraduationCap, group: 'Resources' },
   { id: 'support', label: 'Support center', icon: Headset, group: 'Resources' },
   { id: 'contacts', label: 'Emergency contacts', icon: Users, group: 'Resources' }
 ];
@@ -48,11 +48,14 @@ const checklist = [
 ];
 
 const learningItems = [
-  { title: 'OSHA construction safety', detail: 'Hazard awareness, worker rights and construction standards', url: 'https://www.osha.gov/construction' },
-  { title: 'OSHA training resources', detail: 'Official training and outreach information', url: 'https://www.osha.gov/training' },
-  { title: 'First aid basics', detail: 'Recognize emergencies and get professional help', url: 'https://www.redcross.org/take-a-class/first-aid' },
-  { title: 'AWS Skill Builder', detail: 'Cloud and technology learning resources', url: 'https://skillbuilder.aws/' },
-  { title: 'Small business learning', detail: 'Business planning and operational guidance', url: 'https://www.sba.gov/business-guide' }
+  { title: 'OSHA construction safety videos', detail: 'Video lessons about common construction hazards and prevention.', url: 'https://www.youtube.com/results?search_query=OSHA+construction+safety+training+videos' },
+  { title: 'OSHA fall protection videos', detail: 'Learn about fall hazards, ladders and fall-protection concepts.', url: 'https://www.youtube.com/results?search_query=OSHA+fall+protection+training+videos' },
+  { title: 'OSHA electrical safety videos', detail: 'Electrical hazard awareness and safe-work training videos.', url: 'https://www.youtube.com/results?search_query=OSHA+electrical+safety+training+videos' },
+  { title: 'OSHA heat illness prevention', detail: 'Recognize heat illness risks and review prevention guidance.', url: 'https://www.youtube.com/results?search_query=OSHA+heat+illness+prevention+training+video' },
+  { title: 'OSHA training and outreach', detail: 'Official OSHA training, education and outreach information.', url: 'https://www.osha.gov/training' },
+  { title: 'OSHA construction standards', detail: 'Official construction safety topics, standards and worker resources.', url: 'https://www.osha.gov/construction' },
+  { title: 'OSHA personal protective equipment', detail: 'Official guidance on selecting and using workplace PPE.', url: 'https://www.osha.gov/personal-protective-equipment' },
+  { title: 'OSHA hazard communication', detail: 'Official information about chemical labels and safety data sheets.', url: 'https://www.osha.gov/hazcom' }
 ];
 
 const regulationLinks = [
@@ -313,7 +316,7 @@ export function SafetyCenter() {
           <p className="mt-4 rounded-xl bg-amber-50 p-4 text-xs leading-5 text-amber-900">Training links support awareness; they do not replace hands-on instruction, required certification, site-specific hazard assessments or emergency procedures. For immediate danger, stop work when safe and contact emergency services or your supervisor.</p>
         </Panel>}
 
-        {active === 'learning' && <Panel><SectionTitle title="Learning and training library" detail="Curated external learning resources. External courses do not automatically become Mela-verified certifications."/>
+        {active === 'learning' && <Panel><SectionTitle title="Safety videos & OSHA learning" detail="Workplace safety awareness, video lessons and official OSHA references. Use the separate Mela Learning Center for practical trade skills and projects."/>
           <div className="grid gap-3 sm:grid-cols-2">{learningItems.map(item => <ExternalResource key={item.title} {...item}/>)}</div>
           <div className="mt-4 rounded-xl bg-slate-50 p-4"><b className="text-sm text-slate-900">Suggested learning tracks</b><p className="mt-1 text-sm leading-6 text-slate-600">Construction safety · OSHA awareness · First aid and CPR · Customer service · Small-business operations · Digital and AWS skills · Trade-specific continuing education.</p></div>
         </Panel>}
