@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import {
   ShieldCheck, Siren, MapPin, HeartPulse, BellRing, CloudLightning, HardHat,
   ClipboardCheck, Scale, BadgeCheck, LockKeyhole, CarFront, GraduationCap,
-  Headset, Users, Hospital, Flame, Phone, ExternalLink, Search, Plus,
-  CheckCircle2, AlertTriangle, FileText, Clock3, Navigation, ShieldAlert,
+  Headset, Users, Hospital, Phone, ExternalLink, Search, Plus,
+  CheckCircle2, AlertTriangle, FileText, Navigation, ShieldAlert,
   Stethoscope
 } from 'lucide-react';
 
@@ -67,7 +67,7 @@ const serviceTypes = [
   { title: 'Towing & roadside assistance', detail: 'Find towing and roadside help', query: 'towing roadside assistance near me' }
 ];
 
-function Panel({ children }: { children: React.ReactNode }) {
+function Panel({ children }: { children: ReactNode }) {
   return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">{children}</section>;
 }
 function SectionTitle({ title, detail }: { title: string; detail: string }) {
