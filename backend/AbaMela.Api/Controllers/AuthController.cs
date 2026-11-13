@@ -142,7 +142,9 @@ public class AuthController(AppDbContext db, IConfiguration config, IDataProtect
             var principal = handler.ValidateToken(token, ValidationParameters(), out _);
             if (principal.FindFirstValue("purpose") != "mfa") return null;
             var id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-            return Guid.TryParse(id, out var userId) ? await db.Users.FirstOrDefaultAsync(u => u.Id == userId) : null;
+            if (!Guid.TryParse(id, out var userId)) return null;
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return user?.AuthenticatorEnabled == true ? user : null;
         }
         catch { return null; }
     }

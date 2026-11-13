@@ -70,13 +70,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
-var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-    ?? (builder.Environment.IsDevelopment()
-        ? ["http://localhost:5178", "http://localhost:5179"]
-        : []);
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
 {
-    if (allowedOrigins.Length > 0) p.WithOrigins(allowedOrigins);
+    // Development previews may be opened from a phone or tablet on the same trusted LAN.
+    // Keep this permissive policy out of Production; production uses explicit configured origins.
+    if (builder.Environment.IsDevelopment()) p.AllowAnyOrigin();
+    else if (allowedOrigins.Length > 0) p.WithOrigins(allowedOrigins);
     p.AllowAnyHeader().AllowAnyMethod();
 }));
 

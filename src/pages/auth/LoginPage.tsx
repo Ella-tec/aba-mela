@@ -235,6 +235,7 @@ export function LoginPage() {
               </button>
             </form>
             <p className="mt-7 text-center text-sm text-gray-600">{t('auth.noAccount')} <Link to="/register" className="font-semibold text-primary-700 hover:underline">{t('auth.register')}</Link></p>
+            <p className="mt-3 text-center text-xs leading-relaxed text-gray-500">Microsoft Authenticator two-step verification is optional. Sign in first, then enable it anytime in Settings → Account security.</p>
             <div className="mt-10 border-t border-gray-100 pt-5 text-center text-xs text-gray-400">Secure access to your Mela account</div>
           </div>
         </div>

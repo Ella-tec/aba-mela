@@ -1,43 +1,36 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Search, Wrench, Zap, Paintbrush, Home, HardHat, Sparkles, CalendarCheck, ShieldCheck, MessageCircle, Hammer, BrickWall, Cable, Camera, Wifi, Monitor, RadioTower, Cog, Bell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, ArrowRight, ShieldCheck, Wrench, HardHat } from 'lucide-react';
 
-const services=[
- {icon:Wrench,key:'plumbing',label:'Plumbing',color:'bg-blue-100 text-blue-700'},
- {icon:Zap,key:'electrical',label:'Electrical',color:'bg-yellow-100 text-yellow-700'},
- {icon:Paintbrush,key:'painting',label:'Painting',color:'bg-purple-100 text-purple-700'},
- {icon:Home,key:'cleaning',label:'Cleaning',color:'bg-green-100 text-green-700'},
- {icon:HardHat,key:'construction',label:'Construction',color:'bg-orange-100 text-orange-700'},
- {icon:Sparkles,key:'hvac',label:'HVAC',color:'bg-cyan-100 text-cyan-700'},
- {icon:Hammer,key:'carpentry',label:'Carpentry',color:'bg-amber-100 text-amber-700'},
- {icon:BrickWall,key:'masonry',label:'Masonry',color:'bg-stone-100 text-stone-700'},
- {icon:Home,key:'roofing',label:'Roofing',color:'bg-rose-100 text-rose-700'},
- {icon:RadioTower,key:'fiber-installation',label:'Fiber Installation',color:'bg-sky-100 text-sky-700'},
- {icon:Cable,key:'fiber-repair',label:'Fiber optic repair',color:'bg-sky-100 text-sky-700'},
- {icon:Camera,key:'cctv-installation',label:'CCTV camera installation',color:'bg-violet-100 text-violet-700'},
- {icon:Camera,key:'security-camera-installation',label:'Security camera systems',color:'bg-violet-100 text-violet-700'},
- {icon:ShieldCheck,key:'access-control',label:'Access control systems',color:'bg-emerald-100 text-emerald-700'},
- {icon:Bell,key:'alarm-systems',label:'Alarm system installation',color:'bg-amber-100 text-amber-700'},
- {icon:Cable,key:'structured-cabling',label:'Structured cabling',color:'bg-slate-100 text-slate-700'},
- {icon:Wifi,key:'network-cabling',label:'Network & data cabling',color:'bg-cyan-100 text-cyan-700'},
- {icon:Monitor,key:'intercom-systems',label:'Intercom systems',color:'bg-indigo-100 text-indigo-700'},
- {icon:Monitor,key:'audio-video-installation',label:'Audio/video installation',color:'bg-fuchsia-100 text-fuchsia-700'},
- {icon:Wifi,key:'smart-home-installation',label:'Smart-home installation',color:'bg-teal-100 text-teal-700'},
- {icon:Cable,key:'low-voltage-troubleshooting',label:'Low-voltage troubleshooting',color:'bg-orange-100 text-orange-700'},
- {icon:Cog,key:'gate-automation',label:'Gate automation',color:'bg-stone-100 text-stone-700'}
-];
-export function HomePage(){
- const {t}=useTranslation();const navigate=useNavigate();const[service,setService]=useState('');const[zip,setZip]=useState('');
- function handleSearch(event:FormEvent<HTMLFormElement>){event.preventDefault();const params=new URLSearchParams();if(service.trim())params.set('service',service.trim());if(zip.trim())params.set('zip',zip.trim());navigate('/register?type=customer&'+params.toString())}
- return <div>
-  <section className="mela-home-hero relative overflow-hidden text-white"><div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8"><div className="max-w-3xl"><div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm text-[#f8dfaa]"><span className="h-2 w-2 rounded-full bg-[#f4c66a]"/>Kansas City metro · Missouri + Kansas</div><h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-6xl">Find the right local pro. Make home feel taken care of.</h1><p className="mb-8 max-w-2xl text-lg text-white/80 md:text-xl">One thoughtful place for home repairs, property care, renovations, and construction across the Kansas City metro.</p>
-   <form onSubmit={handleSearch} className="mb-5 flex flex-col gap-3 rounded-2xl border border-white/15 bg-white/10 p-2 backdrop-blur-sm sm:flex-row"><div className="relative flex-1"><Search className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"/><label className="sr-only" htmlFor="home-service-search">What service do you need?</label><input id="home-service-search" value={service} onChange={e=>setService(e.target.value)} placeholder="What do you need help with?" className="w-full rounded-xl px-4 py-3.5 ps-11 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f4c66a]"/></div><label className="sr-only" htmlFor="home-zip">ZIP code</label><input id="home-zip" inputMode="numeric" maxLength={5} pattern="[0-9]{5}" value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder="ZIP code" className="rounded-xl px-4 py-3.5 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f4c66a] sm:w-32"/><button type="submit" className="rounded-xl bg-[#f4c66a] px-6 py-3.5 font-semibold text-[#173b35] transition-colors hover:bg-[#e9b94f]">Find a pro</button></form>
-   <p className="mb-7 text-sm text-white/70">ZIP-based coverage is being rolled out. Availability is confirmed when a provider accepts your request.</p><div className="flex flex-wrap gap-3"><Link to="/register?type=customer" className="rounded-lg bg-white px-5 py-2.5 font-semibold text-[#173b35] hover:bg-[#f7f4eb]">{t('home.ctaBook')}</Link><Link to="/register?type=professional" className="rounded-lg border border-white/40 px-5 py-2.5 font-semibold text-white hover:bg-white/10">{t('home.ctaJoin')}</Link></div>
-  </div></div></section>
-  <section id="services" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8"><div className="mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="mb-2 text-sm font-semibold uppercase tracking-wider text-[#a8792b]">Mela marketplace</p><h2 className="text-2xl font-bold text-gray-900">{t('home.popularServices')}</h2></div><p className="text-sm text-gray-500">Home care, repairs, and project support</p></div><div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">{services.map(s=><Link key={s.key} to={'/register?type=customer&service='+encodeURIComponent(s.key)} className={'mela-service-card mela-service-'+s.key+' flex flex-col items-center gap-3 rounded-2xl border border-gray-200 p-5 transition-all hover:border-[#9bb9ad] hover:shadow-md'}><span className={'mela-service-icon flex h-12 w-12 items-center justify-center rounded-xl '+s.color}><s.icon className="h-6 w-6"/></span><span className="text-sm font-semibold capitalize text-white drop-shadow">{s.label||s.key.replace(/-/g,' ')}</span></Link>)}</div></section>
-  <section id="how-it-works" className="scroll-mt-20 bg-[#f3f5f1] py-14"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="mb-8 text-center"><p className="text-sm font-semibold uppercase tracking-wider text-[#a8792b]">Simple by design</p><h2 className="mt-2 text-2xl font-bold text-[#173b35]">{t('home.howItWorks')}</h2></div><div className="grid gap-4 md:grid-cols-3"><article className="rounded-2xl border border-gray-200 bg-white p-6"><Search className="h-7 w-7 text-primary-700"/><h3 className="mt-3 font-semibold text-gray-900">1. Describe your project</h3><p className="mt-1 text-sm text-gray-600">Choose a service and share your location, schedule, and requirements.</p></article><article className="rounded-2xl border border-gray-200 bg-white p-6"><ShieldCheck className="h-7 w-7 text-primary-700"/><h3 className="mt-3 font-semibold text-gray-900">2. Review professionals</h3><p className="mt-1 text-sm text-gray-600">Compare available professionals and review the details before choosing.</p></article><article className="rounded-2xl border border-gray-200 bg-white p-6"><CalendarCheck className="h-7 w-7 text-primary-700"/><h3 className="mt-3 font-semibold text-gray-900">3. Manage your booking</h3><p className="mt-1 text-sm text-gray-600">Keep your request, updates, and service history together in your Mela account.</p></article></div><div className="mt-8 text-center"><Link to="/register?type=customer" className="inline-flex items-center gap-2 rounded-lg bg-primary-700 px-5 py-2.5 font-semibold text-white hover:bg-primary-800">Get started <MessageCircle className="h-4 w-4"/></Link></div></div></section>
-  <section className="py-12"><div className="mx-auto max-w-7xl px-4 text-center"><p className="text-lg font-semibold text-[#173b35]">A better way to care for your place.</p><p className="mt-2 text-sm text-gray-600">Kansas City, MO · Northland · Independence · Lee’s Summit · Overland Park · Olathe · Shawnee</p><p className="mt-2 text-xs text-gray-500">Service-area availability is subject to launch and provider verification.</p></div></section>
+export function HomePage() {
+ const navigate = useNavigate();
+ const [service, setService] = useState('');
+ const [zip, setZip] = useState('');
+ function handleSearch(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const params = new URLSearchParams({ type: 'customer' });
+  if (service.trim()) params.set('service', service.trim());
+  if (zip.trim()) params.set('zip', zip.trim());
+  navigate('/register?' + params.toString());
+ }
+ return <div className="mela-homepage">
+  <section className="mela-home-hero relative flex min-h-0 items-center overflow-hidden sm:min-h-[calc(100svh-4rem)] text-white">
+   <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-8 sm:py-14 md:py-20">
+    <div className="max-w-3xl">
+     <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[10px] sm:mb-5 sm:px-3.5 sm:py-2 sm:text-xs font-semibold tracking-wide text-[#f8dfaa] backdrop-blur-sm"><span className="h-2 w-2 rounded-full bg-[#f4c66a]"/> KANSAS CITY · MISSOURI & KANSAS</div>
+     <h1 className="max-w-3xl text-3xl font-semibold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl">Your place, <span className="text-[#f4c66a]">in good hands.</span></h1>
+     <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:mt-5 sm:text-lg sm:leading-7">Find trusted local help for home repairs, property care, and projects — all in one place.</p>
+     <form onSubmit={handleSearch} className="mt-5 flex max-w-2xl flex-row items-center gap-1 rounded-xl border border-white/20 bg-white p-1.5 shadow-xl sm:mt-8 sm:gap-2 sm:rounded-2xl sm:p-2">
+      <label className="sr-only" htmlFor="home-service-search">What service do you need?</label>
+      <div className="relative min-w-0 flex-1"><Search className="absolute start-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"/><input id="home-service-search" value={service} onChange={e=>setService(e.target.value)} placeholder="What do you need help with?" className="w-full rounded-xl border-0 bg-transparent py-3 ps-10 pe-2 text-sm sm:py-3.5 sm:ps-11 sm:pe-3 sm:text-base text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#477b65]"/></div>
+      <label className="sr-only" htmlFor="home-zip">ZIP code</label><input id="home-zip" inputMode="numeric" maxLength={5} pattern="[0-9]{5}" value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder="ZIP code" className="w-[4.5rem] shrink-0 rounded-lg border-0 bg-gray-50 px-1.5 py-3 text-center text-xs text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#477b65] sm:w-28 sm:rounded-xl sm:px-4 sm:py-3.5 sm:text-base"/>
+      <button type="submit" className="inline-flex min-h-10 shrink-0 items-center justify-center gap-1 rounded-lg bg-[#245141] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#173b35] sm:min-h-12 sm:gap-2 sm:rounded-xl sm:px-6 sm:py-3 sm:text-sm"><span className="sm:hidden">Find</span><span className="hidden sm:inline">Find a pro</span><ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4"/></button>
+     </form>
+     <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[10px] sm:mt-6 sm:gap-x-5 sm:gap-y-2 sm:text-xs font-medium text-white/75 sm:text-sm"><span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#f4c66a]"/> One simple place to start</span><span className="inline-flex items-center gap-2"><Wrench className="h-4 w-4 text-[#f4c66a]"/> Home & repair services</span><span className="inline-flex items-center gap-2"><HardHat className="h-4 w-4 text-[#f4c66a]"/> Project support</span></div>
+     <div className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-3"><a href="/register?type=customer" className="inline-flex min-h-10 items-center justify-center rounded-lg bg-[#f4c66a] px-4 py-2.5 text-xs sm:min-h-11 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm font-semibold text-[#173b35] transition hover:bg-[#e9b94f]">Get started</a><a href="/register?type=professional" className="inline-flex min-h-10 items-center justify-center rounded-lg border border-white/35 bg-white/5 px-4 py-2.5 text-xs sm:min-h-11 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm font-semibold text-white transition hover:bg-white/15">Join as a professional</a></div>
+    </div>
+   </div>
+  </section>
  </div>;
 }

@@ -191,3 +191,20 @@ html, body {
     max-width: 100%;
   }
 }
+
+
+/* Keep the iPhone landing page on the construction photo, not a second army-green panel. */
+.mela-public-layout > main:has(.mela-homepage) {
+  background: #f7f9f7 !important;
+  background-image: none !important;
+}
+.mela-public-layout > main:has(.mela-homepage) .mela-home-hero {
+  min-height: min(760px, calc(100svh - 5rem));
+}
+@media (max-width: 767px) {
+  .mela-public-layout > main:has(.mela-homepage) .mela-home-hero {
+    min-height: calc(100svh - 4.5rem);
+    background-position: center, 58% center;
+  }
+  .mela-home-hero > div { padding-top: 2rem; padding-bottom: 2rem; }
+}
