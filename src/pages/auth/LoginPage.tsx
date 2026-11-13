@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -79,41 +79,37 @@ export function LoginPage() {
     },
   ];
 
-  const [slideOrder, setSlideOrder] = useState<number[]>(() => {
-    const order = loginSlides.map((_, index) => index);
-    for (let i = order.length - 1; i > 0; i -= 1) {
+  const slideOrderRef = useRef<number[] | null>(null);
+  if (slideOrderRef.current === null) {
+    slideOrderRef.current = loginSlides.map((_, index) => index);
+    for (let i = slideOrderRef.current.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
-      [order[i], order[j]] = [order[j], order[i]];
+      [slideOrderRef.current[i], slideOrderRef.current[j]] = [slideOrderRef.current[j], slideOrderRef.current[i]];
     }
-    return order;
-  });
+  }
+  const [activePhrase, setActivePhrase] = useState(slideOrderRef.current[0]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActivePhrase(current => {
-        const currentSlide = slideOrder[current];
-        const nextIndex = current + 1;
-        setPreviousPhrase(currentSlide);
-        window.setTimeout(() => setPreviousPhrase(previous => previous === currentSlide ? null : previous), 1100);
+      const currentSlide = activePhrase;
+      let nextOrder = slideOrderRef.current!.filter(index => index !== currentSlide);
 
-        if (nextIndex < slideOrder.length) return nextIndex;
-
-        const nextOrder = loginSlides.map((_, index) => index);
+      if (nextOrder.length === 0) {
+        nextOrder = loginSlides.map((_, index) => index).filter(index => index !== currentSlide);
         for (let i = nextOrder.length - 1; i > 0; i -= 1) {
           const j = Math.floor(Math.random() * (i + 1));
           [nextOrder[i], nextOrder[j]] = [nextOrder[j], nextOrder[i]];
         }
-        // Start the next shuffled cycle with a different photo from the one just shown.
-        if (nextOrder[0] === currentSlide) {
-          [nextOrder[0], nextOrder[1]] = [nextOrder[1], nextOrder[0]];
-        }
-        setSlideOrder(nextOrder);
-        return 0;
-      });
+      }
+
+      slideOrderRef.current = nextOrder;
+      setPreviousPhrase(currentSlide);
+      setActivePhrase(nextOrder[0]);
+      window.setTimeout(() => setPreviousPhrase(previous => previous === currentSlide ? null : previous), 1100);
     }, 7000);
 
     return () => window.clearInterval(interval);
-  }, [slideOrder]);
+  }, [activePhrase]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -147,7 +143,7 @@ export function LoginPage() {
         {previousPhrase !== null && (
           <img key={`previous-${previousPhrase}`} src={loginSlides[previousPhrase].image} alt="" aria-hidden="true" className="mela-slide-exit absolute inset-0 h-full w-full object-cover" />
         )}
-        <img key={`active-${activePhrase}`} src={loginSlides[slideOrder[activePhrase]].image} alt={loginSlides[slideOrder[activePhrase]].alt} className="mela-slide-enter absolute inset-0 h-full w-full object-cover" />
+        <img key={`active-${activePhrase}`} src={loginSlides[activePhrase].image} alt={loginSlides[activePhrase].alt} className="mela-slide-enter absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#102d29]/85 via-[#173b35]/60 to-[#173b35]/35" />
         <div className="relative z-10 flex items-center gap-3">
           <img src="/favicon.svg" alt="" className="h-11 w-11 rounded-xl bg-white/15 p-1.5" />
@@ -162,7 +158,7 @@ export function LoginPage() {
               </h1>
             )}
             <h1 key={`new-copy-${activePhrase}`} className="mela-slide-enter relative text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-              {loginSlides[slideOrder[activePhrase]].phrase}
+              {loginSlides[activePhrase].phrase}
             </h1>
           </div>
           <p className="mt-4 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">Find trusted local help, keep projects moving, and manage every detail in one thoughtful place.</p>
