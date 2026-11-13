@@ -151,6 +151,8 @@ function MapControls({
       <button type="button" className={controlClass} onClick={onToggleStyle} aria-label="Change map style">
         {mapStyle === 'street' ? 'Light map' : 'Street map'}
       </button>
+      <button type="button" className={controlClass + " w-10 px-0 text-base"} onClick={() => map.zoomOut()} aria-label="Zoom out">−</button>
+      <button type="button" className={controlClass + " w-10 px-0 text-base"} onClick={() => map.zoomIn()} aria-label="Zoom in">+</button>
       <button type="button" className={controlClass} onClick={fitAll}>Fit all</button>
       <button type="button" className={controlClass} onClick={locateMe}>My location</button>
       <button type="button" className={controlClass} onClick={onToggleExpanded}>
@@ -204,7 +206,7 @@ export function LiveMap({
           zoom={zoom}
           style={{ height: '100%', width: '100%', background: '#e9eff0' }}
           scrollWheelZoom
-          zoomControl
+          zoomControl={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
