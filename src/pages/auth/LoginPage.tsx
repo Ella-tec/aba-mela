@@ -19,60 +19,101 @@ export function LoginPage() {
   const loginSlides = [
     {
       phrase: 'Where good work finds the right home.',
-      services: ['Plumbing', 'HVAC', 'Electrical'],
+      image: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A plumber working on residential water piping',
+    },
+    {
+      phrase: 'Comfort and care in every season.',
+      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Heating and cooling equipment being serviced',
+    },
+    {
+      phrase: 'Skilled work keeps every home running.',
       image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Home service professional working on electrical equipment',
+      alt: 'An electrician working with residential electrical equipment',
     },
     {
-      phrase: 'Connected homes, from fiber to smart security.',
-      services: ['Fiber installation', 'CCTV', 'Security systems', 'Gate automation'],
+      phrase: 'Better connections. Smarter spaces.',
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Technology components and connected systems',
+      alt: 'Close-up of technology and electronic components',
     },
     {
-      phrase: 'The details that make a house feel like home.',
-      services: ['Roofing', 'Painting', 'Tile installation', 'Flooring'],
+      phrase: 'Built strong, from the top down.',
       image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Construction professionals working on a building project',
+      alt: 'Roofing and construction work on a building',
     },
     {
-      phrase: 'A better first impression, inside and out.',
-      services: ['Landscaping', 'Windows', 'Door repair', 'Carpentry'],
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Beautiful home exterior and landscaped property',
+      phrase: 'Fresh finishes make a difference.',
+      image: 'https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A room being carefully painted',
     },
     {
-      phrase: 'Smarter energy for the place you call home.',
-      services: ['Solar systems', 'Electrical', 'HVAC'],
-      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Solar panels installed on a rooftop',
-    },
-    {
-      phrase: 'From the big move to the final cleanout.',
-      services: ['Moving', 'Hauling', 'Cleanup'],
-      image: 'https://images.unsplash.com/photo-1600518464441-9306b6a5c6c3?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Moving boxes prepared for a home move',
-    },
-    {
-      phrase: 'One local place for every project on your list.',
-      services: ['Home repairs', 'Renovations', 'Outdoor care'],
+      phrase: 'Thoughtful details. Beautiful spaces.',
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Warm, finished home interior',
+      alt: 'Finished interior with detailed flooring and tile finishes',
+    },
+    {
+      phrase: 'Make your next move feel easier.',
+      image: 'https://images.unsplash.com/photo-1600518464441-9306b6a5c6c3?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Moving boxes ready for a home move',
+    },
+    {
+      phrase: 'More room for the life you want.',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A renovated home exterior',
+    },
+    {
+      phrase: 'Bring your outdoor spaces to life.',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Outdoor home improvement and garden work',
+    },
+    {
+      phrase: 'A brighter way to power your home.',
+      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Solar panels generating clean energy',
+    },
+    {
+      phrase: 'One place for projects of every size.',
+      image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A welcoming, completed home interior',
     },
   ];
+
+  const [slideOrder, setSlideOrder] = useState<number[]>(() => {
+    const order = loginSlides.map((_, index) => index);
+    for (let i = order.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+  });
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActivePhrase(current => {
-        const next = (current + 1) % loginSlides.length;
-        setPreviousPhrase(current);
-        window.setTimeout(() => setPreviousPhrase(previous => previous === current ? null : previous), 1100);
-        return next;
+        const currentSlide = slideOrder[current];
+        const nextIndex = current + 1;
+        setPreviousPhrase(currentSlide);
+        window.setTimeout(() => setPreviousPhrase(previous => previous === currentSlide ? null : previous), 1100);
+
+        if (nextIndex < slideOrder.length) return nextIndex;
+
+        const nextOrder = loginSlides.map((_, index) => index);
+        for (let i = nextOrder.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [nextOrder[i], nextOrder[j]] = [nextOrder[j], nextOrder[i]];
+        }
+        // Start the next shuffled cycle with a different photo from the one just shown.
+        if (nextOrder[0] === currentSlide) {
+          [nextOrder[0], nextOrder[1]] = [nextOrder[1], nextOrder[0]];
+        }
+        setSlideOrder(nextOrder);
+        return 0;
       });
     }, 7000);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [slideOrder]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -106,7 +147,7 @@ export function LoginPage() {
         {previousPhrase !== null && (
           <img key={`previous-${previousPhrase}`} src={loginSlides[previousPhrase].image} alt="" aria-hidden="true" className="mela-slide-exit absolute inset-0 h-full w-full object-cover" />
         )}
-        <img key={`active-${activePhrase}`} src={loginSlides[activePhrase].image} alt={loginSlides[activePhrase].alt} className="mela-slide-enter absolute inset-0 h-full w-full object-cover" />
+        <img key={`active-${activePhrase}`} src={loginSlides[slideOrder[activePhrase]].image} alt={loginSlides[slideOrder[activePhrase]].alt} className="mela-slide-enter absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#102d29]/85 via-[#173b35]/60 to-[#173b35]/35" />
         <div className="relative z-10 flex items-center gap-3">
           <img src="/favicon.svg" alt="" className="h-11 w-11 rounded-xl bg-white/15 p-1.5" />
@@ -121,15 +162,10 @@ export function LoginPage() {
               </h1>
             )}
             <h1 key={`new-copy-${activePhrase}`} className="mela-slide-enter relative text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-              {loginSlides[activePhrase].phrase}
+              {loginSlides[slideOrder[activePhrase]].phrase}
             </h1>
           </div>
           <p className="mt-4 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">Find trusted local help, keep projects moving, and manage every detail in one thoughtful place.</p>
-          <div className="mt-5 flex max-w-xl flex-wrap gap-2" aria-label="Featured Mela services">
-            {loginSlides[activePhrase].services.map(service => (
-              <span key={service} className="rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-xs font-semibold text-white shadow-sm backdrop-blur-sm">{service}</span>
-            ))}
-          </div>
           <div className="mt-6 flex items-center gap-2 text-sm text-white/85"><ShieldCheck className="h-4 w-4 shrink-0 text-[#f4c66a]" /> One place for customers, professionals, and project teams</div>
         </div>
         <p className="relative z-10 hidden text-xs text-white/70 lg:block">Mela · Home services and project care, made simpler.</p>
