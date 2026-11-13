@@ -8,6 +8,7 @@ import { HomePage } from '@/pages/public/HomePage';
 import { LoginPage } from '@/pages/auth/LoginPage';
 import { RegisterPage } from '@/pages/auth/RegisterPage';
 import { CustomerDashboard } from '@/pages/customer/Dashboard';
+import { CustomerProjects, CustomerProjectDetail } from '@/pages/customer/Projects';
 import { CustomerBookings } from '@/pages/customer/Bookings';
 import { FindService } from '@/pages/customer/FindService';
 import { CreateBooking } from '@/pages/customer/CreateBooking';
@@ -84,6 +85,8 @@ export default function App() {
   <Route path="/how-it-works" element={<Navigate to="/#how-it-works" replace/>}/>
   <Route path="/customer" element={<PortalLayout type="customer"/>}>
    <Route index element={<CustomerDashboard/>}/>
+   <Route path="projects" element={<CustomerProjects/>}/>
+   <Route path="projects/:id" element={<CustomerProjectDetail/>}/>
    <Route path="bookings" element={<CustomerBookings/>}/>
    <Route path="bookings/:id" element={<RecordDetailPage kind="booking"/>}/>
    <Route path="create-booking" element={<CreateBooking/>}/>
