@@ -154,7 +154,7 @@ async function authenticatedGet<T>(path: string): Promise<T> {
   if (!response.ok) {
     if (response.status === 401) {
       logout();
-      throw new Error('Your sign-in session has expired or is no longer valid. Please sign in again to view your payment activity.');
+      throw new Error('Your sign-in session has expired or is no longer valid. Please sign in again to view your Mela account.');
     }
     throw new Error(payload?.message || 'Request failed (' + response.status + ').');
   }
