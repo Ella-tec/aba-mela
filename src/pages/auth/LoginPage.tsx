@@ -23,18 +23,18 @@ export function LoginPage() {
     },
     {
       phrase: 'Comfort and care in every season.',
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1800&q=85',
-      alt: 'A technician working on home mechanical equipment',
+      image: 'https://afocirmbqdxnkyescnev.supabase.co/storage/v1/object/public/featured-images/2b9146da-09dd-49d5-8e67-ac0c741adb0a/257e6b05-dc07-4f94-8478-c4eb6b97804e-1779122883501.webp',
+      alt: 'Close-up home CCTV wiring, camera hardware and smart security controls',
     },
     {
       phrase: 'Security that helps you feel at home.',
-      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/CCTV%20Camera%27s.jpg?width=1800',
-      alt: 'Home CCTV security camera installation',
+      image: 'https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Modern home CCTV camera and security system',
     },
     {
       phrase: 'Powering the details that make a house a home.',
-      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Residential electrical installation and panel work',
+      image: 'https://www.elektrikar-zilina.sk/assets/elektroinstalacne-sluzby-zilina-revizie-smart-home-UgQZCzFT.webp',
+      alt: 'Modern residential electrical installation, breaker panel and smart home controls',
     },
     {
       phrase: 'Reliable plumbing starts with careful work.',
@@ -43,13 +43,13 @@ export function LoginPage() {
     },
     {
       phrase: 'Stronger connections, one fiber at a time.',
-      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Fusion%20splicer%20working.jpg?width=1800',
-      alt: 'Fiber-optic technician using a fusion splicer to join optical cables',
+      image: 'https://medias.amf.asso.fr/mdf_articles/PIC_9131840d842d232780decd03ccb00ef1.jpg',
+      alt: 'Fiber-optic cable and fusion splicer equipment during a home installation',
     },
     {
       phrase: 'Better connections. Smarter spaces.',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Close-up of technology and electronic components',
+      image: 'https://fptcamera.com.vn/storage/media/UT4pwwxYx2jDNQWQqXZX5lmy0TdBXK9Iff0fDzse.jpeg',
+      alt: 'Concealed home security camera wiring and smart CCTV installation planning',
     },
     {
       phrase: 'Built strong, from the top down.',
