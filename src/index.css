@@ -193,9 +193,9 @@ html, body {
 }
 
 
-/* The landing hero owns its full photo treatment; don't bleed the washed page backdrop below it. */
+/* Keep the iPhone landing page on the construction photo, not a second army-green panel. */
 .mela-public-layout > main:has(.mela-homepage) {
-  background: #173b35 !important;
+  background: #f7f9f7 !important;
   background-image: none !important;
 }
 .mela-public-layout > main:has(.mela-homepage) .mela-home-hero {
@@ -203,7 +203,7 @@ html, body {
 }
 @media (max-width: 767px) {
   .mela-public-layout > main:has(.mela-homepage) .mela-home-hero {
-    min-height: auto;
+    min-height: calc(100svh - 4.5rem);
     background-position: center, 58% center;
   }
   .mela-home-hero > div { padding-top: 2rem; padding-bottom: 2rem; }
