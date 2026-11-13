@@ -2,7 +2,7 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, Calendar, Briefcase, Wallet, Settings, LogOut, Menu, Wrench, Flame, ClipboardList, Search, HeadphonesIcon, Map, Radio, Home, Sparkles, MessageSquare, X, Building2, Trash2, ShieldCheck, Clock3, CloudSun, GraduationCap } from 'lucide-react';
+import { LayoutDashboard, Calendar, Briefcase, Wallet, Settings, LogOut, Menu, Wrench, Flame, ClipboardList, Search, HeadphonesIcon, Map, Radio, Home, Sparkles, MessageSquare, X, Building2, Trash2, ShieldCheck, Clock3, CloudSun, GraduationCap, MessagesSquare } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +18,7 @@ const customerNav:NavItem[]=[
  {to:'/customer/payments',labelKey:'nav.payments',label:'Payments',icon:Wallet},
  {to:'/customer/reviews',labelKey:'nav.reviews',label:'Reviews',icon:Wrench},
  {to:'/customer/support',labelKey:'nav.support',label:'Support',icon:HeadphonesIcon},
+ {to:'/customer/connect',labelKey:'Mela Connect',label:'Mela Connect',icon:MessagesSquare},
  {to:'/customer/safety',labelKey:'nav.safety',label:'Safety Center',icon:ShieldCheck},
  {to:'/customer/learning',labelKey:'nav.learning',label:'Learning',icon:GraduationCap},
  {to:'/customer/home-passport',labelKey:'nav.home',label:'Home Passport',icon:Home},
@@ -34,6 +35,7 @@ const professionalNav:NavItem[]=[
  {to:'/professional/earnings',labelKey:'nav.earnings',label:'Earnings',icon:Wallet},
  {to:'/professional/business-center',labelKey:'nav.businessCenter',label:'Transaction Hub',icon:Building2},
  {to:'/professional/calendar',labelKey:'nav.calendar',label:'Calendar',icon:Calendar},
+ {to:'/professional/connect',labelKey:'Mela Connect',label:'Mela Connect',icon:MessagesSquare},
  {to:'/professional/verification',labelKey:'nav.verification',label:'Verification',icon:ClipboardList},
  {to:'/professional/safety',labelKey:'nav.safety',label:'Safety Center',icon:ShieldCheck},
  {to:'/professional/learning',labelKey:'nav.learning',label:'Learning',icon:GraduationCap},
