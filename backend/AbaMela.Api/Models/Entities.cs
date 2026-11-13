@@ -11,6 +11,8 @@ public class User
     public string PreferredLanguage { get; set; } = "en";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool IsVerified { get; set; }
+    public string? AuthenticatorSecretProtected { get; set; }
+    public bool AuthenticatorEnabled { get; set; }
 }
 
 public class ServiceCategory
