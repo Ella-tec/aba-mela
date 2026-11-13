@@ -147,7 +147,7 @@ function MapControls({
   const controlClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 text-xs font-semibold text-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur transition hover:-translate-y-0.5 hover:border-emerald-300 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600';
 
   return (
-    <div className="absolute right-3 top-3 z-[1000] flex max-w-[calc(100%-1.5rem)] flex-wrap justify-end gap-2">
+    <div className="absolute right-3 top-3 z-[1000] flex max-w-[calc(100%_-_1.5rem)] flex-wrap justify-end gap-2">
       <button type="button" className={controlClass} onClick={onToggleStyle} aria-label="Change map style">
         {mapStyle === 'street' ? 'Light map' : 'Street map'}
       </button>
@@ -303,7 +303,7 @@ export function LiveMap({
         </MapContainer>
       </div>
 
-      <div className="absolute bottom-3 right-3 z-[1000] max-w-[min(19rem,calc(100%-1.5rem))] rounded-xl border border-white/80 bg-white/95 px-3 py-2 text-[10px] leading-relaxed text-slate-600 shadow-lg shadow-slate-900/10 backdrop-blur">
+      <div className="absolute bottom-3 right-3 z-[1000] w-[calc(100%_-_1.5rem)] max-w-[19rem] rounded-xl border border-white/80 bg-white/95 px-3 py-2 text-[10px] leading-relaxed text-slate-600 shadow-lg shadow-slate-900/10 backdrop-blur">
         Sample provider and job pins · not live GPS tracking. Road previews appear for assigned demo jobs.
       </div>
 
@@ -324,7 +324,7 @@ export function LiveMap({
       )}
 
       {locationMessage && (
-        <div className="absolute bottom-16 left-3 z-[1001] max-w-[calc(100%-1.5rem)] rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white shadow-lg" role="status">
+        <div className="absolute bottom-16 left-3 z-[1001] max-w-[calc(100%_-_1.5rem)] rounded-lg bg-slate-900 px-3 py-2 text-xs font-medium text-white shadow-lg" role="status">
           {locationMessage}
           <button type="button" className="ml-3 font-bold text-emerald-300" onClick={() => setLocationMessage('')} aria-label="Dismiss message">×</button>
         </div>
