@@ -207,6 +207,10 @@ export function listOrganizationProjects(): Promise<ProjectRecord[]> {
   return authenticatedGet<ProjectRecord[]>('projects');
 }
 
+export function getOrganizationProject(id: string): Promise<ProjectRecord> {
+  return authenticatedGet<ProjectRecord>('projects/' + encodeURIComponent(id));
+}
+
 export function createOrganizationProject(input: CreateProjectInput): Promise<ProjectRecord> {
   return authenticatedPost<ProjectRecord>('projects', input);
 }
