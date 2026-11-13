@@ -13,7 +13,6 @@ export function SettingsPage(){
  useEffect(()=>{const root=document.documentElement;root.dataset.reduceMotion=String(reducedMotion);root.dataset.theme=darkMode?'dark':'light';root.dataset.highContrast=String(highContrast);root.dataset.fontSize=fontSize;},[reducedMotion,darkMode,highContrast,fontSize]);
  function pref(key:string,value:string){localStorage.setItem(key,value);setStatus(t('settings.savedLocal'))}
  function toggle(key:string,value:boolean,setter:(v:boolean)=>void){setter(value);pref(key,String(value))}
- function handlePhoto(e:ChangeEvent<HTMLInputElement>){const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){setStatus(t('settings.photoError'));return}if(file.size>2*1024*1024){setStatus(t('settings.photoTooLarge'));return}const reader=new FileReader();reader.onload=()=>setPendingPhoto(String(reader.result||''));reader.readAsDataURL(file)}
  function saveProfile(e:FormEvent){e.preventDefault();localStorage.setItem('mela-profile',JSON.stringify(profile));if(pendingPhoto){localStorage.setItem('mela-profile-photo',pendingPhoto);setPhoto(pendingPhoto);setPendingPhoto('')}setStatus(t('settings.profileSaved'))}
  const fileInputRef=useRef<HTMLInputElement>(null),videoRef=useRef<HTMLVideoElement>(null),cameraStreamRef=useRef<MediaStream|null>(null);
  useEffect(()=>{if(cameraOpen&&videoRef.current&&cameraStreamRef.current){videoRef.current.srcObject=cameraStreamRef.current;void videoRef.current.play().catch(()=>setCameraError('Could not start the camera preview.'));}return()=>{}},[cameraOpen]);
