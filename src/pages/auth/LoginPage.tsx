@@ -234,6 +234,15 @@ export function LoginPage() {
                 {busy ? 'Please wait…' : challengeToken ? 'Verify and sign in' : t('auth.login')} {!busy && <ArrowRight className="h-4 w-4" />}
               </button>
             </form>
+            <div className="my-6 flex items-center gap-3" aria-hidden="true"><span className="h-px flex-1 bg-gray-200" /><span className="text-xs font-medium uppercase tracking-wider text-gray-400">or</span><span className="h-px flex-1 bg-gray-200" /></div>
+            <button type="button" disabled aria-disabled="true" title="Microsoft Entra ID has not been configured for this Mela environment" className="flex w-full cursor-not-allowed items-center justify-center gap-3 rounded-xl border border-gray-300 bg-gray-50 px-5 py-3.5 text-sm font-semibold text-gray-500 opacity-80">
+              <span aria-hidden="true" className="grid h-5 w-5 grid-cols-2 gap-0.5"><span className="bg-[#f25022]"/><span className="bg-[#7fba00]"/><span className="bg-[#00a4ef]"/><span className="bg-[#ffb900]"/></span>
+              Sign in with Microsoft Entra ID
+            </button>
+            <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-xs leading-relaxed text-slate-600">
+              <p className="font-semibold text-slate-800">Organization sign-in security</p>
+              <p className="mt-1">Microsoft Entra ID sign-in is not connected yet. MFA requirements and Microsoft Sentinel monitoring can only be described as active after your organization's identity and security services are configured.</p>
+            </div>
             <p className="mt-7 text-center text-sm text-gray-600">{t('auth.noAccount')} <Link to="/register" className="font-semibold text-primary-700 hover:underline">{t('auth.register')}</Link></p>
             <p className="mt-3 text-center text-xs leading-relaxed text-gray-500">Microsoft Authenticator two-step verification is optional. Sign in first, then enable it anytime in Settings → Account security.</p>
             <div className="mt-10 border-t border-gray-100 pt-5 text-center text-xs text-gray-400">Secure access to your Mela account</div>
