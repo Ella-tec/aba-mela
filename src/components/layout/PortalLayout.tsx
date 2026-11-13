@@ -23,7 +23,7 @@ const customerNav:NavItem[]=[
  {to:'/customer/learning',labelKey:'nav.learning',label:'Learning',icon:GraduationCap},
  {to:'/customer/home-passport',labelKey:'nav.home',label:'Home Passport',icon:Home},
  {to:'/customer/recycle-bin',labelKey:'Recycle Bin',label:'Recycle Bin',icon:Trash2},
- {to:'/business-center',labelKey:'Command Center',label:'Project Hub',icon:Building2}
+ {to:'/customer/projects',labelKey:'My Projects',label:'My Projects',icon:Building2}
 ];
 const professionalNav:NavItem[]=[
  {to:'/professional',labelKey:'nav.overview',label:'Overview',icon:LayoutDashboard},
