@@ -214,3 +214,19 @@ export function getOrganizationProject(id: string): Promise<ProjectRecord> {
 export function createOrganizationProject(input: CreateProjectInput): Promise<ProjectRecord> {
   return authenticatedPost<ProjectRecord>('projects', input);
 }
+
+export async function updateOrganizationProject(id: string, update: { status: string; progress: number; endDate: string | null }): Promise<ProjectRecord> {
+  const auth = getAuth();
+  if (!auth?.token) throw new Error('Please sign in again to update this project.');
+  let response: Response;
+  try {
+    response = await fetch(API_BASE + '/api/projects/' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: 'Bearer ' + auth.token },
+      body: JSON.stringify(update),
+    });
+  } catch { throw new Error('Cannot reach the Mela API. Check that the backend is running.'); }
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(payload?.message || 'Project update failed (' + response.status + ').');
+  return payload as ProjectRecord;
+}
