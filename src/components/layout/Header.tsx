@@ -37,7 +37,7 @@ export function Header() {
   <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
    <div className="flex min-h-[4.5rem] items-center justify-between gap-3">
     <Link to="/" aria-label="Mela home" className="flex min-w-0 shrink-0 items-center gap-2.5"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#173b35] shadow-sm"><img src="/favicon.svg" alt="" className="h-full w-full rounded-lg"/></span><span className="text-2xl font-bold tracking-tight text-gray-900">Mela</span></Link>
-    <nav aria-label="Main navigation" className="hidden items-center gap-7 md:flex"><Link to="/#services" className="text-sm font-medium text-gray-600 hover:text-primary-600">{t('nav.services')}</Link><Link to="/register?type=professional" className="text-sm font-medium text-gray-600 hover:text-primary-600">{t('nav.findProfessionals')}</Link><Link to="/#how-it-works" className="text-sm font-medium text-gray-600 hover:text-primary-600">{t('home.howItWorks')}</Link></nav>
+    <nav aria-label="Main navigation" className="hidden items-center gap-7 md:flex"><Link to="/register?type=customer" className="text-sm font-medium text-gray-600 hover:text-primary-600">{t('nav.services')}</Link><Link to="/register?type=professional" className="text-sm font-medium text-gray-600 hover:text-primary-600">{t('nav.findProfessionals')}</Link></nav>
     <div className="flex min-w-0 shrink-0 items-center gap-2">
      <div className="hidden sm:block"><LanguageSwitcher/></div>
      <Link to="/login" className="hidden px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 sm:inline-flex">{t('auth.login')}</Link>
@@ -53,9 +53,8 @@ export function Header() {
    <p className="mt-3 text-xs text-[#587267]">Installation requires the published Mela website to use HTTPS.</p></div></div>}
   {mobileOpen&&<nav id="mobile-navigation" aria-label="Mobile navigation" className="space-y-1 border-t border-gray-200 bg-white px-4 py-4 shadow-lg md:hidden">
    <div className="mb-3 flex items-center justify-between gap-3"><span className="text-xs font-semibold uppercase tracking-wider text-gray-500">Menu</span><LanguageSwitcher/></div>
-   <Link to="/#services" onClick={closeMenu} className="block rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">{t('nav.services')}</Link>
+   <Link to="/register?type=customer" onClick={closeMenu} className="block rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">{t('nav.services')}</Link>
    <Link to="/register?type=professional" onClick={closeMenu} className="block rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">{t('nav.findProfessionals')}</Link>
-   <Link to="/#how-it-works" onClick={closeMenu} className="block rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">{t('home.howItWorks')}</Link>
    <Link to="/login" onClick={closeMenu} className="block rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">{t('auth.login')}</Link>
    <Link to="/register" onClick={closeMenu} className="mt-2 block rounded-xl bg-primary-700 px-4 py-3 text-center text-sm font-semibold text-white">{t('auth.register')}</Link>
    <button type="button" onClick={()=>{handleInstall();closeMenu();}} className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700"><Download className="h-4 w-4"/>Install Mela</button>
