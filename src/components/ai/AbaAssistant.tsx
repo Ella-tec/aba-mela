@@ -107,6 +107,8 @@ export function AbaAssistant() {
     { role: 'assistant', text: 'Welcome to Mela. I can help you explore services, understand bookings, find the right workspace, and work through common questions. What would you like to do?' },
   ]);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let active = true;
@@ -123,6 +125,31 @@ export function AbaAssistant() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [msgs, open, busy]);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutsidePointer = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (!panelRef.current?.contains(target) && !launcherRef.current?.contains(target)) {
+        setOpen(false);
+        setInput('');
+        setMsgs([{ role: 'assistant', text: 'Welcome back to Mela. What would you like help with?' }]);
+      }
+    };
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        setInput('');
+        setMsgs([{ role: 'assistant', text: 'Welcome back to Mela. What would you like help with?' }]);
+      }
+    };
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsidePointer);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [open]);
 
   const send = async (rawText: string) => {
     const question = rawText.trim();
@@ -174,7 +201,11 @@ export function AbaAssistant() {
   return (
     <>
       <button
-        onClick={() => setOpen(!open)}
+        ref={launcherRef}
+        onClick={() => {
+          if (open) { setOpen(false); setInput(''); setMsgs([{ role: 'assistant', text: 'Welcome back to Mela. What would you like help with?' }]); }
+          else setOpen(true);
+        }}
         className={cn(
           'fixed bottom-5 end-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-xl ring-4 ring-white/70 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-200',
           open ? 'bg-slate-900 text-white' : 'bg-gradient-to-br from-orange-500 to-amber-600 text-white'
@@ -186,6 +217,7 @@ export function AbaAssistant() {
 
       {open && (
         <section
+          ref={panelRef}
           aria-label="Mela Assistant chat"
           className="fixed bottom-24 end-4 z-50 flex h-[min( min(76vh,650px),calc(100dvh-8rem))] w-[min( calc(100vw-2rem),410px)] flex-col overflow-hidden rounded-[1.65rem] border border-slate-200/80 bg-white shadow-[0_24px_80px_-20px_rgba(15,23,42,0.38)] sm:end-6"
         >
