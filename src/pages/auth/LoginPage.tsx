@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { login } from '@/lib/auth';
+import { login, verifyAuthenticator } from '@/lib/auth';
 import { ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
 
 export function LoginPage() {
@@ -11,6 +11,8 @@ export function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [challengeToken, setChallengeToken] = useState('');
+  const [authenticatorCode, setAuthenticatorCode] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [previousPhrase, setPreviousPhrase] = useState<number | null>(null);
@@ -134,11 +136,24 @@ export function LoginPage() {
     setError('');
     setBusy(true);
     try {
-      const user = await login(email, password);
-      const destination = user.role === 'Organization' ? '/organization'
-        : user.role === 'Professional' ? '/professional'
-        : user.role === 'Admin' ? '/admin' : '/customer';
-      navigate(destination, { replace: true });
+      if (challengeToken) {
+        const user = await verifyAuthenticator(challengeToken, authenticatorCode);
+        const destination = user.role === 'Organization' ? '/organization'
+          : user.role === 'Professional' ? '/professional'
+          : user.role === 'Admin' ? '/admin' : '/customer';
+        navigate(destination, { replace: true });
+      } else {
+        const result = await login(email, password);
+        if ('mfaRequired' in result && result.mfaRequired) {
+          setChallengeToken(result.challengeToken);
+          setPassword('');
+        } else {
+          const destination = result.role === 'Organization' ? '/organization'
+            : result.role === 'Professional' ? '/professional'
+            : result.role === 'Admin' ? '/admin' : '/customer';
+          navigate(destination, { replace: true });
+        }
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to sign in.');
     } finally {
@@ -195,19 +210,28 @@ export function LoginPage() {
               <p className="mt-2 text-sm leading-relaxed text-gray-500">Sign in to continue to your Mela workspace.</p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.email')}</label>
-                <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
-                  className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
-              </div>
-              <div>
-                <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.password')}</label>
-                <input id="password" type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter your password"
-                  className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
-              </div>
+              {!challengeToken ? <>
+                <div>
+                  <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.email')}</label>
+                  <input id="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
+                    className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
+                </div>
+                <div>
+                  <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-gray-700">{t('auth.password')}</label>
+                  <input id="password" type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter your password"
+                    className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-gray-900 transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-100" />
+                </div>
+              </> : <div className="space-y-2 rounded-xl border border-primary-100 bg-primary-50/60 p-4">
+                <div className="flex items-center gap-2 font-semibold text-gray-900"><ShieldCheck className="h-5 w-5 text-primary-700" /> Verify it’s you</div>
+                <p className="text-sm text-gray-600">Open Microsoft Authenticator and enter the current six-digit code for your Mela account.</p>
+                <label htmlFor="authenticator-code" className="block text-sm font-semibold text-gray-700">6-digit authenticator code</label>
+                <input id="authenticator-code" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} required value={authenticatorCode} onChange={e => setAuthenticatorCode(e.target.value.replace(/\D/g, '').slice(0, 6))} placeholder="000000"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3.5 text-center text-2xl tracking-[0.4em] text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-100" />
+                <button type="button" onClick={() => { setChallengeToken(''); setAuthenticatorCode(''); setError(''); }} className="text-sm font-semibold text-primary-700 hover:underline">Back to password</button>
+              </div>}
               {error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}
               <button type="submit" disabled={busy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-200 disabled:cursor-not-allowed disabled:opacity-60">
-                {busy ? 'Signing in…' : t('auth.login')} {!busy && <ArrowRight className="h-4 w-4" />}
+                {busy ? 'Please wait…' : challengeToken ? 'Verify and sign in' : t('auth.login')} {!busy && <ArrowRight className="h-4 w-4" />}
               </button>
             </form>
             <p className="mt-7 text-center text-sm text-gray-600">{t('auth.noAccount')} <Link to="/register" className="font-semibold text-primary-700 hover:underline">{t('auth.register')}</Link></p>
