@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddDataProtection();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -79,6 +80,8 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.EnsureCreatedAsync();
+    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \\"Users\\" ADD COLUMN IF NOT EXISTS \\"AuthenticatorSecretProtected\\" text NULL;");
+    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \\"Users\\" ADD COLUMN IF NOT EXISTS \\"AuthenticatorEnabled\\" boolean NOT NULL DEFAULT false;");
 }
 
 if (app.Environment.IsDevelopment())
