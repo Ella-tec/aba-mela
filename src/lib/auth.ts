@@ -168,3 +168,45 @@ export function listBookings(): Promise<BookingRecord[]> {
 export function getBooking(id: string): Promise<BookingRecord> {
   return authenticatedGet<BookingRecord>('bookings/' + encodeURIComponent(id));
 }
+
+export interface ProjectRecord {
+  id: string;
+  name: string;
+  client: string;
+  location: string;
+  status: 'planning' | 'active' | 'onHold' | 'completed' | 'cancelled' | string;
+  progress: number;
+  budget?: number;
+  spent?: number;
+  startDate?: string | null;
+  endDate?: string | null;
+}
+
+export interface CreateProjectInput {
+  name: string;
+  client: string;
+  customerEmail?: string;
+  location: string;
+  status?: string;
+  progress?: number;
+  budget: number;
+  spent?: number;
+  startDate?: string;
+  endDate?: string | null;
+}
+
+export function listCustomerProjects(): Promise<ProjectRecord[]> {
+  return authenticatedGet<ProjectRecord[]>('projects');
+}
+
+export function getCustomerProject(id: string): Promise<ProjectRecord> {
+  return authenticatedGet<ProjectRecord>('projects/' + encodeURIComponent(id));
+}
+
+export function listOrganizationProjects(): Promise<ProjectRecord[]> {
+  return authenticatedGet<ProjectRecord[]>('projects');
+}
+
+export function createOrganizationProject(input: CreateProjectInput): Promise<ProjectRecord> {
+  return authenticatedPost<ProjectRecord>('projects', input);
+}
