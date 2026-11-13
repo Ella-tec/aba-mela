@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { listBookings, listServices } from '@/lib/auth';
 import type { BookingRecord, ServiceCategory } from '@/lib/auth';
-import { ArrowDownToLine, CalendarDays, ChevronDown, ChevronUp, FileText, Receipt, Search, Wallet, ShieldCheck, CreditCard } from 'lucide-react';
+import { ArrowDownToLine, CalendarDays, ChevronDown, ChevronUp, Receipt, Search, Wallet, ShieldCheck, CreditCard } from 'lucide-react';
 
 const money=(value:number)=>value.toLocaleString('en-US',{style:'currency',currency:'USD'});
 const date=(value?:string|null)=>value?new Date(value).toLocaleString():'Not available';
