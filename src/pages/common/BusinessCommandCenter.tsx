@@ -145,6 +145,7 @@ export function BusinessCommandCenter({ initialSection = 'overview' }: BusinessC
   const auth = getAuth();
   const [showWorkspaces,setShowWorkspaces] = useState(false);
   if (!auth) return <Navigate to="/login" replace/>;
+  if (auth.role === 'Customer') return <Navigate to="/customer/projects" replace/>;
   const isOrganization = auth.role === 'Organization' || auth.role === 'Admin';
   const base = isOrganization ? '/organization' : '/business-center';
 
