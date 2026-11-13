@@ -41,7 +41,8 @@ export function WorkforcePage() {
   const [filter, setFilter] = useState('All');
   const [attendance, setAttendance] = useState(crewInitialStatus);
   const [timesheets, setTimesheets] = useState(MOCK_TIMESHEETS);
-  const [preview, setPreview] = useState<{ title: string; content: ReactNode } | null>(null);\n  const [projectTab, setProjectTab] = useState<'overview' | 'progress' | 'budget'>('overview');
+  const [preview, setPreview] = useState<{ title: string; content: ReactNode } | null>(null);
+  const [projectTab, setProjectTab] = useState<'overview' | 'progress' | 'budget'>('overview');
 
   const projects = MOCK_PROJECTS;
   const crew = crewIds.map(id => MOCK_WORKERS.find(worker => worker.id === id)).filter((worker): worker is (typeof MOCK_WORKERS)[number] => Boolean(worker));
