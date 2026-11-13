@@ -91,6 +91,8 @@ if (app.Environment.IsDevelopment())
     await db.Database.EnsureCreatedAsync();
     await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Users\u0022 ADD COLUMN IF NOT EXISTS \u0022AuthenticatorSecretProtected\u0022 text NULL;");
     await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Users\u0022 ADD COLUMN IF NOT EXISTS \u0022AuthenticatorEnabled\u0022 boolean NOT NULL DEFAULT false;");
+    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Projects\u0022 ADD COLUMN IF NOT EXISTS \u0022CustomerId\u0022 uuid NULL;");
+    await db.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS \u0022IX_Projects_CustomerId\u0022 ON \u0022Projects\u0022 (\u0022CustomerId\u0022);");
 }
 
 if (app.Environment.IsDevelopment())
