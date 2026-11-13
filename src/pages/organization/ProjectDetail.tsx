@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CalendarDays, MapPin, RefreshCw } from 'lucide-react';
+import { ArrowLeft, RefreshCw } from 'lucide-react';
 import { getOrganizationProject, updateOrganizationProject } from '@/lib/auth';
 import type { ProjectRecord } from '@/lib/auth';
 
