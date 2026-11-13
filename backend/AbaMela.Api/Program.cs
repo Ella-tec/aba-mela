@@ -80,8 +80,8 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.EnsureCreatedAsync();
-    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \\"Users\\" ADD COLUMN IF NOT EXISTS \\"AuthenticatorSecretProtected\\" text NULL;");
-    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \\"Users\\" ADD COLUMN IF NOT EXISTS \\"AuthenticatorEnabled\\" boolean NOT NULL DEFAULT false;");
+    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Users\u0022 ADD COLUMN IF NOT EXISTS \u0022AuthenticatorSecretProtected\u0022 text NULL;");
+    await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Users\u0022 ADD COLUMN IF NOT EXISTS \u0022AuthenticatorEnabled\u0022 boolean NOT NULL DEFAULT false;");
 }
 
 if (app.Environment.IsDevelopment())
