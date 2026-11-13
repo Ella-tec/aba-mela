@@ -11,6 +11,8 @@ export interface AuthResponse {
   preferredLanguage: string;
 }
 
+export interface MfaChallenge { mfaRequired: true; challengeToken: string; }
+export interface AuthenticatorSetup { secret: string; otpauthUri: string; message: string; }
 export interface ServiceCategory { id: string; key: string; }
 export interface BookingInput {
   serviceCategoryId: string;
@@ -35,10 +37,55 @@ async function request<T>(path: string, body: unknown): Promise<T> {
   return payload as T;
 }
 
-export async function login(email: string, password: string) {
-  const result = await request<AuthResponse>('auth/login', { email, password });
+export async function login(email: string, password: string): Promise<AuthResponse | MfaChallenge> {
+  const result = await request<AuthResponse | MfaChallenge>('auth/login', { email, password });
+  if (!('mfaRequired' in result && result.mfaRequired)) {
+    localStorage.setItem('mela-auth', JSON.stringify(result));
+  }
+  return result;
+}
+
+export async function verifyAuthenticator(challengeToken: string, code: string): Promise<AuthResponse> {
+  const result = await request<AuthResponse>('auth/verify-authenticator', { challengeToken, code });
   localStorage.setItem('mela-auth', JSON.stringify(result));
   return result;
+}
+
+async function authenticatedPost<T>(path: string, body: unknown = {}): Promise<T> {
+  const auth = getAuth();
+  if (!auth?.token) throw new Error('Please sign in again to manage account security.');
+  let response: Response;
+  try {
+    response = await fetch(API_BASE + '/api/' + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: 'Bearer ' + auth.token },
+      body: JSON.stringify(body),
+    });
+  } catch { throw new Error('Cannot reach the Mela API. Check that the backend is running.'); }
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(payload?.message || 'Security request failed (' + response.status + ').');
+  return payload as T;
+}
+
+export async function getSecurityStatus(): Promise<{ authenticatorEnabled: boolean }> {
+  const auth = getAuth();
+  if (!auth?.token) throw new Error('Please sign in to view account security.');
+  const response = await fetch(API_BASE + '/api/auth/security', {
+    headers: { Accept: 'application/json', Authorization: 'Bearer ' + auth.token },
+  });
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(payload?.message || 'Could not load security settings.');
+  return payload as { authenticatorEnabled: boolean };
+}
+
+export function startAuthenticatorSetup(): Promise<AuthenticatorSetup> {
+  return authenticatedPost<AuthenticatorSetup>('auth/authenticator/setup');
+}
+export function confirmAuthenticator(code: string) {
+  return authenticatedPost<{ authenticatorEnabled: boolean; message: string }>('auth/authenticator/confirm', { code });
+}
+export function disableAuthenticator(password: string, code: string) {
+  return authenticatedPost<{ authenticatorEnabled: boolean; message: string }>('auth/authenticator/disable', { password, code });
 }
 
 export async function register(input: { email: string; password: string; fullName: string; role: 'Customer' | 'Professional' | 'Organization'; phone?: string; }) {
