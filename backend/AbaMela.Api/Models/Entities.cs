@@ -18,7 +18,7 @@ public class User
 public class ServiceCategory
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Key { get; set; } = ""; // plumbing, electrical — translation keys
+    public string Key { get; set; } = "";
     public bool IsActive { get; set; } = true;
 }
 
@@ -53,6 +53,9 @@ public class Project
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid OrganizationId { get; set; }
+    public Guid? CustomerId { get; set; }
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+    public string? CustomerEmail { get; set; }
     public string Name { get; set; } = "";
     public string Client { get; set; } = "";
     public string Location { get; set; } = "";
@@ -79,3 +82,4 @@ public record RegisterRequest(string Email, string Password, string FullName, st
 public record LoginRequest(string Email, string Password);
 public record AuthResponse(string Token, Guid UserId, string Email, string FullName, string Role, string PreferredLanguage);
 public record CreateBookingRequest(Guid ServiceCategoryId, string Address, DateTime? ScheduledAt, string? Notes, double? Lat, double? Lng);
+public record CustomerProjectResponse(Guid Id, string Name, string Client, string Location, string Status, int Progress, DateTime? StartDate, DateTime? EndDate);
