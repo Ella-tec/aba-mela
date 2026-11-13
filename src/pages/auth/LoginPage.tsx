@@ -27,9 +27,24 @@ export function LoginPage() {
       alt: 'Heating and cooling equipment being serviced',
     },
     {
-      phrase: 'Skilled work keeps every home running.',
-      image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1800&q=85',
-      alt: 'An electrician working with residential electrical equipment',
+      phrase: 'Security that helps you feel at home.',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/CCTV%20Camera%27s.jpg?width=1800',
+      alt: 'Home CCTV security camera installation',
+    },
+    {
+      phrase: 'Powering the details that make a house a home.',
+      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Residential electrical installation and panel work',
+    },
+    {
+      phrase: 'Reliable plumbing starts with careful work.',
+      image: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A plumber working on residential water piping',
+    },
+    {
+      phrase: 'Stronger connections, one fiber at a time.',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Fusion%20splicer%20working.jpg?width=1800',
+      alt: 'Fiber-optic technician using a fusion splicer to join optical cables',
     },
     {
       phrase: 'Better connections. Smarter spaces.',
