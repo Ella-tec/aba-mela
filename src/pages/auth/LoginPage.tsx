@@ -103,10 +103,6 @@ export function LoginPage() {
     return order;
   };
 
-  if (slideOrderRef.current === null) {
-    const firstOrder = shuffleSlides();
-    slideOrderRef.current = firstOrder.slice(1);
-  }
   const [activePhrase, setActivePhrase] = useState(() => {
     const initialOrder = shuffleSlides();
     slideOrderRef.current = initialOrder.slice(1);
