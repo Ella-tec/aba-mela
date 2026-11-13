@@ -130,6 +130,37 @@ export function WorkforcePage() {
           ))}
         </div>
 
+        <section aria-labelledby="featured-milestone-title" className="mx-4 mb-4 rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-amber-50 p-4 sm:mx-5 sm:p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-orange-800">Current milestone · Brookside</p>
+              <h3 id="featured-milestone-title" className="mt-1 text-lg font-bold text-slate-900">MEP Installation</h3>
+              <div className="mt-2 flex flex-wrap items-center gap-2"><Pill value="In Progress" /><span className="text-xs text-slate-600">Due November 10, 2026</span></div>
+            </div>
+            <Link to="/organization/projects/PRJ-001" className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-orange-200 bg-white px-3 py-2 text-xs font-bold text-orange-800 hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300">Open project <ArrowUpRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="mt-4 grid items-center gap-5 md:grid-cols-[auto_1fr]">
+            <div className="flex items-center gap-4">
+              <div role="img" aria-label="MEP Installation progress pie chart: 55 percent complete and 45 percent remaining" className="relative h-28 w-28 shrink-0 rounded-full" style={{ background: 'conic-gradient(#ea580c 0% 55%, #e2e8f0 55% 100%)' }}>
+                <div className="absolute inset-3 flex flex-col items-center justify-center rounded-full bg-white"><b className="text-2xl font-bold tabular-nums text-slate-900">55%</b><span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">Complete</span></div>
+              </div>
+              <div className="space-y-2 text-xs">
+                <p className="flex items-center gap-2 text-slate-700"><span className="h-2.5 w-2.5 rounded-full bg-orange-600" /> Completed <b>55%</b></p>
+                <p className="flex items-center gap-2 text-slate-700"><span className="h-2.5 w-2.5 rounded-full bg-slate-300" /> Remaining <b>45%</b></p>
+              </div>
+            </div>
+            <div>
+              <div className="mb-2 flex items-center justify-between gap-3"><span className="text-xs font-semibold text-slate-700">Milestone completion</span><b className="text-sm tabular-nums text-slate-900">55 / 100</b></div>
+              <div className="h-3 overflow-hidden rounded-full bg-slate-200" role="progressbar" aria-label="MEP Installation milestone completion" aria-valuemin={0} aria-valuemax={100} aria-valuenow={55} aria-valuetext="55 percent complete, 45 percent remaining"><div className="h-full rounded-full bg-orange-600" style={{ width: '55%' }} /></div>
+              <p className="mt-2 text-xs leading-5 text-slate-600">The sample milestone is a little over halfway complete. Use the actions below to review the milestone details or see every project phase.</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button type="button" onClick={() => setPreview({ title: 'MEP Installation · Milestone details', content: <div className="space-y-3 text-sm text-slate-700"><p><b>Project:</b> Brookside Apartment Renovation</p><p><b>Location:</b> Brookside, Kansas City, MO</p><p><b>Status:</b> In Progress</p><p><b>Completion:</b> 55% complete · 45% remaining</p><div><div className="mb-1 flex justify-between text-xs"><span>Milestone progress</span><b>55%</b></div><div className="h-3 overflow-hidden rounded-full bg-slate-200" role="progressbar" aria-label="MEP Installation detail progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={55}><div className="h-full rounded-full bg-orange-600" style={{ width: '55%' }} /></div></div><p><b>Due date:</b> November 10, 2026</p><p className="text-xs text-amber-700">Sample project information. Progress is illustrative and is not synced to a live construction system.</p></div> })} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300"><Eye className="h-4 w-4" /> View milestone details</button>
+                <button type="button" onClick={() => jump('milestones')} className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300">All milestones <ArrowUpRight className="h-4 w-4" /></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div className="border-t border-slate-100 px-4 pb-4 sm:px-5 sm:pb-5">
           <div role="tablist" aria-label="Project information views" className="mb-4 flex flex-wrap gap-2 pt-4">
             {([
@@ -246,7 +277,7 @@ export function WorkforcePage() {
             const label = milestone.status === 'completed' ? 'Completed' : milestone.status === 'inProgress' ? 'In Progress' : milestone.status === 'delayed' ? 'Delayed' : 'Pending';
             return <div key={milestone.id} className="rounded-xl border border-slate-100 p-4">
               <div className="flex flex-wrap items-start justify-between gap-2"><div><b className="text-sm text-slate-900">{milestone.title}</b><p className="mt-1 text-xs text-slate-500">Due {milestone.dueDate}</p></div><Pill value={label} /></div>
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${milestone.progress}%` }} /></div>
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-label={milestone.title + ' milestone progress'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={milestone.progress} aria-valuetext={milestone.progress + ' percent complete'}><div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${milestone.progress}%` }} /></div>
               <div className="mt-2 flex items-center justify-between gap-2"><p className="text-xs font-semibold text-slate-500">{milestone.progress}% complete</p><button type="button" onClick={() => setPreview({ title: milestone.title, content: <div className="space-y-2 text-sm text-slate-700"><p><b>Project:</b> Brookside Apartment Renovation</p><p><b>Due date:</b> {milestone.dueDate}</p><p><b>Status:</b> {label}</p><p><b>Progress:</b> {milestone.progress}%</p></div> })} className="inline-flex min-h-8 items-center gap-1 rounded-lg border border-slate-200 px-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"><Eye className="h-3.5 w-3.5" /> Preview</button></div>
             </div>;
           })}
