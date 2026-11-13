@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { MOCK_PROJECTS, MOCK_WORKERS, MOCK_TIMESHEETS, MOCK_MILESTONES } from '@/data/mock';
 import { HardHat, Users, ClipboardList, Flag, CheckCircle2, AlertTriangle, MapPin, ArrowUpRight, Eye, X, CalendarDays } from 'lucide-react';
 
-type Detail = { title: string; body: React.ReactNode };
+type Detail = { title: string; body: ReactNode };
 
 const crewIds = ['W1', 'W2', 'W3', 'W7', 'W11'];
 const crewStatus: Record<string, 'Present' | 'On Leave'> = {
@@ -16,7 +15,6 @@ const crewStatus: Record<string, 'Present' | 'On Leave'> = {
 };
 
 export function ForemanDashboard() {
-  const { t } = useTranslation();
   const [detail, setDetail] = useState<Detail | null>(null);
   const project = MOCK_PROJECTS.find(item => item.id === 'PRJ-001');
   const workers = crewIds
