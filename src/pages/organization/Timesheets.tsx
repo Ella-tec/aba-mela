@@ -9,7 +9,8 @@ export function TimesheetsPage(){
  const {t}=useTranslation();
  const[decisions,setDecisions]=useState<Record<string,'approved'|'rejected'>>({});
  const[preview,setPreview]=useState<{title:string;content:ReactNode}|null>(null);
- const rows=useMemo(()=>MOCK_TIMESHEETS.map(ts=>({...ts,status:decisions[ts.id]||ts.status})),[decisions]);
+ type TimesheetStatus = 'pending' | 'approved' | 'rejected';
+ const rows=useMemo(()=>MOCK_TIMESHEETS.map(ts=>({...ts,status:(decisions[ts.id]||ts.status) as TimesheetStatus})),[decisions]);
  const pending=rows.filter(ts=>ts.status==='pending');
  function decide(id:string,status:'approved'|'rejected'){setDecisions(current=>({...current,[id]:status}))}
  return <main className="mx-auto w-full max-w-7xl space-y-5">
