@@ -1,16 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import {
   ShieldCheck, Siren, MapPin, HeartPulse, BellRing, CloudLightning, HardHat,
   ClipboardCheck, Scale, BadgeCheck, LockKeyhole, CarFront, GraduationCap,
-  Headset, Users, Hospital, Flame, Phone, ExternalLink, Search, Plus,
-  CheckCircle2, AlertTriangle, FileText, Clock3, Navigation, ShieldAlert,
-  Stethoscope
+  Headset, Users, Hospital, Phone, ExternalLink, Search, Plus,
+  CheckCircle2, AlertTriangle, FileText, Navigation, ShieldAlert,
+  Stethoscope, Zap, Trees
 } from 'lucide-react';
 
 type SafetyTab =
   | 'overview' | 'emergency' | 'nearby' | 'medical' | 'location' | 'alerts'
   | 'weather' | 'jobsite' | 'inspections' | 'regulations' | 'certifications'
-  | 'security' | 'vehicle' | 'protection' | 'learning' | 'support' | 'contacts';
+  | 'security' | 'vehicle' | 'driving' | 'electrical' | 'animals' | 'plants' | 'ergonomics' | 'physical' | 'protection' | 'learning' | 'support' | 'contacts';
 
 const tabs: { id: SafetyTab; label: string; icon: typeof ShieldCheck; group: string }[] = [
   { id: 'overview', label: 'Overview', icon: ShieldCheck, group: 'Start here' },
@@ -26,8 +26,14 @@ const tabs: { id: SafetyTab; label: string; icon: typeof ShieldCheck; group: str
   { id: 'certifications', label: 'Certifications & documents', icon: BadgeCheck, group: 'Compliance' },
   { id: 'security', label: 'Security & identity', icon: LockKeyhole, group: 'Protection' },
   { id: 'vehicle', label: 'Vehicle safety', icon: CarFront, group: 'Protection' },
+  { id: 'driving', label: 'Driving & road safety', icon: CarFront, group: 'Work safety' },
+  { id: 'electrical', label: 'Electrical safety', icon: Zap, group: 'Work safety' },
+  { id: 'animals', label: 'Dog & animal safety', icon: HeartPulse, group: 'Work safety' },
+  { id: 'plants', label: 'Plant & chemical hazards', icon: Trees, group: 'Work safety' },
+  { id: 'ergonomics', label: 'Back & shoulder care', icon: Stethoscope, group: 'Health & ergonomics' },
+  { id: 'physical', label: 'Physical safety by trade', icon: HardHat, group: 'Health & ergonomics' },
   { id: 'protection', label: 'Payment protection', icon: ShieldAlert, group: 'Protection' },
-  { id: 'learning', label: 'Learning & training', icon: GraduationCap, group: 'Resources' },
+  { id: 'learning', label: 'Safety videos & OSHA', icon: GraduationCap, group: 'Resources' },
   { id: 'support', label: 'Support center', icon: Headset, group: 'Resources' },
   { id: 'contacts', label: 'Emergency contacts', icon: Users, group: 'Resources' }
 ];
@@ -42,12 +48,27 @@ const checklist = [
 ];
 
 const learningItems = [
-  { title: 'OSHA construction safety', detail: 'Hazard awareness, worker rights and construction standards', url: 'https://www.osha.gov/construction' },
-  { title: 'OSHA training resources', detail: 'Official training and outreach information', url: 'https://www.osha.gov/training' },
-  { title: 'First aid basics', detail: 'Recognize emergencies and get professional help', url: 'https://www.redcross.org/take-a-class/first-aid' },
-  { title: 'AWS Skill Builder', detail: 'Cloud and technology learning resources', url: 'https://skillbuilder.aws/' },
-  { title: 'Small business learning', detail: 'Business planning and operational guidance', url: 'https://www.sba.gov/business-guide' }
-];
+  { title: 'OSHA construction safety videos', detail: 'Video lessons about common construction hazards and prevention.', url: 'https://www.youtube.com/results?search_query=OSHA+construction+safety+training+videos' },
+  { title: 'OSHA fall protection videos', detail: 'Learn about fall hazards, ladders and fall-protection concepts.', url: 'https://www.youtube.com/results?search_query=OSHA+fall+protection+training+videos' },
+  { title: 'OSHA electrical safety videos', detail: 'Electrical hazard awareness and safe-work training videos.', url: 'https://www.youtube.com/results?search_query=OSHA+electrical+safety+training+videos' },
+  { title: 'OSHA heat illness prevention', detail: 'Recognize heat illness risks and review prevention guidance.', url: 'https://www.youtube.com/results?search_query=OSHA+heat+illness+prevention+training+video' },
+  { title: 'OSHA training and outreach', detail: 'Official OSHA training, education and outreach information.', url: 'https://www.osha.gov/training' },
+  { title: 'OSHA construction standards', detail: 'Official construction safety topics, standards and worker resources.', url: 'https://www.osha.gov/construction' },
+  { title: 'OSHA personal protective equipment', detail: 'Official guidance on selecting and using workplace PPE.', url: 'https://www.osha.gov/personal-protective-equipment' },
+  { title: 'OSHA hazard communication', detail: 'Official information about chemical labels and safety data sheets.', url: 'https://www.osha.gov/hazcom' }
+  ,{ title: 'Fiber installation and repair safety videos', detail: 'Laser awareness, fiber shards, eye protection, cable handling and work-area controls. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=fiber%20optic%20installation%20repair%20laser%20eye%20safety%20fiber%20shards%20training' },
+  { title: 'CCTV camera installation safety videos', detail: 'Ladder setup, overhead work, drilling, electrical awareness and privacy. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=CCTV%20camera%20installation%20ladder%20drilling%20electrical%20safety%20training' },
+  { title: 'Security camera system safety videos', detail: 'Safe mounting, cable routing, electrical hazards and responsible video privacy. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=security%20camera%20system%20installation%20safety%20ladder%20electrical%20privacy' },
+  { title: 'Access control installation safety videos', detail: 'Door egress, fire-door awareness, lockout/tagout and electrical hazards. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=access%20control%20door%20hardware%20installation%20egress%20electrical%20safety' },
+  { title: 'Alarm system installation safety videos', detail: 'Battery handling, panel isolation, sensor placement and safe testing. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=intrusion%20alarm%20system%20installation%20battery%20electrical%20safety%20training' },
+  { title: 'Structured cabling safety videos', detail: 'Ceiling access, ladder use, cable pulling, firestopping and PPE. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=structured%20cabling%20ladder%20ceiling%20cable%20pulling%20firestop%20safety' },
+  { title: 'Network and data cabling safety videos', detail: 'Cable pathways, drilling checks, overhead work and electrical separation. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=network%20data%20cabling%20installation%20ladder%20drilling%20electrical%20safety' },
+  { title: 'Intercom installation safety videos', detail: 'Entry hardware, safe mounting, egress and low-voltage wiring hazards. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=intercom%20installation%20door%20entry%20low%20voltage%20safety%20training' },
+  { title: 'Audio/video installation safety videos', detail: 'Display lifting, wall mounting, overhead work and electrical isolation. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=audio%20video%20installation%20TV%20mounting%20lifting%20electrical%20safety' },
+  { title: 'Smart-home installation safety videos', detail: 'Electrical isolation, device security, privacy and safe commissioning. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=smart%20home%20installation%20electrical%20safety%20cybersecurity%20privacy' },
+  { title: 'Low-voltage troubleshooting safety videos', detail: 'Test equipment, isolation, stored energy, PPE and stop-work practices. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=low%20voltage%20troubleshooting%20electrical%20testing%20safety%20training' },
+  { title: 'Gate automation safety videos', detail: 'Entrapment zones, guarding, photo eyes, emergency release and safe testing. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=automatic%20gate%20operator%20entrapment%20protection%20photo%20eye%20safety%20training' },
+  { title: 'Fiber optic laser and glass-shard safety', detail: 'Trade-specific awareness for optical sources, broken fiber and safe disposal. Video search resources for awareness; use qualified instruction for hands-on work.', url: 'https://www.youtube.com/results?search_query=fiber%20optic%20laser%20safety%20broken%20glass%20shard%20handling%20training' }];
 
 const regulationLinks = [
   { title: 'OSHA – Construction', detail: 'Federal construction safety standards and guidance', url: 'https://www.osha.gov/construction' },
@@ -67,7 +88,7 @@ const serviceTypes = [
   { title: 'Towing & roadside assistance', detail: 'Find towing and roadside help', query: 'towing roadside assistance near me' }
 ];
 
-function Panel({ children }: { children: React.ReactNode }) {
+function Panel({ children }: { children: ReactNode }) {
   return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">{children}</section>;
 }
 function SectionTitle({ title, detail }: { title: string; detail: string }) {
@@ -270,7 +291,44 @@ export function SafetyCenter() {
           <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-slate-600"><li>Payment status and transaction history</li><li>Dispute and refund request tracking</li><li>Fraud reporting and investigation workflow</li><li>Insurance claim document checklist</li><li>Clear customer and technician protection policies</li></ul>
         </Panel>}
 
-        {active === 'learning' && <Panel><SectionTitle title="Learning and training library" detail="Curated external learning resources. External courses do not automatically become Mela-verified certifications."/>
+        {(active === 'driving' || active === 'electrical' || active === 'animals' || active === 'plants' || active === 'ergonomics' || active === 'physical') && <Panel>
+          <SectionTitle title={current.label} detail="Free official safety guidance and learning resources. Follow your employer's safety plan, applicable regulations and qualified training."/>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {active === 'driving' && <>
+              <ExternalResource title="OSHA – Motor vehicle safety" detail="Work-related driving hazards, fleet safety and prevention guidance" url="https://www.osha.gov/motor-vehicle-safety"/>
+              <ExternalResource title="NHTSA – Safe driving" detail="Federal road-safety information, vehicle recalls and safe-driving resources" url="https://www.nhtsa.gov/road-safety"/>
+              <ExternalResource title="Distracted driving" detail="Understand distraction risks and safer driving practices" url="https://www.nhtsa.gov/risky-driving/distracted-driving"/>
+            </>}
+            {active === 'electrical' && <>
+              <ExternalResource title="OSHA – Electrical safety" detail="Electrical hazards, safe work practices and standards" url="https://www.osha.gov/electrical"/>
+              <ExternalResource title="OSHA – Lockout / tagout" detail="Control hazardous energy before servicing equipment" url="https://www.osha.gov/control-hazardous-energy"/>
+              <ExternalResource title="Electrical safety videos" detail="Free electrical safety demonstrations and training video search" url="https://www.youtube.com/results?search_query=electrical+safety+training+OSHA"/>
+            </>}
+            {active === 'animals' && <>
+              <ExternalResource title="CDC – Healthy pets and animal safety" detail="Guidance for preventing bites, scratches and animal-related illness" url="https://www.cdc.gov/healthy-pets/about/index.html"/>
+              <ExternalResource title="CDC – Dog bites" detail="Prevention information for working around dogs" url="https://www.cdc.gov/dog-bites/about/index.html"/>
+              <ExternalResource title="Working around animals" detail="Free animal-safety training video search" url="https://www.youtube.com/results?search_query=worker+safety+working+around+dogs+animals"/>
+            </>}
+            {active === 'plants' && <>
+              <ExternalResource title="Poison Control – Plants" detail="Identify and respond to possible poisonous plant exposures" url="https://www.poison.org/articles/plant"/>
+              <ExternalResource title="OSHA – Pesticides" detail="Worker protection and pesticide exposure guidance" url="https://www.osha.gov/pesticides"/>
+              <ExternalResource title="CDC – Outdoor workers" detail="Outdoor work hazards, including plants, insects, heat and exposure" url="https://www.cdc.gov/niosh/outdoor-workers/about/index.html"/>
+            </>}
+            {active === 'ergonomics' && <>
+              <ExternalResource title="OSHA – Ergonomics" detail="Prevent work-related musculoskeletal disorders" url="https://www.osha.gov/ergonomics"/>
+              <ExternalResource title="NIOSH – Safe lifting" detail="Research and guidance for reducing lifting-related injuries" url="https://www.cdc.gov/niosh/topics/ergonomics/"/>
+              <ExternalResource title="Back and shoulder care videos" detail="Free workplace ergonomics and safe-lifting video search" url="https://www.youtube.com/results?search_query=OSHA+ergonomics+safe+lifting+back+shoulder"/>
+            </>}
+            {active === 'physical' && <>
+              <ExternalResource title="OSHA – Personal protective equipment" detail="PPE selection, use and workplace protection guidance" url="https://www.osha.gov/personal-protective-equipment"/>
+              <ExternalResource title="OSHA – Fall protection" detail="Prevent falls when working at heights and on ladders" url="https://www.osha.gov/fall-protection"/>
+              <ExternalResource title="NIOSH – Construction safety" detail="Research-based information for construction and trade workers" url="https://www.cdc.gov/niosh/construction/"/>
+            </>}
+          </div>
+          <p className="mt-4 rounded-xl bg-amber-50 p-4 text-xs leading-5 text-amber-900">Training links support awareness; they do not replace hands-on instruction, required certification, site-specific hazard assessments or emergency procedures. For immediate danger, stop work when safe and contact emergency services or your supervisor.</p>
+        </Panel>}
+
+        {active === 'learning' && <Panel><SectionTitle title="Safety videos & OSHA learning" detail="Workplace safety awareness, video lessons and official OSHA references. Use the separate Mela Learning Center for practical trade skills and projects."/>
           <div className="grid gap-3 sm:grid-cols-2">{learningItems.map(item => <ExternalResource key={item.title} {...item}/>)}</div>
           <div className="mt-4 rounded-xl bg-slate-50 p-4"><b className="text-sm text-slate-900">Suggested learning tracks</b><p className="mt-1 text-sm leading-6 text-slate-600">Construction safety · OSHA awareness · First aid and CPR · Customer service · Small-business operations · Digital and AWS skills · Trade-specific continuing education.</p></div>
         </Panel>}

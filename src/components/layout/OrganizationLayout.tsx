@@ -2,7 +2,7 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays, Bot, BarChart3, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays, Bot, BarChart3, ChevronDown, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -42,6 +42,7 @@ export function OrganizationLayout(){
      </div>}
     </div>
     <Link to="/organization/safety" aria-current={location.pathname==='/organization/safety'?'page':undefined} onClick={()=>setSidebarOpen(false)} className={cn('mt-2 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors',location.pathname==='/organization/safety'?'bg-orange-50 text-orange-700':'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}><ShieldCheck className="h-5 w-5 shrink-0"/>Safety Center</Link>
+    <Link to="/organization/learning" aria-current={location.pathname==='/organization/learning'?'page':undefined} onClick={()=>setSidebarOpen(false)} className={cn('flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors',location.pathname==='/organization/learning'?'bg-orange-50 text-orange-700':'text-gray-600 hover:bg-gray-100 hover:text-gray-900')}><GraduationCap className="h-5 w-5 shrink-0"/>Learning Center</Link>
    </nav>
    <div className="space-y-1 border-t border-gray-100 p-3"><Link to="/organization/settings" className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"><Settings className="h-5 w-5"/>{t('common.settings')}</Link><button type="button" onClick={()=>{logout();navigate('/login',{replace:true})}} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100"><LogOut className="h-5 w-5"/>{t('common.logout')}</button></div>
   </div></aside>

@@ -174,7 +174,21 @@
     "tiling": "Tiling",
     "appliance": "Appliance Repair",
     "pest": "Pest Control",
-    "landscaping": "Landscaping"
+    "landscaping": "Landscaping",
+    "fiber-splicing": "Fiber splicing",
+    "fiber-installation": "Fiber installation",
+    "fiber-repair": "Fiber optic repair",
+    "cctv-installation": "CCTV camera installation",
+    "security-camera-installation": "Security camera systems",
+    "access-control": "Access control systems",
+    "alarm-systems": "Alarm systems",
+    "structured-cabling": "Structured cabling",
+    "network-cabling": "Network and data cabling",
+    "intercom-systems": "Intercom systems",
+    "audio-video-installation": "Audio/video installation",
+    "smart-home-installation": "Smart-home installation",
+    "low-voltage-troubleshooting": "Low-voltage troubleshooting",
+    "gate-automation": "Gate automation"
   },
   "support": {
     "title": "Support Center",

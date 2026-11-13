@@ -9,6 +9,7 @@ import { LoginPage } from '@/pages/auth/LoginPage';
 import { RegisterPage } from '@/pages/auth/RegisterPage';
 import { CustomerDashboard } from '@/pages/customer/Dashboard';
 import { CustomerBookings } from '@/pages/customer/Bookings';
+import { FindService } from '@/pages/customer/FindService';
 import { CreateBooking } from '@/pages/customer/CreateBooking';
 import { CustomerSupport } from '@/pages/customer/Support';
 import { CustomerReviews } from '@/pages/customer/Reviews';
@@ -41,6 +42,7 @@ import { SettingsPage } from '@/pages/common/SettingsPage';
 import { RecycleBinPage } from '@/pages/common/RecycleBin';
 import { BusinessCommandCenter } from '@/pages/common/BusinessCommandCenter';
 import { SafetyCenter } from '@/pages/common/SafetyCenter';
+import { LearningCenter } from '@/pages/common/LearningCenter';
 import { getAuth } from '@/lib/auth';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
@@ -84,12 +86,14 @@ export default function App() {
    <Route path="bookings" element={<CustomerBookings/>}/>
    <Route path="bookings/:id" element={<RecordDetailPage kind="booking"/>}/>
    <Route path="create-booking" element={<CreateBooking/>}/>
-   <Route path="find-service" element={<CreateBooking/>}/>
+   <Route path="find-service" element={<FindService/>}/>
    <Route path="smart-match" element={<SmartMatch/>}/>
    <Route path="track" element={<CustomerTrack/>}/>
    <Route path="payments" element={<CustomerPayments/>}/>
    <Route path="reviews" element={<CustomerReviews/>}/>
    <Route path="support" element={<CustomerSupport/>}/>
+   <Route path="safety" element={<SafetyCenter/>}/>
+   <Route path="learning" element={<LearningCenter/>}/>
    <Route path="support/:id" element={<RecordDetailPage kind="ticket"/>}/>
    <Route path="help/:id" element={<RecordDetailPage kind="article"/>}/>
    <Route path="home-passport" element={<HomePassport/>}/>
@@ -107,6 +111,8 @@ export default function App() {
    <Route path="business-center" element={<BusinessCenter/>}/>
    <Route path="calendar" element={<CalendarPage/>}/>
    <Route path="verification" element={<ProfessionalVerification/>}/>
+   <Route path="safety" element={<SafetyCenter/>}/>
+   <Route path="learning" element={<LearningCenter/>}/>
    <Route path="reviews" element={<ProfessionalReviews/>}/>
    <Route path="settings" element={<SettingsPage/>}/>
    <Route path="recycle-bin" element={<RecycleBinPage/>}/>
@@ -126,6 +132,7 @@ export default function App() {
    <Route path="equipment" element={<BusinessCommandCenter initialSection="equipment"/>}/>
    <Route path="documents" element={<BusinessCommandCenter initialSection="documents"/>}/>
    <Route path="safety" element={<SafetyCenter/>}/>
+   <Route path="learning" element={<LearningCenter/>}/>
    <Route path="scheduling" element={<BusinessCommandCenter initialSection="scheduling"/>}/>
    <Route path="ai" element={<BusinessCommandCenter initialSection="ai"/>}/>
   </Route>
