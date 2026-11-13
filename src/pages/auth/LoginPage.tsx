@@ -23,8 +23,8 @@ export function LoginPage() {
     },
     {
       phrase: 'Comfort and care in every season.',
-      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1800&q=85',
-      alt: 'Heating and cooling equipment being serviced',
+      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1800&q=85',
+      alt: 'A technician working on home mechanical equipment',
     },
     {
       phrase: 'Security that helps you feel at home.',
@@ -38,8 +38,8 @@ export function LoginPage() {
     },
     {
       phrase: 'Reliable plumbing starts with careful work.',
-      image: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1800&q=85',
-      alt: 'A plumber working on residential water piping',
+      image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1800&q=85',
+      alt: 'Residential plumbing fixture and water connection installation',
     },
     {
       phrase: 'Stronger connections, one fiber at a time.',
@@ -94,32 +94,40 @@ export function LoginPage() {
   ];
 
   const slideOrderRef = useRef<number[] | null>(null);
-  if (slideOrderRef.current === null) {
-    slideOrderRef.current = loginSlides.map((_, index) => index);
-    for (let i = slideOrderRef.current.length - 1; i > 0; i -= 1) {
+  const shuffleSlides = () => {
+    const order = loginSlides.map((_, index) => index);
+    for (let i = order.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
-      [slideOrderRef.current[i], slideOrderRef.current[j]] = [slideOrderRef.current[j], slideOrderRef.current[i]];
+      [order[i], order[j]] = [order[j], order[i]];
     }
+    return order;
+  };
+
+  if (slideOrderRef.current === null) {
+    const firstOrder = shuffleSlides();
+    slideOrderRef.current = firstOrder.slice(1);
   }
-  const [activePhrase, setActivePhrase] = useState(slideOrderRef.current[0]);
+  const [activePhrase, setActivePhrase] = useState(() => {
+    const initialOrder = shuffleSlides();
+    slideOrderRef.current = initialOrder.slice(1);
+    return initialOrder[0];
+  });
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      const currentSlide = activePhrase;
-      let nextOrder = slideOrderRef.current!.filter(index => index !== currentSlide);
-
-      if (nextOrder.length === 0) {
-        nextOrder = loginSlides.map((_, index) => index).filter(index => index !== currentSlide);
-        for (let i = nextOrder.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [nextOrder[i], nextOrder[j]] = [nextOrder[j], nextOrder[i]];
+      let remaining = slideOrderRef.current ?? [];
+      if (remaining.length === 0) {
+        remaining = shuffleSlides();
+        if (remaining[0] === activePhrase && remaining.length > 1) {
+          [remaining[0], remaining[1]] = [remaining[1], remaining[0]];
         }
       }
 
-      slideOrderRef.current = nextOrder;
-      setPreviousPhrase(currentSlide);
-      setActivePhrase(nextOrder[0]);
-      window.setTimeout(() => setPreviousPhrase(previous => previous === currentSlide ? null : previous), 1100);
+      const [nextSlide, ...slidesAfterNext] = remaining;
+      slideOrderRef.current = slidesAfterNext;
+      setPreviousPhrase(activePhrase);
+      setActivePhrase(nextSlide);
+      window.setTimeout(() => setPreviousPhrase(previous => previous === activePhrase ? null : previous), 1100);
     }, 7000);
 
     return () => window.clearInterval(interval);
