@@ -151,7 +151,13 @@ async function authenticatedGet<T>(path: string): Promise<T> {
     });
   } catch { throw new Error('Cannot reach the Mela API. Check that the backend is running.'); }
   const payload = await response.json().catch(() => null);
-  if (!response.ok) throw new Error(payload?.message || 'Request failed (' + response.status + ').');
+  if (!response.ok) {
+    if (response.status === 401) {
+      logout();
+      throw new Error('Your sign-in session has expired or is no longer valid. Please sign in again to view your payment activity.');
+    }
+    throw new Error(payload?.message || 'Request failed (' + response.status + ').');
+  }
   return payload as T;
 }
 
