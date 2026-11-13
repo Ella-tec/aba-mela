@@ -13,7 +13,6 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  const [activePhrase, setActivePhrase] = useState(0);
   const [previousPhrase, setPreviousPhrase] = useState<number | null>(null);
 
   const loginSlides = [
