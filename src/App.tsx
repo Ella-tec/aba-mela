@@ -43,6 +43,7 @@ import { RecycleBinPage } from '@/pages/common/RecycleBin';
 import { BusinessCommandCenter } from '@/pages/common/BusinessCommandCenter';
 import { SafetyCenter } from '@/pages/common/SafetyCenter';
 import { LearningCenter } from '@/pages/common/LearningCenter';
+import { MelaConnectPage } from '@/pages/common/MelaConnect';
 import { getAuth } from '@/lib/auth';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
@@ -92,6 +93,7 @@ export default function App() {
    <Route path="payments" element={<CustomerPayments/>}/>
    <Route path="reviews" element={<CustomerReviews/>}/>
    <Route path="support" element={<CustomerSupport/>}/>
+   <Route path="connect" element={<MelaConnectPage/>}/>
    <Route path="safety" element={<SafetyCenter/>}/>
    <Route path="learning" element={<LearningCenter/>}/>
    <Route path="support/:id" element={<RecordDetailPage kind="ticket"/>}/>
