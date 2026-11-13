@@ -2,7 +2,7 @@ import { Link, useLocation, Outlet, Navigate, useNavigate } from 'react-router-d
 import { getAuth, logout } from '@/lib/auth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
-import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays, Bot, BarChart3, ChevronDown, GraduationCap } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, ClipboardList, HardHat, Settings, LogOut, Menu, X, Trash2, Building2, DollarSign, Truck, FileText, ShieldCheck, CalendarDays, Bot, BarChart3, ChevronDown, GraduationCap, MessagesSquare } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +11,7 @@ const nav=[
  {to:'/organization/projects',labelKey:'nav.projects',icon:FolderKanban},
  {to:'/organization/foreman',labelKey:'nav.foreman',icon:HardHat},
  {to:'/organization/workforce',labelKey:'nav.workforce',icon:Users},
+ {to:'/organization/connect',labelKey:'Mela Connect',icon:MessagesSquare},
  {to:'/organization/timesheets',labelKey:'nav.timesheets',icon:ClipboardList},
  {to:'/organization/recycle-bin',labelKey:'Recycle Bin',icon:Trash2}
 ];
