@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, UserCheck, CalendarDays, ClipboardList, Search, CircleAlert, ArrowUpRight, Phone, HardHat, Clock3, Eye, X } from 'lucide-react';
+import { Users, UserCheck, CalendarDays, ClipboardList, Search, CircleAlert, ArrowUpRight, Phone, HardHat, Clock3, Eye, X, MapPin, Wallet, TrendingUp, ChartNoAxesCombined } from 'lucide-react';
 import { MOCK_WORKERS, MOCK_PROJECTS, MOCK_MILESTONES, MOCK_TIMESHEETS } from '@/data/mock';
 import { cn } from '@/lib/utils';
 
@@ -41,7 +41,7 @@ export function WorkforcePage() {
   const [filter, setFilter] = useState('All');
   const [attendance, setAttendance] = useState(crewInitialStatus);
   const [timesheets, setTimesheets] = useState(MOCK_TIMESHEETS);
-  const [preview, setPreview] = useState<{ title: string; content: ReactNode } | null>(null);
+  const [preview, setPreview] = useState<{ title: string; content: ReactNode } | null>(null);\n  const [projectTab, setProjectTab] = useState<'overview' | 'progress' | 'budget'>('overview');
 
   const projects = MOCK_PROJECTS;
   const crew = crewIds.map(id => MOCK_WORKERS.find(worker => worker.id === id)).filter((worker): worker is (typeof MOCK_WORKERS)[number] => Boolean(worker));
@@ -92,6 +92,71 @@ export function WorkforcePage() {
           <button type="button" onClick={() => jump('timesheets')} className="rounded-xl border border-white/15 bg-white/10 p-3 text-left hover:bg-white/20"><Clock3 className="mb-2 h-4 w-4 text-emerald-200" /><b className="block text-xl">{pending}</b><span className="text-xs text-slate-200">Pending timesheets</span></button>
         </div>
       </header>
+
+
+      <section aria-labelledby="foreman-dashboard-title" className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="relative min-h-[230px] overflow-hidden bg-slate-950">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85" alt="Apartment renovation construction site" className="absolute inset-0 h-full w-full object-cover opacity-45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-900/20" />
+          <div className="relative z-10 flex min-h-[230px] flex-col justify-between gap-5 p-5 text-white sm:p-7">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-200">Foreman Dashboard · Active project</p>
+              <h2 id="foreman-dashboard-title" className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">Brookside Apartment Renovation</h2>
+              <p className="mt-2 flex items-center gap-2 text-sm text-white/85"><MapPin className="h-4 w-4" /> Brookside, Kansas City, MO</p>
+            </div>
+            <Link to="/organization/projects/PRJ-001" className="inline-flex min-h-10 w-fit items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-300">Open project details <ArrowUpRight className="h-4 w-4" /></Link>
+          </div>
+        </div>
+
+        <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-4 sm:p-5">
+          {[
+            { label: 'Project progress', value: '62%', detail: 'Brookside renovation', href: '/organization/projects/PRJ-001', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80', alt: 'Construction project progress' },
+            { label: 'On site today', value: '4', detail: 'Crew members present', href: '/organization/workforce#todays-crew', image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=80', alt: 'Construction crew at work' },
+            { label: 'Timesheets today', value: '1', detail: 'Brookside record submitted', href: '/organization/timesheets', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Timesheet and work records' },
+            { label: 'Current milestone', value: 'MEP', detail: 'Installation · 55% in progress', href: '/organization/projects/PRJ-001', image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80', alt: 'Mechanical electrical and plumbing installation' },
+          ].map(kpi => (
+            <Link key={kpi.label} to={kpi.href} className="group relative min-h-[150px] overflow-hidden rounded-2xl bg-slate-900 p-4 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300">
+              <img src={kpi.image} alt={kpi.alt} className="absolute inset-0 h-full w-full object-cover opacity-40 transition duration-500 group-hover:scale-105" />
+              <span className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/60 to-slate-900/25" />
+              <span className="relative z-10 flex min-h-[118px] flex-col justify-between">
+                <span className="text-xs font-semibold text-white/85">{kpi.label}</span>
+                <span><b className="block text-3xl font-bold tracking-tight">{kpi.value}</b><span className="mt-1 block text-xs text-white/80">{kpi.detail}</span></span>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-white">Open details <ArrowUpRight className="h-3.5 w-3.5" /></span>
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="border-t border-slate-100 px-4 pb-4 sm:px-5 sm:pb-5">
+          <div role="tablist" aria-label="Project information views" className="mb-4 flex flex-wrap gap-2 pt-4">
+            {([
+              ['overview', 'Project overview'],
+              ['progress', 'Progress chart'],
+              ['budget', 'Budget & payments'],
+            ] as const).map(([id, label]) => (
+              <button key={id} id={`project-tab-${id}`} type="button" role="tab" aria-selected={projectTab === id} aria-controls="project-tab-panel" onClick={() => setProjectTab(id)} className={cn('min-h-10 rounded-full border px-4 py-2 text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500', projectTab === id ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-orange-300 hover:bg-orange-50')}>{label}</button>
+            ))}
+          </div>
+          <div id="project-tab-panel" role="tabpanel" aria-labelledby={`project-tab-${projectTab}`} className="rounded-2xl bg-slate-50 p-4 sm:p-5">
+            {projectTab === 'overview' && <div className="grid gap-4 md:grid-cols-[1.2fr_1fr]">
+              <div><div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Overall project progress</p><p className="mt-1 text-3xl font-bold text-slate-900">62%</p></div><Pill value="In Progress" /></div>
+                <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-200" role="progressbar" aria-label="Brookside project completion" aria-valuemin={0} aria-valuemax={100} aria-valuenow={62}><div className="h-full rounded-full bg-emerald-600 transition-all" style={{ width: '62%' }} /></div>
+                <p className="mt-2 text-xs text-slate-500">62 percent complete · Target handover December 15, 2026</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-white p-4"><p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Current milestone</p><div className="mt-1 flex flex-wrap items-center justify-between gap-2"><b className="text-base text-slate-900">MEP Installation</b><Pill value="In Progress" /></div><div className="mt-3 h-2.5 overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-label="MEP Installation completion" aria-valuemin={0} aria-valuemax={100} aria-valuenow={55}><div className="h-full rounded-full bg-orange-500" style={{ width: '55%' }} /></div><div className="mt-2 flex justify-between text-xs text-slate-500"><span>55% complete</span><span>Due Nov 10, 2026</span></div></div>
+            </div>}
+            {projectTab === 'progress' && <div><div className="mb-4 flex items-center gap-2"><ChartNoAxesCombined className="h-5 w-5 text-emerald-700" /><div><h3 className="text-sm font-bold text-slate-900">Milestone progress chart</h3><p className="text-xs text-slate-500">Completion by construction phase</p></div></div><div className="space-y-4">
+              {milestones.map(item => <div key={item.id}><div className="mb-1 flex flex-wrap justify-between gap-2 text-xs"><span className="font-semibold text-slate-700">{item.title}</span><span className="tabular-nums text-slate-500">{item.progress}%</span></div><div className="h-3 overflow-hidden rounded-full bg-white" role="progressbar" aria-label={item.title + ' progress'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={item.progress}><div className={cn('h-full rounded-full transition-all', item.progress === 100 ? 'bg-emerald-600' : 'bg-orange-500')} style={{ width: item.progress + '%' }} /></div></div>)}
+            </div></div>}
+            {projectTab === 'budget' && <div className="grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-200 bg-white p-4"><Wallet className="h-5 w-5 text-emerald-700" /><p className="mt-2 text-xs text-slate-500">Approved project budget</p><b className="mt-1 block text-2xl text-slate-900">$85,000</b></div>
+              <div className="rounded-xl border border-slate-200 bg-white p-4"><TrendingUp className="h-5 w-5 text-orange-600" /><p className="mt-2 text-xs text-slate-500">Recorded project spend</p><b className="mt-1 block text-2xl text-slate-900">$52,000</b></div>
+              <div className="rounded-xl border border-slate-200 bg-white p-4"><Wallet className="h-5 w-5 text-blue-700" /><p className="mt-2 text-xs text-slate-500">Budget remaining</p><b className="mt-1 block text-2xl text-slate-900">$33,000</b></div>
+              <div className="md:col-span-3"><div className="mb-2 flex justify-between text-xs font-semibold text-slate-600"><span>Budget utilization</span><span>61.2%</span></div><div className="h-3 overflow-hidden rounded-full bg-white" role="progressbar" aria-label="Project budget used" aria-valuemin={0} aria-valuemax={100} aria-valuenow={61.2}><div className="h-full rounded-full bg-emerald-600" style={{ width: '61.2%' }} /></div><p className="mt-2 text-xs text-slate-500">Illustrative demo figures. No payment is initiated or recorded from this dashboard.</p><Link to="/organization/analytics" className="mt-3 inline-flex min-h-9 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100">View financial analytics <ArrowUpRight className="h-3.5 w-3.5" /></Link></div>
+            </div>}
+          </div>
+        </div>
+      </section>
 
       <nav aria-label="Workforce sections" className="flex flex-wrap gap-2">
         {([['all-workers', 'All Workforce'], ['todays-crew', 'Today’s Crew'], ['team', 'Project Team'], ['milestones', 'Milestones'], ['timesheets', 'Recent Timesheets']] as const).map(([id, label]) => (
