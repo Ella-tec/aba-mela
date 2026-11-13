@@ -49,6 +49,8 @@ export function WorkforcePage() {
   const team = teamIds.map(id => MOCK_WORKERS.find(worker => worker.id === id)).filter((worker): worker is (typeof MOCK_WORKERS)[number] => Boolean(worker));
   const milestones = MOCK_MILESTONES.filter(item => item.projectId === 'PRJ-001');
   const pending = timesheets.filter(item => item.status === 'pending').length;
+  const onSiteToday = Object.values(attendance).filter(value => value === 'Present').length;
+  const timesheetsToday = timesheets.filter(item => item.date === '2026-11-02' && item.projectId === 'PRJ-001');
 
   const filtered = useMemo(() => MOCK_WORKERS.filter(worker => {
     const project = projects.find(item => item.id === worker.projectId);
@@ -112,8 +114,8 @@ export function WorkforcePage() {
         <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-4 sm:p-5">
           {[
             { label: 'Project progress', value: '62%', detail: 'Brookside renovation', href: '/organization/projects/PRJ-001', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80', alt: 'Construction project progress' },
-            { label: 'On site today', value: '4', detail: 'Crew members present', href: '/organization/workforce#todays-crew', image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=80', alt: 'Construction crew at work' },
-            { label: 'Timesheets today', value: '1', detail: 'Brookside record submitted', href: '/organization/timesheets', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Timesheet and work records' },
+            { label: 'On site today', value: String(onSiteToday), detail: 'Crew members present', href: '/organization/workforce#todays-crew', image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=80', alt: 'Construction crew at work' },
+            { label: 'Timesheets today', value: String(timesheetsToday.length), detail: 'Brookside records submitted', href: '/organization/timesheets', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', alt: 'Timesheet and work records' },
             { label: 'Current milestone', value: 'MEP', detail: 'Installation · 55% in progress', href: '/organization/projects/PRJ-001', image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80', alt: 'Mechanical electrical and plumbing installation' },
           ].map(kpi => (
             <Link key={kpi.label} to={kpi.href} className="group relative min-h-[150px] overflow-hidden rounded-2xl bg-slate-900 p-4 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-300">
