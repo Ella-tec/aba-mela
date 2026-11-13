@@ -144,14 +144,14 @@ export function LoginPage() {
         navigate(destination, { replace: true });
       } else {
         const result = await login(email, password);
-        if ('mfaRequired' in result && result.mfaRequired) {
-          setChallengeToken(result.challengeToken);
-          setPassword('');
-        } else {
+        if ('token' in result) {
           const destination = result.role === 'Organization' ? '/organization'
             : result.role === 'Professional' ? '/professional'
             : result.role === 'Admin' ? '/admin' : '/customer';
           navigate(destination, { replace: true });
+        } else {
+          setChallengeToken(result.challengeToken);
+          setPassword('');
         }
       }
     } catch (err) {
