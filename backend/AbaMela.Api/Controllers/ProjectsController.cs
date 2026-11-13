@@ -48,6 +48,28 @@ public class ProjectsController(AppDbContext db) : ControllerBase
         return Ok(project);
     }
 
+    [HttpPatch("{id:guid}")]
+    [Authorize(Roles = "Organization,Admin")]
+    public async Task<ActionResult> Update(Guid id, UpdateProjectRequest update)
+    {
+        if (update.Progress is < 0 or > 100)
+            return BadRequest(new { message = "Progress must be between 0 and 100." });
+        var q = db.Projects.AsQueryable();
+        if (!IsAdmin) q = q.Where(p => p.OrganizationId == UserId);
+        var project = await q.FirstOrDefaultAsync(p => p.Id == id);
+        if (project is null) return NotFound();
+
+        var allowedStatuses = new[] { "planning", "active", "onHold", "completed", "cancelled" };
+        if (!allowedStatuses.Contains(update.Status, StringComparer.OrdinalIgnoreCase))
+            return BadRequest(new { message = "Choose a valid project status." });
+
+        project.Status = update.Status;
+        project.Progress = update.Status.Equals("completed", StringComparison.OrdinalIgnoreCase) ? 100 : update.Progress;
+        if (update.EndDate.HasValue) project.EndDate = update.EndDate;
+        await db.SaveChangesAsync();
+        return Ok(project);
+    }
+
     [HttpPost]
     [Authorize(Roles = "Organization,Admin")]
     public async Task<ActionResult> Create(Project project)
@@ -85,3 +107,5 @@ public class ProjectsController(AppDbContext db) : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
     }
 }
+
+public record UpdateProjectRequest(string Status, int Progress, DateTime? EndDate);
