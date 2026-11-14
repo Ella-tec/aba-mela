@@ -17,81 +17,6 @@ const SUGGESTIONS = [
 
 
 
-function varied(options: string[], turn: number) {
-  return options[Math.abs(turn) % options.length];
-}
-
-function fallbackReply(question: string, turn: number, categories: string[]) {
-  const q = question.toLowerCase();
-  if (/\b(hello|hi|hey|good morning|good afternoon)\b/.test(q)) {
-    return varied([
-      'Hello! What would you like to get done in Mela today?',
-      'Hi there — I can help you navigate services, bookings, professional jobs, and account questions. What are you working on?',
-      'Welcome to Mela. Tell me what you need, and I’ll guide you to the right next step.',
-    ], turn);
-  }
-  if (/\b(plumb|electric|clean|paint|hvac|roof|carpent|mason|service|category|categories)\b/.test(q)) {
-    const available = categories.length ? categories.join(', ') : 'plumbing, electrical, painting, cleaning, carpentry, HVAC, masonry, and roofing';
-    return varied([
-      `Mela's service catalogue currently reports these categories: ${available}. Choose the closest match in the Services area to continue. I can help explain what to select, but I cannot confirm which individual professionals are available until live provider listings are connected.`,
-      `For service discovery, start with the Services page. The categories available from the connected catalogue are: ${available}. Provider availability and ratings need to be checked in the live listing before you book.`,
-      `Here are the service types Mela can currently show: ${available}. Select a category to narrow your request. I won't make up provider names or availability that the app hasn't verified.`,
-    ], turn);
-  }
-  if (/\b(book|booking|schedule|appointment|cancel|reschedule)\b/.test(q)) {
-    return varied([
-      'To make a booking: 1) Open Create Booking. 2) Select the service you need. 3) Enter the job details, address, and preferred date/time. 4) Review the request and submit it. Check My Bookings for updates. I can explain the steps, but I cannot create or change a booking from this chat yet.',
-      'Start in Create Booking, choose a service, describe the work, add the job address and preferred time, then submit. After that, use My Bookings to review its status. Changes and cancellations should be made from the booking itself.',
-      'The next step is the Create Booking page. Select a category, describe the task, provide the location and timing, and submit your request. Use My Bookings to track the result; this assistant cannot confirm a booking on your behalf.',
-    ], turn);
-  }
-  if (/\b(job|hot jobs|available work|find work|professional|technician|contractor|foreman)\b/.test(q)) {
-    return varied([
-      'If you are working as a professional, open Hot Jobs or Available Jobs to review current opportunities. Open a job to read its scope and location before accepting. I cannot verify live job availability from this chat.',
-      'For work opportunities, go to the Professional area and check Hot Jobs and Available Jobs. Review the job details before you accept it. The current live list is the source of truth for availability.',
-      'Use the Professional portal to find work: check Available Jobs, open a listing for its details, then accept only if the scope and timing suit you. I do not have a live job feed in this chat yet.',
-    ], turn);
-  }
-  if (/\b(price|cost|quote|estimate|pay|payment|invoice|refund)\b/.test(q)) {
-    return varied([
-      'Pricing depends on the job scope, materials, location, and professional. Request a quote through the relevant booking or job workflow and compare the details before agreeing. I cannot verify a live price or payment status here.',
-      'I don’t want to guess at a price. Add the work details in your booking request so a professional can provide a quote. For invoices or payment status, check the relevant transaction or invoice screen.',
-      'The safest way to get an accurate amount is to submit the job details and review the quote you receive. Confirm what is included before accepting; no live quote or payment record is available to me in this chat.',
-    ], turn);
-  }
-  if (/\b(safety|danger|emergency|accident|injur|fire|gas leak)\b/.test(q)) {
-    return 'If someone is in immediate danger, call 911 now. Move away from the hazard if it is safe to do so. For non-emergency site concerns, open Mela Safety Center to review the demo checklist and reporting guidance. Demo reports are not yet connected to an official emergency-response service.';
-  }
-  if (/\b(language|translate|amharic|arabic|french|spanish)\b/.test(q)) {
-    return 'Mela is designed for a multilingual experience. You can change the app language in Settings when that language is available. I can also try to respond in the language you use, although some app labels may remain in English.';
-  }
-  if (/\b(where|location|area|kansas|missouri|kansas city|coverage)\b/.test(q)) {
-    return 'Mela is positioned for the Kansas City metro across Missouri and Kansas. Exact service coverage depends on the selected service and participating professionals. Enter your job address in the booking flow to check the options available for that location.';
-  }
-  if (/\b(account|profile|password|sign in|login|register|verification)\b/.test(q)) {
-    return 'For profile and account details, open your account menu and go to Settings. Use the sign-in or verification flow for access issues. I cannot view private account information or change credentials from this assistant.';
-  }
-  return varied([
-    `I understand you're asking: “${question.trim()}”. I don't have a verified answer for that from the connected Mela data yet. Is this about finding a service, managing a booking, or using the professional workspace?`,
-    `Let me narrow this down rather than guess. “${question.trim()}” isn't covered by the live information available to me. Which part of Mela are you using — Services, Bookings, or the Professional portal?`,
-    `I can help, but I don't want to give you an invented answer. I can't verify that detail from the current Mela connection. Tell me which page or task you're referring to, and I'll guide you from there.`,
-  ], turn);
-}
-
-async function getServiceCategories(): Promise<string[]> {
-  try {
-    const response = await fetch(`${API_BASE}/api/Services`);
-    if (!response.ok) return [];
-    const data: unknown = await response.json();
-    if (!Array.isArray(data)) return [];
-    return data.map((item: any) => String(item?.name || item?.key || item?.title || ''))
-      .filter(Boolean)
-      .map((value: string) => value.replace(/[-_]/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()));
-  } catch {
-    return [];
-  }
-}
-
 export function AbaAssistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -148,7 +73,6 @@ export function AbaAssistant() {
   const send = async (rawText: string) => {
     const question = rawText.trim();
     if (!question || busy) return;
-    const nextTurn = msgs.filter((message) => message.role === 'user').length;
     setMsgs((current) => [...current, { role: 'user', text: question }]);
     setInput('');
     setBusy(true);
@@ -167,10 +91,10 @@ export function AbaAssistant() {
       if (!answer) throw new Error('Local AI returned an empty answer');
       setStatus('ready');
       setMsgs((current) => [...current, { role: 'assistant', text: answer }]);
-    } catch {
+    } catch (error) {
       setStatus('offline');
-      const categories = await getServiceCategories();
-      setMsgs((current) => [...current, { role: 'assistant', text: fallbackReply(question, nextTurn, categories) }]);
+      const message = error instanceof Error ? error.message : 'Mela Assistant is temporarily unavailable. Please try again.';
+      setMsgs((current) => [...current, { role: 'assistant', text: message }]);
     } finally {
       setBusy(false);
     }
