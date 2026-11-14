@@ -171,12 +171,13 @@ export function AbaAssistant() {
         body: JSON.stringify({
           model: OLLAMA_MODEL,
           stream: false,
+          keep_alive: '5m',
           messages: [
             { role: 'system', content: `${SYSTEM_PROMPT}\n\nCurrent app context: Kansas City metro (Missouri + Kansas). ${context}` },
             ...history,
             { role: 'user', content: question },
           ],
-          options: { temperature: 0.75, top_p: 0.9 },
+          options: { temperature: 0.65, top_p: 0.85, num_predict: 256 },
         }),
       });
       if (!response.ok) throw new Error('Local AI request failed');
