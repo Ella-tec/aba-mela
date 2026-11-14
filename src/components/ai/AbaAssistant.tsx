@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Send, Zap, Loader2, RotateCcw, Clock3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getAuth } from '@/lib/auth';
 
 type Msg = { role: 'user' | 'assistant'; text: string };
 type AiStatus = 'checking' | 'ready' | 'offline';
 
 const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5018').replace(/\/$/, '');
-const OLLAMA_URL = (import.meta.env.VITE_OLLAMA_URL || 'http://localhost:11434').replace(/\/$/, '');
-const OLLAMA_MODEL = import.meta.env.VITE_OLLAMA_MODEL || 'llama3.2';
 
 const SUGGESTIONS = [
   { label: 'Find a service', prompt: 'What service categories can I browse in Mela?' },
@@ -112,9 +111,9 @@ export function AbaAssistant() {
 
   useEffect(() => {
     let active = true;
-    fetch(`${OLLAMA_URL}/api/tags`)
+    fetch(`${API_BASE}/api/assistant/health`)
       .then((response) => {
-        if (!response.ok) throw new Error('Local AI is unavailable');
+        if (!response.ok) throw new Error('Assistant is unavailable');
         return response.json();
       })
       .then(() => { if (active) setStatus('ready'); })
@@ -165,24 +164,16 @@ export function AbaAssistant() {
       const context = categories.length
         ? `Verified service categories returned by the Mela API: ${categories.join(', ')}.`
         : 'The Mela service catalogue could not be reached. Do not claim live catalogue data.';
-      const response = await fetch(`${OLLAMA_URL}/api/chat`, {
+      const auth = getAuth();
+      if (!auth?.token) throw new Error('Please sign in to use Mela Assistant.');
+      const response = await fetch(`${API_BASE}/api/assistant/ask`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: OLLAMA_MODEL,
-          stream: false,
-          keep_alive: '5m',
-          messages: [
-            { role: 'system', content: `${SYSTEM_PROMPT}\n\nCurrent app context: Kansas City metro (Missouri + Kansas). ${context}` },
-            ...history,
-            { role: 'user', content: question },
-          ],
-          options: { temperature: 0.65, top_p: 0.85, num_predict: 256 },
-        }),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${auth.token}` },
+        body: JSON.stringify({ question }),
       });
-      if (!response.ok) throw new Error('Local AI request failed');
-      const result = await response.json();
-      const answer = String(result?.message?.content || '').trim();
+      const result = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(result?.message || 'Mela Assistant could not complete the request.');
+      const answer = String(result?.answer || '').trim();
       if (!answer) throw new Error('Local AI returned an empty answer');
       setStatus('ready');
       setMsgs((current) => [...current, { role: 'assistant', text: answer }]);
@@ -243,7 +234,7 @@ export function AbaAssistant() {
             <div className="mt-4 flex items-center gap-2">
               <span className={cn('h-2 w-2 rounded-full', status === 'ready' ? 'bg-emerald-500' : status === 'checking' ? 'bg-amber-400' : 'bg-slate-400')} />
               <span className="text-[11px] font-medium text-slate-600">
-                {status === 'ready' ? `AI ready · ${OLLAMA_MODEL}` : status === 'checking' ? 'Checking assistant connection…' : 'Guided help available'}
+                {status === 'ready' ? 'Mela Assistant · Here to help' : status === 'checking' ? 'Connecting to Mela Assistant…' : 'Some help may be limited right now'}
               </span>
               <span className="ms-auto inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-1 text-[10px] font-semibold text-emerald-800 ring-1 ring-emerald-100">
                 <Zap className="h-3 w-3" /> Mela help
