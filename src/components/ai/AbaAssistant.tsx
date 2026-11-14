@@ -15,12 +15,7 @@ const SUGGESTIONS = [
   { label: 'Safety help', prompt: 'What should I do if there is an urgent safety issue?' },
 ];
 
-const SYSTEM_PROMPT = `You are Mela Assistant, a helpful and practical guide for the Mela home-services and professional-work platform serving the Kansas City metro in Missouri and Kansas.
-Answer the user's actual question directly. Be conversational, specific, and vary your wording naturally. Do not repeat a generic introduction.
-Use only the app context supplied in the conversation. Never invent provider names, ratings, prices, job availability, booking status, service coverage, or live business data.
-If the user asks for a live provider, quote, booking, job, payment, or account status and that data is not supplied, say you cannot verify it here and explain the exact Mela screen or next step to check it.
-For bookings, explain the steps clearly. For urgent danger, tell the user to call 911 in the US.
-Keep answers clear and concise. Use numbered steps when they help. Respond in the language the user uses when possible.`;
+
 
 function varied(options: string[], turn: number) {
   return options[Math.abs(turn) % options.length];
@@ -153,17 +148,12 @@ export function AbaAssistant() {
   const send = async (rawText: string) => {
     const question = rawText.trim();
     if (!question || busy) return;
-    const history = msgs.slice(-8).map((message) => ({ role: message.role, content: message.text }));
     const nextTurn = msgs.filter((message) => message.role === 'user').length;
     setMsgs((current) => [...current, { role: 'user', text: question }]);
     setInput('');
     setBusy(true);
 
     try {
-      const categories = await getServiceCategories();
-      const context = categories.length
-        ? `Verified service categories returned by the Mela API: ${categories.join(', ')}.`
-        : 'The Mela service catalogue could not be reached. Do not claim live catalogue data.';
       const auth = getAuth();
       if (!auth?.token) throw new Error('Please sign in to use Mela Assistant.');
       const response = await fetch(`${API_BASE}/api/assistant/ask`, {
