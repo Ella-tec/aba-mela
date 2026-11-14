@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Text;
 using System.Text.Json;
 using AbaMela.Api.Data;
 using AbaMela.Api.Models;
@@ -16,6 +15,19 @@ public class AssistantController(AppDbContext db, IHttpClientFactory clients, IC
 {
     private Guid UserId => Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : Guid.Empty;
     private string Role => User.FindFirstValue(ClaimTypes.Role) ?? "Customer";
+
+    [HttpGet("health")]
+    [AllowAnonymous]
+    public async Task<ActionResult> Health(CancellationToken cancellationToken)
+    {
+        var baseUrl = (config["Ollama:BaseUrl"] ?? "http://localhost:11434").TrimEnd('/');
+        try
+        {
+            using var response = await clients.CreateClient().GetAsync(baseUrl + "/api/tags", cancellationToken);
+            return response.IsSuccessStatusCode ? Ok(new { status = "ready" }) : StatusCode(503, new { status = "offline" });
+        }
+        catch (HttpRequestException) { return StatusCode(503, new { status = "offline" }); }
+    }
 
     [HttpPost("ask")]
     public async Task<ActionResult> Ask([FromBody] AskRequest request, CancellationToken cancellationToken)
@@ -61,7 +73,7 @@ public class AssistantController(AppDbContext db, IHttpClientFactory clients, IC
             keep_alive = "5m",
             messages = new[]
             {
-                new { role = "system", content = system + "\n\nAPPROVED MEL A KNOWLEDGE SOURCES:\n" + knowledge },
+                new { role = "system", content = system + "\n\nAPPROVED MELA KNOWLEDGE SOURCES:\n" + knowledge },
                 new { role = "user", content = question }
             },
             options = new { temperature = 0.25, top_p = 0.8, num_predict = 400 }
