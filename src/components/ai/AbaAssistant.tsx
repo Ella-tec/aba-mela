@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircle, X, Send, Bot, Zap, Loader2, RotateCcw, Clock3 } from 'lucide-react';
+import { MessageCircle, X, Send, Zap, Loader2, RotateCcw, Clock3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Msg = { role: 'user' | 'assistant'; text: string };
