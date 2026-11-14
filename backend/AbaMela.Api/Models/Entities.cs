@@ -83,3 +83,17 @@ public record LoginRequest(string Email, string Password);
 public record AuthResponse(string Token, Guid UserId, string Email, string FullName, string Role, string PreferredLanguage);
 public record CreateBookingRequest(Guid ServiceCategoryId, string Address, DateTime? ScheduledAt, string? Notes, double? Lat, double? Lng);
 public record CustomerProjectResponse(Guid Id, string Name, string Client, string Location, string Status, int Progress, DateTime? StartDate, DateTime? EndDate);
+
+
+public class AiKnowledgeDocument
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Title { get; set; } = "";
+    public string Category { get; set; } = "General";
+    public string Content { get; set; } = "";
+    public string Audience { get; set; } = "All"; // All | Customer | Professional | Organization
+    public bool IsApproved { get; set; }
+    public Guid CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+}
