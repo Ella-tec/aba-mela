@@ -43,16 +43,54 @@ const professionalNav:NavItem[]=[
  {to:'/professional/recycle-bin',labelKey:'Recycle Bin',label:'Recycle Bin',icon:Trash2}
 ];
 
+const LOCAL_PLACES = {
+ KansasCity:{label:'Kansas City, MO',lat:39.0997,lon:-94.5786,zone:'America/Chicago'},
+ OverlandPark:{label:'Overland Park, KS',lat:38.9822,lon:-94.6708,zone:'America/Chicago'},
+ Olathe:{label:'Olathe, KS',lat:38.8814,lon:-94.8191,zone:'America/Chicago'},
+ Independence:{label:'Independence, MO',lat:39.0911,lon:-94.4155,zone:'America/Chicago'},
+ LeeSummit:{label:'Lee’s Summit, MO',lat:38.9108,lon:-94.3822,zone:'America/Chicago'}
+} as const;
+type LocalPlaceKey=keyof typeof LOCAL_PLACES;
+const TIME_ZONES=[{value:'America/Chicago',label:'Central Time'},{value:'America/New_York',label:'Eastern Time'},{value:'America/Denver',label:'Mountain Time'},{value:'America/Los_Angeles',label:'Pacific Time'}];
+
 function LocalContext(){
  const [now,setNow]=useState(()=>new Date());
- const [weather,setWeather]=useState('Weather loading');
+ const [place,setPlace]=useState<LocalPlaceKey>(()=>(localStorage.getItem('mela-context-place') as LocalPlaceKey)||'KansasCity');
+ const [zone,setZone]=useState(()=>localStorage.getItem('mela-context-zone')||'America/Chicago');
+ const [weather,setWeather]=useState('Loading weather…');
+ const [settingsOpen,setSettingsOpen]=useState(false);
  useEffect(()=>{const timer=window.setInterval(()=>setNow(new Date()),1000);return()=>window.clearInterval(timer)},[]);
  useEffect(()=>{
   let active=true;
-  const load=async()=>{try{const response=await fetch('https://api.open-meteo.com/v1/forecast?latitude=39.0997&longitude=-94.5786&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago');if(!response.ok)throw new Error('Weather unavailable');const data=await response.json();const current=data.current;const labels:Record<number,string>={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Cloudy',45:'Fog',48:'Fog',51:'Drizzle',61:'Rain',63:'Rain',65:'Heavy rain',71:'Snow',80:'Showers',95:'Storms'};if(active)setWeather(`${Math.round(current.temperature_2m)}°F · ${labels[current.weather_code]||'Current conditions'}`)}catch{if(active)setWeather('Weather unavailable')}}
-  void load();const timer=window.setInterval(()=>void load(),15*60*1000);return()=>{active=false;window.clearInterval(timer)}
- },[]);
- return <div className="hidden items-center gap-2 sm:flex"><div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-600"><Clock3 className="h-3.5 w-3.5 text-emerald-700"/><time>{new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit'}).format(now)} <span className="text-slate-400">KC</span></time></div><div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-600"><CloudSun className="h-3.5 w-3.5 text-amber-600"/><span>{weather}</span></div></div>
+  const selected=LOCAL_PLACES[place];
+  const load=async()=>{try{
+   const url=`https://api.open-meteo.com/v1/forecast?latitude=${selected.lat}&longitude=${selected.lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=${encodeURIComponent(selected.zone)}`;
+   const response=await fetch(url);if(!response.ok)throw new Error('Weather unavailable');
+   const data=await response.json();const current=data.current;
+   const labels:Record<number,string>={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Cloudy',45:'Fog',48:'Fog',51:'Drizzle',61:'Rain',63:'Rain',65:'Heavy rain',71:'Snow',80:'Showers',95:'Storms'};
+   if(active)setWeather(`${Math.round(current.temperature_2m)}°F · ${labels[current.weather_code]||'Current conditions'}`);
+  }catch{if(active)setWeather('Weather unavailable')}}
+  void load();const timer=window.setInterval(()=>void load(),15*60*1000);
+  return()=>{active=false;window.clearInterval(timer)};
+ },[place]);
+ const changePlace=(value:string)=>{if(value in LOCAL_PLACES){const next=value as LocalPlaceKey;setPlace(next);localStorage.setItem('mela-context-place',next)}};
+ const changeZone=(value:string)=>{setZone(value);localStorage.setItem('mela-context-zone',value)};
+ return <div className="relative flex items-center gap-1.5 sm:gap-2">
+  <button type="button" onClick={()=>setSettingsOpen(value=>!value)} aria-expanded={settingsOpen} aria-label="Open time and weather settings" className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1.5 text-[11px] font-semibold text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 sm:px-3 sm:text-xs">
+   <Clock3 className="h-3.5 w-3.5 text-emerald-700"/><time>{new Intl.DateTimeFormat('en-US',{timeZone:zone,hour:'numeric',minute:'2-digit'}).format(now)}</time><span className="hidden text-slate-400 sm:inline">{TIME_ZONES.find(item=>item.value===zone)?.label.replace(' Time','')}</span>
+  </button>
+  <button type="button" onClick={()=>setSettingsOpen(value=>!value)} aria-expanded={settingsOpen} aria-label={`Weather for ${LOCAL_PLACES[place].label}. Open weather settings`} className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1.5 text-[11px] font-semibold text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 sm:px-3 sm:text-xs">
+   <CloudSun className="h-3.5 w-3.5 text-amber-600"/><span>{weather}</span>
+  </button>
+  {settingsOpen&&<div className="absolute right-0 top-full z-40 mt-2 w-[min(90vw,320px)] rounded-2xl border border-slate-200 bg-white p-4 shadow-xl">
+   <div className="mb-3 flex items-center justify-between"><div><p className="text-sm font-bold text-slate-900">Local display settings</p><p className="text-xs text-slate-500">Choose the location and clock time zone</p></div><button type="button" onClick={()=>setSettingsOpen(false)} aria-label="Close time and weather settings" className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100"><X className="h-4 w-4"/></button></div>
+   <label htmlFor="mela-weather-place" className="mb-1 block text-xs font-semibold text-slate-600">Weather location</label>
+   <select id="mela-weather-place" value={place} onChange={event=>changePlace(event.target.value)} className="mb-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100">{Object.entries(LOCAL_PLACES).map(([key,item])=><option key={key} value={key}>{item.label}</option>)}</select>
+   <label htmlFor="mela-clock-zone" className="mb-1 block text-xs font-semibold text-slate-600">Clock time zone</label>
+   <select id="mela-clock-zone" value={zone} onChange={event=>changeZone(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100">{TIME_ZONES.map(item=><option key={item.value} value={item.value}>{item.label}</option>)}</select>
+   <p className="mt-3 text-[11px] text-slate-400">Weather refreshes automatically about every 15 minutes. Settings are saved on this device.</p>
+  </div>}
+ </div>;
 }
 
 export function PortalLayout({type}:{type:PortalType}) {
