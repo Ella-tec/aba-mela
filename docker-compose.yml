@@ -32,6 +32,8 @@ services:
       Jwt__Issuer: Mela
       Jwt__Audience: Mela
       Jwt__ExpiresMinutes: 60
+      Ollama__BaseUrl: http://host.docker.internal:11434
+      Ollama__Model: llama3.2
       Cors__AllowedOrigins__0: http://localhost:5179
       Cors__AllowedOrigins__1: http://127.0.0.1:5179
     ports:
