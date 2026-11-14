@@ -58,7 +58,7 @@ function AdminLanding() {
  const auth=getAuth();
  if(!auth)return <Navigate to="/login" replace/>;
  if(auth.role!=='Admin')return <Navigate to={auth.role==='Organization'?'/organization':auth.role==='Professional'?'/professional':'/customer'} replace/>;
- return <PublicLayout><div className="mx-auto max-w-7xl space-y-5 px-4 py-10"><div><h1 className="text-2xl font-bold text-gray-900">Mela administration</h1><p className="mt-1 text-sm text-gray-500">Platform oversight and operational reports.</p></div><AnalyticsOverview/></div></PublicLayout>;
+ return <PublicLayout><div className="mx-auto max-w-7xl space-y-5 px-4 py-10"><div><h1 className="text-2xl font-bold text-gray-900">Mela administration</h1><p className="mt-1 text-sm text-gray-500">Platform oversight and operational reports.</p><Link to="/admin/ai-knowledge" className="mt-3 inline-flex rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-900">Open AI Knowledge Center</Link></div><AnalyticsOverview/></div></PublicLayout>;
 }
 function NotFoundPage() {
  return <PublicLayout><div className="mx-auto max-w-xl px-4 py-20 text-center"><h1 className="text-3xl font-bold text-gray-900">Page not found</h1><p className="mt-2 text-gray-600">This Mela page does not exist or may have moved.</p><Link to="/" className="mt-6 inline-flex rounded-lg bg-primary-700 px-5 py-2.5 font-semibold text-white hover:bg-primary-800">Return home</Link></div></PublicLayout>;
