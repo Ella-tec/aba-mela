@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircle, X, Send, Sparkles, MapPin, Bot, Zap, Loader2, ArrowUpRight, RotateCcw } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Zap, Loader2, RotateCcw, Clock3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Msg = { role: 'user' | 'assistant'; text: string };
@@ -207,8 +207,8 @@ export function AbaAssistant() {
           else setOpen(true);
         }}
         className={cn(
-          'fixed bottom-5 end-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-xl ring-4 ring-white/70 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-200',
-          open ? 'bg-slate-900 text-white' : 'bg-gradient-to-br from-orange-500 to-amber-600 text-white'
+          'fixed bottom-5 end-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-700 to-teal-800 text-white shadow-xl ring-4 ring-white/80 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-200',
+          open ? 'rotate-0' : ''
         )}
         aria-label={open ? 'Close Mela Assistant' : 'Open Mela Assistant'}
       >
@@ -219,51 +219,54 @@ export function AbaAssistant() {
         <section
           ref={panelRef}
           aria-label="Mela Assistant chat"
-          className="fixed bottom-24 end-4 z-50 flex h-[min( min(76vh,650px),calc(100dvh-8rem))] w-[min( calc(100vw-2rem),410px)] flex-col overflow-hidden rounded-[1.65rem] border border-slate-200/80 bg-white shadow-[0_24px_80px_-20px_rgba(15,23,42,0.38)] sm:end-6"
+          className="fixed bottom-24 end-3 z-50 flex h-[min(560px,calc(100dvh-7.5rem))] w-[min(390px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-emerald-100 bg-white shadow-[0_22px_70px_-24px_rgba(15,45,35,0.38)] sm:end-6"
         >
-          <header className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-orange-950 px-5 pb-5 pt-5 text-white">
-            <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-orange-400/15 blur-2xl" />
-            <div className="relative flex items-start justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-inner">
-                  <Sparkles className="h-5 w-5 text-amber-300" />
-                </div>
-                <div>
-                  <div className="text-base font-semibold tracking-tight">Mela Assistant</div>
-                  <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-300">
-                    <MapPin className="h-3 w-3 text-orange-300" />
-                    Kansas City metro <span className="text-slate-500">·</span> MO + KS
-                  </div>
+          <header className="border-b border-emerald-100 bg-gradient-to-br from-white via-emerald-50 to-teal-50 px-4 pb-4 pt-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <img src="/favicon.svg" alt="Mela" className="h-10 w-10 shrink-0 rounded-xl shadow-sm" />
+                <div className="min-w-0">
+                  <div className="text-base font-bold tracking-tight text-slate-900">Mela Assistant</div>
+                  <div className="mt-0.5 text-xs font-medium text-slate-500">Learn · Ask · Manage</div>
                 </div>
               </div>
-              <button onClick={clearChat} title="Start a new chat" aria-label="Start a new chat" className="rounded-xl p-2 text-slate-300 transition hover:bg-white/10 hover:text-white">
-                <RotateCcw className="h-4 w-4" />
-              </button>
+              <div className="flex shrink-0 items-center gap-1.5">
+                <button onClick={clearChat} title="Start a new chat" aria-label="Start a new chat" className="rounded-full bg-white p-2.5 text-slate-600 shadow-sm ring-1 ring-slate-200 transition hover:bg-emerald-50 hover:text-emerald-800">
+                  <RotateCcw className="h-4 w-4" />
+                </button>
+                <button onClick={() => setOpen(false)} title="Close assistant" aria-label="Close assistant" className="rounded-full bg-white p-2.5 text-slate-600 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-100">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-            <div className="relative mt-4 flex items-center gap-2">
-              <span className={cn('h-2 w-2 rounded-full', status === 'ready' ? 'bg-emerald-400' : status === 'checking' ? 'bg-amber-300' : 'bg-slate-400')} />
-              <span className="text-[11px] font-medium text-slate-300">
-                {status === 'ready' ? `Local AI connected · ${OLLAMA_MODEL}` : status === 'checking' ? 'Connecting to local AI…' : 'Guided assistant · local AI offline'}
+            <div className="mt-4 flex items-center gap-2">
+              <span className={cn('h-2 w-2 rounded-full', status === 'ready' ? 'bg-emerald-500' : status === 'checking' ? 'bg-amber-400' : 'bg-slate-400')} />
+              <span className="text-[11px] font-medium text-slate-600">
+                {status === 'ready' ? `AI ready · ${OLLAMA_MODEL}` : status === 'checking' ? 'Checking assistant connection…' : 'Guided help available'}
               </span>
-              <span className="ms-auto inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-medium text-slate-300">
-                <Zap className="h-3 w-3 text-amber-300" /> Smart help
+              <span className="ms-auto inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-1 text-[10px] font-semibold text-emerald-800 ring-1 ring-emerald-100">
+                <Zap className="h-3 w-3" /> Mela help
               </span>
             </div>
           </header>
 
-          <div className="flex-1 space-y-4 overflow-y-auto bg-gradient-to-b from-slate-50 to-white px-4 py-4">
+          <div className="flex-1 space-y-3 overflow-y-auto bg-[#fbfdfc] px-4 py-4">
+            {msgs.length === 1 && (
+              <div className="mb-2">
+                <h2 className="text-lg font-bold text-slate-900">Hi, how can Mela help?</h2>
+                <p className="mt-1 text-sm text-slate-500">Ask about home services, bookings, projects, or your account.</p>
+              </div>
+            )}
             {msgs.map((message, index) => (
               <div key={index} className={cn('flex items-end gap-2', message.role === 'user' ? 'justify-end' : 'justify-start')}>
                 {message.role === 'assistant' && (
-                  <div className="mb-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700">
-                    <Bot className="h-4 w-4" />
-                  </div>
+                  <img src="/favicon.svg" alt="" className="mb-0.5 h-7 w-7 shrink-0 rounded-lg" />
                 )}
                 <div className={cn(
                   'max-w-[86%] whitespace-pre-wrap rounded-2xl px-3.5 py-3 text-[13px] leading-5 shadow-sm',
                   message.role === 'user'
-                    ? 'rounded-br-md bg-slate-900 text-white'
-                    : 'rounded-bl-md border border-slate-100 bg-white text-slate-700'
+                    ? 'rounded-br-md bg-emerald-800 text-white'
+                    : 'rounded-bl-md border border-emerald-100 bg-white text-slate-700'
                 )}>
                   {message.text}
                 </div>
@@ -271,9 +274,9 @@ export function AbaAssistant() {
             ))}
             {busy && (
               <div className="flex items-end gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-orange-100 text-orange-700"><Bot className="h-4 w-4" /></div>
-                <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-slate-100 bg-white px-4 py-3 text-xs text-slate-500 shadow-sm">
-                  <Loader2 className="h-3.5 w-3.5 animate-spin text-orange-500" /> Thinking through your question…
+                <img src="/favicon.svg" alt="" className="h-7 w-7 rounded-lg" />
+                <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-emerald-100 bg-white px-4 py-3 text-xs text-slate-500 shadow-sm">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin text-emerald-700" /> Preparing an answer…
                 </div>
               </div>
             )}
@@ -282,16 +285,13 @@ export function AbaAssistant() {
 
           {msgs.length <= 1 && (
             <div className="border-t border-slate-100 bg-white px-4 pb-3 pt-3">
-              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Quick start</div>
+              <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Quick help</div>
               <div className="flex flex-wrap gap-2">
                 {SUGGESTIONS.map((suggestion) => (
-                  <button key={suggestion.label} onClick={() => send(suggestion.prompt)} disabled={busy} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-medium text-slate-600 transition hover:border-orange-200 hover:bg-orange-50 hover:text-orange-800 disabled:opacity-50">
+                  <button key={suggestion.label} onClick={() => send(suggestion.prompt)} disabled={busy} className="rounded-full border border-emerald-100 bg-white px-3 py-1.5 text-[11px] font-medium text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-900 disabled:opacity-50">
                     {suggestion.label}
                   </button>
                 ))}
-              </div>
-              <div className="mt-3 flex items-center gap-2 text-[10px] text-slate-400">
-                <ArrowUpRight className="h-3 w-3" /> Planned: live provider matching, quote comparison, and voice support
               </div>
             </div>
           )}
@@ -306,13 +306,13 @@ export function AbaAssistant() {
               placeholder="Ask Mela anything…"
               aria-label="Message Mela Assistant"
               disabled={busy}
-              className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-orange-300 focus:bg-white focus:ring-4 focus:ring-orange-50 disabled:opacity-60"
+              className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:ring-4 focus:ring-emerald-50 disabled:opacity-60"
             />
-            <button type="submit" disabled={!input.trim() || busy} aria-label="Send message" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 text-white shadow-md shadow-orange-200/60 transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-40">
+            <button type="submit" disabled={!input.trim() || busy} aria-label="Send message" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-700 text-white shadow-sm transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-40">
               <Send className="h-4 w-4" />
             </button>
           </form>
-          <div className="bg-white pb-2 text-center text-[9px] text-slate-400">Mela AI can make mistakes. Verify important booking and payment details in the app.</div>
+          <div className="flex items-center justify-center gap-1.5 bg-white pb-2 text-[10px] text-slate-400"><Clock3 className="h-3 w-3" /> Mela AI may make mistakes. Check important booking details in the app.</div>
         </section>
       )}
     </>
