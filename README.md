@@ -122,6 +122,54 @@ $env:Cors__AllowedOrigins__0="http://localhost:5179"
 dotnet run --project backend/AbaMela.Api/AbaMela.Api.csproj --urls http://localhost:5018
 ```
 
+
+## Mela Assistant and local Ollama knowledge
+
+Mela Assistant sends authenticated questions to the ASP.NET API. The API calls Ollama locally and adds the most relevant **approved** knowledge-base entries for the signed-in user's audience. The browser does not call Ollama directly, so the Ollama service does not need browser CORS access.
+
+### Start Ollama on Windows
+
+Install Ollama, make sure the model is present, and keep the Ollama service running:
+
+```powershell
+ollama pull llama3.2
+ollama serve
+```
+
+If `ollama serve` reports that port 11434 is already in use, Ollama is probably already running. Verify it:
+
+```powershell
+Invoke-RestMethod http://localhost:11434/api/tags
+ollama run llama3.2 "Say hello to Mela."
+```
+
+### API connection
+
+- When running the API directly on Windows, the default Ollama address is `http://localhost:11434`.
+- When running the API in Docker Desktop, Compose sets `Ollama__BaseUrl=http://host.docker.internal:11434` so the API container can reach Ollama on the Windows host.
+- The default model is `llama3.2`. Override with `Ollama__Model` if needed.
+- Ollama is not exposed as a public network service by this feature. Keep it local to the development machine.
+
+### Add trusted Mela knowledge
+
+1. Sign in with an **Admin** account.
+2. Open `http://localhost:5179/admin/ai-knowledge`.
+3. Add a title, category, audience and verified text.
+4. Save it as a draft.
+5. Review the content, then select **Approve**. Only approved entries are used for answers.
+6. Ask Mela Assistant a question that matches the new content.
+
+The current knowledge center accepts pasted text (up to 50,000 characters per entry). For PDF or Word material, extract the text first and paste the reviewed content. Direct PDF/DOCX file parsing and automatic embeddings are not included in this first implementation.
+
+### Privacy and limitations
+
+- Knowledge audiences are `All`, `Customer`, `Professional` or `Organization`; they control which signed-in roles can retrieve an approved entry.
+- Only Admin users can list, add, approve or delete knowledge entries.
+- Do not add passwords, payment data, confidential contracts or private customer/project records to the shared knowledge base.
+- Retrieval currently uses lightweight keyword matching, not a vector database or model fine-tuning. Answers may miss relevant wording; check important information against the original source.
+- Live account, booking and project records are not automatically included in AI prompts. The assistant must not be treated as a source of truth for live record status.
+- Production deployment needs a reviewed database migration for `AiKnowledgeDocuments`, document retention controls, audit logging, rate limits, file scanning and a security review.
+
 ## Technology
 - Frontend: React 19, TypeScript, Vite 7, Tailwind CSS 4, React Router, i18next
 - Backend: ASP.NET Core 8 Web API, Entity Framework Core, PostgreSQL, JWT, BCrypt

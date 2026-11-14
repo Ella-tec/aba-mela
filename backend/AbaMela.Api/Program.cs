@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddHttpClient();
 builder.Services.AddDataProtection();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -93,6 +94,8 @@ if (app.Environment.IsDevelopment())
     await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Users\u0022 ADD COLUMN IF NOT EXISTS \u0022AuthenticatorEnabled\u0022 boolean NOT NULL DEFAULT false;");
     await db.Database.ExecuteSqlRawAsync("ALTER TABLE \u0022Projects\u0022 ADD COLUMN IF NOT EXISTS \u0022CustomerId\u0022 uuid NULL;");
     await db.Database.ExecuteSqlRawAsync("CREATE INDEX IF NOT EXISTS \u0022IX_Projects_CustomerId\u0022 ON \u0022Projects\u0022 (\u0022CustomerId\u0022);");
+    await db.Database.ExecuteSqlRawAsync("""CREATE TABLE IF NOT EXISTS "AiKnowledgeDocuments" ("Id" uuid PRIMARY KEY, "Title" text NOT NULL, "Category" text NOT NULL, "Content" text NOT NULL, "Audience" text NOT NULL, "IsApproved" boolean NOT NULL DEFAULT false, "CreatedBy" uuid NOT NULL, "CreatedAt" timestamp with time zone NOT NULL, "UpdatedAt" timestamp with time zone NOT NULL);""");
+    await db.Database.ExecuteSqlRawAsync("""CREATE INDEX IF NOT EXISTS "IX_AiKnowledgeDocuments_IsApproved_Audience" ON "AiKnowledgeDocuments" ("IsApproved", "Audience");""");
 }
 
 if (app.Environment.IsDevelopment())

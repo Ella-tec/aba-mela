@@ -46,6 +46,7 @@ import { SafetyCenter } from '@/pages/common/SafetyCenter';
 import { LearningCenter } from '@/pages/common/LearningCenter';
 import { MelaConnectPage } from '@/pages/common/MelaConnect';
 import { getAuth } from '@/lib/auth';
+import { AiKnowledgePage } from '@/pages/admin/AiKnowledgePage';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
  return <div className="mela-public-layout flex min-h-screen w-full min-w-0 flex-col"><a href="#main-content" className="sr-only z-50 rounded bg-white p-3 text-primary-800 focus:not-sr-only focus:absolute focus:start-4 focus:top-4">Skip to main content</a><Header/><main id="main-content" className="flex-1 mela-page-backdrop">{children}</main></div>;
@@ -57,7 +58,7 @@ function AdminLanding() {
  const auth=getAuth();
  if(!auth)return <Navigate to="/login" replace/>;
  if(auth.role!=='Admin')return <Navigate to={auth.role==='Organization'?'/organization':auth.role==='Professional'?'/professional':'/customer'} replace/>;
- return <PublicLayout><div className="mx-auto max-w-7xl space-y-5 px-4 py-10"><div><h1 className="text-2xl font-bold text-gray-900">Mela administration</h1><p className="mt-1 text-sm text-gray-500">Platform oversight and operational reports.</p></div><AnalyticsOverview/></div></PublicLayout>;
+ return <PublicLayout><div className="mx-auto max-w-7xl space-y-5 px-4 py-10"><div><h1 className="text-2xl font-bold text-gray-900">Mela administration</h1><p className="mt-1 text-sm text-gray-500">Platform oversight and operational reports.</p><Link to="/admin/ai-knowledge" className="mt-3 inline-flex rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-900">Open AI Knowledge Center</Link></div><AnalyticsOverview/></div></PublicLayout>;
 }
 function NotFoundPage() {
  return <PublicLayout><div className="mx-auto max-w-xl px-4 py-20 text-center"><h1 className="text-3xl font-bold text-gray-900">Page not found</h1><p className="mt-2 text-gray-600">This Mela page does not exist or may have moved.</p><Link to="/" className="mt-6 inline-flex rounded-lg bg-primary-700 px-5 py-2.5 font-semibold text-white hover:bg-primary-800">Return home</Link></div></PublicLayout>;
@@ -159,6 +160,7 @@ export default function App() {
   <Route path="/suppliers/catalog" element={<SupplierLayout><SupplierCatalog/></SupplierLayout>}/>
   <Route path="/suppliers/orders" element={<SupplierLayout><SupplierOrders/></SupplierLayout>}/>
   <Route path="/suppliers/rentals" element={<SupplierLayout><SupplierRentals/></SupplierLayout>}/>
+  <Route path="/admin/ai-knowledge" element={<AiKnowledgePage/>}/>
   <Route path="/admin/*" element={<AdminLanding/>}/>
   <Route path="*" element={<NotFoundPage/>}/>
  </Routes><AbaAssistant/></BrowserRouter>;

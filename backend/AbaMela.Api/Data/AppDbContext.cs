@@ -11,6 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Quote> Quotes => Set<Quote>();
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<AiKnowledgeDocument> AiKnowledgeDocuments => Set<AiKnowledgeDocument>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
