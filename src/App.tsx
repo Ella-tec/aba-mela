@@ -46,6 +46,7 @@ import { SafetyCenter } from '@/pages/common/SafetyCenter';
 import { LearningCenter } from '@/pages/common/LearningCenter';
 import { MelaConnectPage } from '@/pages/common/MelaConnect';
 import { getAuth } from '@/lib/auth';
+import { AiKnowledgePage } from '@/pages/admin/AiKnowledgePage';
 
 function PublicLayout({children}:{children:React.ReactNode}) {
  return <div className="mela-public-layout flex min-h-screen w-full min-w-0 flex-col"><a href="#main-content" className="sr-only z-50 rounded bg-white p-3 text-primary-800 focus:not-sr-only focus:absolute focus:start-4 focus:top-4">Skip to main content</a><Header/><main id="main-content" className="flex-1 mela-page-backdrop">{children}</main></div>;
@@ -159,6 +160,7 @@ export default function App() {
   <Route path="/suppliers/catalog" element={<SupplierLayout><SupplierCatalog/></SupplierLayout>}/>
   <Route path="/suppliers/orders" element={<SupplierLayout><SupplierOrders/></SupplierLayout>}/>
   <Route path="/suppliers/rentals" element={<SupplierLayout><SupplierRentals/></SupplierLayout>}/>
+  <Route path="/admin/ai-knowledge" element={<AiKnowledgePage/>}/>
   <Route path="/admin/*" element={<AdminLanding/>}/>
   <Route path="*" element={<NotFoundPage/>}/>
  </Routes><AbaAssistant/></BrowserRouter>;
